@@ -16,19 +16,7 @@
 <meta property="og:url" content="https://www.mrxplorer.com">
 <meta property="og:image" content="https://www.mrxplorer.com/assets/og-image.png">
 
-<!-- Structured data for AEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "MRXplorer",
-  "founder": { "@type": "Person", "name": "Z Johnson" },
-  "description": "AI training and education for market research agencies and insights teams.",
-  "url": "https://www.mrxplorer.com",
-  "serviceType": "AI Training and Education",
-  "areaServed": "Worldwide"
-}
-</script>
+<!-- Schema injected via schema.js -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -276,6 +264,8 @@
     </div>
   </footer>
 
+  <script src="schema.js"></script>
+  <script>injectSchema("home");</script>
   <script src="main.js"></script>
 </body>
 </html>
