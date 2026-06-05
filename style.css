@@ -606,8 +606,8 @@ h1, h2, h3, h4 {
 }
 .footer-inner {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 64px;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 48px;
   align-items: start;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255,255,255,.08);
@@ -751,4 +751,28 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 @media print {
   .nav, .marquee-wrap, .section-cta, .footer { display: none; }
   body { font-size: 12pt; }
+}
+
+/* ── FOOTER BADGES ── */
+.footer-badges {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-badge {
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.footer-badge:hover { opacity: 1; }
+.footer-badge img {
+  width: 80px;
+  height: auto;
+  display: block;
+}
+@media (max-width: 768px) {
+  .footer-badges { justify-content: flex-start; }
+  .footer-badge img { width: 70px; }
 }

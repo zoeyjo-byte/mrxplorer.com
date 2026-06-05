@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- SEO / AEO meta -->
+<!-- SEO / AEO meta — edit these for each page -->
 <title>MRXplorer — AI Training for Market Research Teams</title>
 <meta name="description" content="Z Johnson teaches market research agencies and insights teams how to build, prompt, and manage AI workflows using Claude. Training, not implementation.">
 <meta name="author" content="Z Johnson">
@@ -23,8 +23,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-  <script src="schema.js"></script>
-<script>injectSchema("about");</script>  <!-- or "contact" -->
 <body>
 
   <!-- ══ NAV ══════════════════════════════════════════════════ -->
@@ -151,7 +149,7 @@
           <div class="what-card">
             <div class="what-card-num" aria-hidden="true">03</div>
             <h3>AI Insights Residency</h3>
-            <p>A structured training engagement where your team builds real workflows — with Claude, Claude Cowork, and Claude Code — guided by someone who's done insights work for 20+ years.</p>
+            <p>A structured training engagement where your team builds real workflows — with Claude, Claude Cowork, and Claude Code — guided by someone who's done this work for 20+ years.</p>
             <a href="/contact" class="card-link">Learn more →</a>
           </div>
         </div>
@@ -168,7 +166,9 @@
               The AI briefing built<br>for research professionals.
             </h2>
             <p class="newsletter-desc">
-              Not another AI hype roundup. MRXplorations analyzes 12+ newsletters covering AI and other tech news, looking for emerging, continuing, and fading patterns, then applies a "what does this mean for market research" lens. While this is all done by AI, Z Johnson applies 20+ years of insights experience over this to agree, disagree, or add to the analysis, thoroughly explaining her opinions based on her experiences.
+              Not another AI hype roundup. MRXplorations covers what's
+              actually changing in market research operations — the tools,
+              the workflows, the decisions worth paying attention to.
             </p>
             <a href="https://mrxplorations.beehiiv.com" class="btn btn-orange" target="_blank" rel="noopener">
               Read MRXplorations →
@@ -254,7 +254,15 @@
         </nav>
         <div class="footer-contact">
           <a href="mailto:zjohnson@mrxplorer.com">zjohnson@mrxplorer.com</a>
-          <a href="https://www.linkedin.com/in/zjohnson" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/zontziry/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-badges">
+          <a href="https://thegsba.org/" class="footer-badge" target="_blank" rel="noopener" aria-label="Proud Member of GSBA">
+            <img src="Proud_Member_GSBA_150px.png" alt="Proud Member — GSBA" width="80" height="80" loading="lazy">
+          </a>
+          <a href="https://www.greenbook.org/insights/authors/z-johnson" class="footer-badge" target="_blank" rel="noopener" aria-label="Greenbook Featured Author 2025">
+            <img src="Greenbook_2025_Author_150px.png" alt="Greenbook Featured Author 2025" width="80" height="80" loading="lazy">
+          </a>
         </div>
       </div>
       <div class="footer-base">
@@ -265,7 +273,11 @@
   </footer>
 
   <script src="schema.js"></script>
-  <script>injectSchema("home");</script>
   <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof injectSchema === 'function') injectSchema('home');
+    });
+  </script>
 </body>
 </html>
