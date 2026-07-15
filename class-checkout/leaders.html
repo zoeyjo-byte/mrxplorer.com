@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI for Market Research Leaders — Register</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #000;
+            font-size: 1rem;
+            padding: 2rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+        .subtitle { color: #000; margin-bottom: 0.5rem; }
+        .pricing-note {
+            font-size: 1rem;
+            color: #000;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1rem;
+            background: #f0f0f5;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+        .pricing-note strong { color: #000; }
+        .pricing-note .cohort-only {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.25rem;
+        }
+
+        .class-list { margin-bottom: 1.5rem; }
+
+        .class-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .class-item:hover:not(.cohort-only) { border-color: #635bff; background: #f8f7ff; }
+        .class-item.selected { border-color: #635bff; background: #f0eeff; }
+
+        .class-item.cohort-only {
+            background: #f9f9f9;
+            cursor: default;
+            opacity: 0.85;
+        }
+        .class-item.cohort-only:hover { border-color: #e0e0e0; background: #f9f9f9; }
+        .class-item.cohort-only .class-name::after {
+            content: "Cohort only";
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000;
+            background: #f0f0f0;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .class-item input[type="checkbox"] {
+            width: 1.2rem; height: 1.2rem; cursor: pointer;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        .class-item.cohort-only input[type="checkbox"] {
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
+
+        .class-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .class-item.cohort-only label { cursor: default; }
+        .class-item .class-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .class-item .class-desc {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.4;
+        }
+        .class-item .class-price {
+            font-weight: 600;
+            color: #000;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        .class-item.cohort-only .class-price {
+            color: #000;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+
+        .summary {
+            position: sticky; bottom: 0;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+            padding: 1.25rem 0;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .total { font-size: 1.3rem; font-weight: 700; }
+        .total span { color: #000; }
+        .checkout-btn {
+            background: #635bff;
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkout-btn:hover { background: #4a42e0; }
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Cohort modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+        .modal p { color: #000; line-height: 1.5; margin-bottom: 0.5rem; }
+        .modal .savings {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+            margin: 1rem 0 1.5rem;
+        }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+        .modal-actions button {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-cohort {
+            background: #635bff;
+            color: white;
+        }
+        .btn-cohort:hover { background: #4a42e0; }
+        .btn-dismiss {
+            background: #e8e8e8;
+            color: #000;
+        }
+        .btn-dismiss:hover { background: #d0d0d0; }
+    </style>
+</head>
+<body>
+
+<header style="margin-bottom: 1.5rem;">
+    <a href="https://www.mrxplorer.com" target="_blank">
+        <img src="MRXplorerLogo.svg" alt="MRXplorer" style="height: 48px; width: auto;" />
+    </a>
+</header>
+
+<h1>📊 AI for Market Research Leaders</h1>
+<p class="subtitle">Select individual classes or join the full 6-week live cohort.</p>
+<div class="pricing-note">
+    <strong>Individual classes:</strong> $299 each &nbsp;·&nbsp;
+    <strong>6-week live cohort (all 5 sessions):</strong> $1,599<br />
+    <em>Note:</em> <strong>Your 90-Day Implementation Plan</strong> <span class="cohort-only">Cohort only</span> — only available as part of the full cohort.
+</div>
+
+<div class="class-list" id="class-list"></div>
+
+<!-- STICKY SUMMARY BAR -->
+<div class="summary">
+    <div class="total">Total: <span id="total-display">$0</span></div>
+    <button class="checkout-btn" id="checkout-btn" disabled>
+        Proceed to Checkout
+    </button>
+</div>
+
+<!-- COHORT UPSELL MODAL -->
+<div class="modal-overlay" id="cohort-modal">
+    <div class="modal">
+        <h3>📦 The full cohort is a significantly better deal!</h3>
+        <p>
+            You've selected all 4 available individual classes at <strong id="cohort-total">$1,196</strong>.
+        </p>
+        <div class="savings">
+            The cohort pass covers all 5 sessions (including the 90-Day Implementation Plan) for <strong>$1,599</strong> — just <strong id="cohort-diff">$403</strong> more for the implementation plan and live cohort experience.
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass — $1,599</button>
+            <button class="btn-dismiss" id="cohort-dismiss">Keep Individual Classes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ─── CONFIG ─────────────────────────────────────────────────────────
+    const PRICE_PER_CLASS = 299;
+    const COHORT_PRICE = 1599;
+    const COHORT_LINK = "https://buy.stripe.com/your_leaders_cohort_link";  // ← REPLACE
+
+    const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
+
+    // The 90-Day Implementation Plan is cohort-only — excluded from individual selection
+    const purchasableClasses = [
+        {
+            name: "AI Foundations for Market Research Leaders",
+            desc: "What can AI actually do, what are the key model differences, and where are teams overestimating or underusing it?",
+        },
+        {
+            name: "Practical AI",
+            desc: "Learn for yourselves how to use tools like Claude Code or Codex to create agents, how to prompt tools better, and get a better understanding of how much time it actually takes to build automations.",
+        },
+        {
+            name: "Governance, Risk, and Tool Standardization",
+            desc: "Explore best practices for setting acceptable use rules for AI, and review privacy and security policies that apply to different subscription licenses to help determine which tier you should buy for your organization.",
+        },
+        {
+            name: "Workflows — Let's Map and Decide (2 weeks)",
+            desc: "Map the steps your teams use to develop studies and reports to identify where AI can realistically make a difference.",
+        },
+    ];
+
+    const cohortOnlyClass = {
+        name: "Your 90-Day Implementation Plan",
+        desc: "Who should be involved, what steps should you take, and what will your next 90 days look like to align your team on tools, governance, and adoption?",
+    };
+
+    // ─── RENDER ─────────────────────────────────────────────────────────
+    const container = document.getElementById('class-list');
+
+    // Render purchasable individual classes
+    purchasableClasses.forEach((cls, index) => {
+        const div = document.createElement('div');
+        div.className = 'class-item';
+        div.innerHTML = `
+            <input type="checkbox" id="cb-${index}" data-index="${index}" />
+            <label for="cb-${index}">
+                <div class="class-name">${cls.name}</div>
+                <div class="class-desc">${cls.desc}</div>
+            </label>
+            <div class="class-price">$${PRICE_PER_CLASS}</div>
+        `;
+        container.appendChild(div);
+
+        div.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                const cb = div.querySelector('input[type="checkbox"]');
+                cb.checked = !cb.checked;
+                cb.dispatchEvent(new Event('change'));
+            }
+        });
+
+        const cb = div.querySelector('input[type="checkbox"]');
+        cb.addEventListener('change', () => {
+            div.classList.toggle('selected', cb.checked);
+            updateUI();
+        });
+    });
+
+    // Render cohort-only class (not selectable)
+    const cohortDiv = document.createElement('div');
+    cohortDiv.className = 'class-item cohort-only';
+    cohortDiv.innerHTML = `
+        <input type="checkbox" id="cb-cohort-only" disabled />
+        <label for="cb-cohort-only">
+            <div class="class-name">${cohortOnlyClass.name}</div>
+            <div class="class-desc">${cohortOnlyClass.desc}</div>
+        </label>
+        <div class="class-price">Cohort only</div>
+    `;
+    container.appendChild(cohortDiv);
+
+    // ─── STATE & UPDATES ───────────────────────────────────────────────
+    const totalDisplay = document.getElementById('total-display');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const modal = document.getElementById('cohort-modal');
+    let modalDismissed = false;
+
+    function getSelected() {
+        return document.querySelectorAll('#class-list .class-item:not(.cohort-only) input[type="checkbox"]:checked');
+    }
+
+    function getTotal() {
+        return getSelected().length * PRICE_PER_CLASS;
+    }
+
+    function updateUI() {
+        const selected = getSelected();
+        const count = selected.length;
+        const total = getTotal();
+
+        totalDisplay.textContent = `$${total}`;
+        checkoutBtn.disabled = count === 0;
+
+        // Show cohort modal when all 4 individual classes are selected
+        if (!modalDismissed && count === 4) {
+            const individualTotal = 4 * PRICE_PER_CLASS;
+            const diff = COHORT_PRICE - individualTotal;
+
+            document.getElementById('cohort-total').textContent = `$${individualTotal}`;
+            document.getElementById('cohort-diff').textContent = `$${diff}`;
+            modal.classList.add('active');
+        }
+    }
+
+    // ─── MODAL ACTIONS ──────────────────────────────────────────────────
+    document.getElementById('cohort-go').addEventListener('click', () => {
+        modal.classList.remove('active');
+        window.location.href = COHORT_LINK;
+    });
+
+    document.getElementById('cohort-dismiss').addEventListener('click', () => {
+        modal.classList.remove('active');
+        modalDismissed = true;
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            modalDismissed = true;
+        }
+    });
+
+    // ─── CHECKOUT ───────────────────────────────────────────────────────
+    checkoutBtn.addEventListener('click', async () => {
+        const selected = getSelected();
+        if (selected.length === 0) return;
+
+        const lineItems = Array.from(selected).map(cb => {
+            const index = parseInt(cb.dataset.index);
+            return {
+                name: purchasableClasses[index].name,
+                price: PRICE_PER_CLASS,
+                quantity: 1,
+            };
+        });
+
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Redirecting...';
+
+        try {
+            const response = await fetch(CHECKOUT_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: lineItems }),
+            });
+
+            if (!response.ok) throw new Error('Failed to create checkout session');
+
+            const { url } = await response.json();
+            window.location.href = url;
+        } catch (err) {
+            console.error(err);
+            alert('Something went wrong. Please try again.');
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = 'Proceed to Checkout';
+        }
+    });
+
+    // Initial update
+    updateUI();
+</script>
+</body>
+</html>

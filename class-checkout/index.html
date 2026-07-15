@@ -3,63 +3,95 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register for Classes</title>
+    <title>AI Courses — Register</title>
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fa;
-            color: #1a1a2e;
+            background: #fff;
+            color: #000;
+            font-size: 1rem;
             padding: 2rem;
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
         }
-        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .subtitle { color: #555; margin-bottom: 2rem; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+        .subtitle { color: #000; margin-bottom: 1.5rem; }
 
-        .tier { margin-bottom: 2rem; }
-        .tier h2 {
-            font-size: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e0e0e0;
-            margin-bottom: 0.75rem;
+        .tier {
+            margin-bottom: 2.5rem;
         }
         .tier-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 1rem;
         }
-        .tier-price { color: #666; font-weight: 400; font-size: 0.9rem; }
+        .tier-header h2 { font-size: 1.3rem; }
+        .tier-header .tier-pricing {
+            font-size: 1rem;
+            color: #000;
+        }
+        .tier-header .tier-pricing strong { color: #000; }
 
         .class-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 0.5rem;
-            border-bottom: 1px solid #eee;
+            align-items: flex-start;
+            gap: 1rem;
             cursor: pointer;
-            transition: background 0.15s;
+            transition: border-color 0.15s, background 0.15s;
         }
-        .class-item:hover { background: #f0f0f5; }
+        .class-item:hover { border-color: #635bff; background: #f8f7ff; }
+        .class-item.selected { border-color: #635bff; background: #f0eeff; }
+
         .class-item input[type="checkbox"] {
             width: 1.2rem; height: 1.2rem; cursor: pointer;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
         }
-        .class-item label { flex: 1; cursor: pointer; font-weight: 500; }
-        .class-price { color: #666; font-size: 0.9rem; }
+        .class-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .class-item .class-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .class-item .class-desc {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.4;
+        }
+        .class-item .class-price {
+            font-weight: 600;
+            color: #000;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
 
         .summary {
             position: sticky; bottom: 0;
             background: white;
             border-top: 2px solid #e0e0e0;
             padding: 1.25rem 0;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
         .total { font-size: 1.3rem; font-weight: 700; }
-        .total span { color: #1a1a2e; }
+        .total span { color: #000; }
         .checkout-btn {
             background: #635bff;
             color: white;
@@ -77,7 +109,7 @@
             cursor: not-allowed;
         }
 
-        /* Modal overlay */
+        /* Cohort modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -93,18 +125,25 @@
             background: white;
             border-radius: 16px;
             padding: 2rem;
-            max-width: 480px;
+            max-width: 520px;
             width: 90%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
             text-align: center;
         }
-        .modal h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
-        .modal p { color: #555; line-height: 1.5; margin-bottom: 1.5rem; }
-        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .modal .modal-tier { font-size: 1rem; color: #000; margin-bottom: 0.75rem; }
+        .modal p { color: #000; line-height: 1.5; margin-bottom: 0.5rem; }
+        .modal .savings {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+            margin: 1rem 0 1.5rem;
+        }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
         .modal-actions button {
             padding: 0.7rem 1.5rem;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             border: none;
@@ -117,34 +156,38 @@
         .btn-cohort:hover { background: #4a42e0; }
         .btn-dismiss {
             background: #e8e8e8;
-            color: #333;
+            color: #000;
         }
         .btn-dismiss:hover { background: #d0d0d0; }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<h1>🧑‍🏫 Select Your Classes</h1>
-<p class="subtitle">Check the classes you want. Total updates automatically.</p>
+<header style="margin-bottom: 1.5rem;">
+    <a href="https://www.mrxplorer.com" target="_blank">
+        <img src="MRXplorerLogo.svg" alt="MRXplorer" style="height: 48px; width: auto;" />
+    </a>
+</header>
 
-<!-- EMPLOYED TIER -->
-<div class="tier" id="tier-employed">
+<h1>🤖 AI Courses</h1>
+<p class="subtitle">Select classes from any tier. Mix and match, or grab a full cohort.</p>
+
+<!-- BEGINNER TIER -->
+<div class="tier" id="tier-beginner">
     <div class="tier-header">
-        <h2>Employed</h2>
-        <span class="tier-price">$100 / class</span>
+        <h2>AI for Beginners</h2>
+        <div class="tier-pricing"><strong>$79</strong> / class · Cohort (all 4): <strong>$249</strong></div>
     </div>
-    <div id="employed-classes"></div>
+    <div id="beginner-classes"></div>
 </div>
 
-<!-- UNEMPLOYED / STUDENT TIER -->
-<div class="tier" id="tier-concession">
+<!-- INTERMEDIATE TIER -->
+<div class="tier" id="tier-intermediate">
     <div class="tier-header">
-        <h2>Unemployed / Students</h2>
-        <span class="tier-price">$50 / class</span>
+        <h2>AI for Intermediates</h2>
+        <div class="tier-pricing"><strong>$99</strong> / class · Cohort (all 6): <strong>$499</strong></div>
     </div>
-    <div id="concession-classes"></div>
+    <div id="intermediate-classes"></div>
 </div>
 
 <!-- STICKY SUMMARY BAR -->
@@ -158,11 +201,14 @@
 <!-- COHORT UPSELL MODAL -->
 <div class="modal-overlay" id="cohort-modal">
     <div class="modal">
-        <h3>📦 Cohort pass might save you money!</h3>
-        <p id="cohort-modal-text">
-            You're selecting <span id="cohort-count"></span> classes at <span id="cohort-total"></span>.
-            The full cohort pass covers everything for <strong id="cohort-pass-price"></strong>.
+        <h3 id="modal-title">📦 The full cohort is a better deal!</h3>
+        <div class="modal-tier" id="modal-tier"></div>
+        <p id="modal-text">
+            You've selected all classes at <strong id="cohort-total"></strong>.
         </p>
+        <div class="savings" id="modal-savings">
+            The cohort pass covers all classes for <strong id="cohort-pass-price"></strong> — save <strong id="cohort-savings-amount"></strong>!
+        </div>
         <div class="modal-actions">
             <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass</button>
             <button class="btn-dismiss" id="cohort-dismiss">Keep Individual Classes</button>
@@ -172,66 +218,105 @@
 
 <script>
     // ─── CONFIG ─────────────────────────────────────────────────────────
-    // Replace these with your actual class data
-    const EMPLOYED_PRICE = 100;   // dollars
-    const CONCESSION_PRICE = 50;
+    const TIERS = {
+        beginner: {
+            label: "AI for Beginners",
+            price: 79,
+            cohortPrice: 249,
+            cohortLink: "https://buy.stripe.com/your_beginner_cohort_link",  // ← REPLACE
+            classes: [
+                { name: "Prompt Frameworks for Better Results", desc: "Learn how to set up prompts that get you good results — and then how to make the results even better." },
+                { name: "AI as a Thinking Partner", desc: "Walk through ways to prompt AI to avoid the sycophantic, \"What a great idea!\" responses. Turn the AI into a tool that pushes on your thinking." },
+                { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn what each of these tools are within Claude and ChatGPT and when to use each." },
+                { name: "Hallucination, Pricing, and Privacy Basics", desc: "A realistic look at AI's capabilities, privacy best practices, and why everyone talks about the price of tokens." },
+            ],
+        },
+        intermediate: {
+            label: "AI for Intermediates",
+            price: 99,
+            cohortPrice: 499,
+            cohortLink: "https://buy.stripe.com/your_intermediate_cohort_link",  // ← REPLACE
+            classes: [
+                { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn when to use each, and then build your first mini-app to help you with a traditional market research workflow." },
+                { name: "Quantitative Analysis with an LLM", desc: "LLMs used to have troubles counting, but they are more sophisticated now and most will call on relevant Python scripts to analyze data. Learn use cases for quant research and realistic limits to what they can do now." },
+                { name: "Building and Working with Agents", desc: "Turn your AI into a more efficient tool, and turn those repeated prompts into time-saving automations. Learn the difference between a \"skill\" and an \"agent,\" and build one of each." },
+                { name: "Projects — When You Actually Want a Siloed Experience", desc: "Claude and ChatGPT both have the ability to use projects. Learn what they are, how to use them to support brand-side projects or agency-side client work. Learn what files to add, which to leave behind, and how these projects can save you time." },
+                { name: "Data Privacy and Security", desc: "What plans allow you to put what data into the AI? What data should you never put into an AI? What settings should you have in place? Review some best practices no matter what subscription you have!" },
+                { name: "When to Automate", desc: "Learn how to evaluate your own routines and what to consider when deciding what to automate. Work through often-overlooked considerations that impact complexity." },
+            ],
+        },
+    };
 
-    const COHORT_THRESHOLD = 5;   // show modal when 5+ classes selected
-    const COHORT_PRICE = 450;     // cohort pass price in dollars
-    const COHORT_LINK = "https://buy.stripe.com/your_cohort_link_here";
-
-    // Your backend endpoint that creates a Stripe Checkout Session
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
-    // List of classes. Add your real class names here.
-    const employedClasses = [
-        "Prompt Engineering Fundamentals",
-        "Advanced RAG Techniques",
-        "Fine-Tuning & LoRA",
-        "Evaluation & Red Teaming",
-        "Deploying LLMs in Production",
-        "Multimodal AI",
-        "AI Agents & Tool Use",
-    ];
+    // ─── RENDER TIERS ───────────────────────────────────────────────────
+    let allClasses = [];  // flat array with tier metadata
 
-    const concessionClasses = [
-        "Prompt Engineering Fundamentals",
-        "Advanced RAG Techniques",
-        "Fine-Tuning & LoRA",
-        "Evaluation & Red Teaming",
-    ];
+    Object.entries(TIERS).forEach(([tierKey, tier]) => {
+        const container = document.getElementById(`${tierKey}-classes`);
 
-    // ─── RENDER CLASSES ─────────────────────────────────────────────────
-    function renderClasses(containerId, classes, price) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = classes.map(name => `
-            <div class="class-item">
-                <input type="checkbox" 
-                       data-price="${price}" 
-                       data-name="${name}" 
-                       id="cb-${name.replace(/\s+/g, '-')}" />
-                <label for="cb-${name.replace(/\s+/g, '-')}">${name}</label>
-                <span class="class-price">$${price}</span>
-            </div>
-        `).join('');
-    }
+        tier.classes.forEach((cls, index) => {
+            const globalIndex = allClasses.length;
+            allClasses.push({ ...cls, tier: tierKey, tierLabel: tier.label, price: tier.price });
 
-    renderClasses('employed-classes', employedClasses, EMPLOYED_PRICE);
-    renderClasses('concession-classes', concessionClasses, CONCESSION_PRICE);
+            const div = document.createElement('div');
+            div.className = 'class-item';
+            div.dataset.index = globalIndex;
+            div.innerHTML = `
+                <input type="checkbox" id="cb-${globalIndex}" data-index="${globalIndex}" />
+                <label for="cb-${globalIndex}">
+                    <div class="class-name">${cls.name}</div>
+                    <div class="class-desc">${cls.desc}</div>
+                </label>
+                <div class="class-price">$${tier.price}</div>
+            `;
+            container.appendChild(div);
+
+            // Click on card toggles checkbox
+            div.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                    const cb = div.querySelector('input[type="checkbox"]');
+                    cb.checked = !cb.checked;
+                    cb.dispatchEvent(new Event('change'));
+                }
+            });
+
+            const cb = div.querySelector('input[type="checkbox"]');
+            cb.addEventListener('change', () => {
+                div.classList.toggle('selected', cb.checked);
+                updateUI();
+            });
+        });
+    });
 
     // ─── STATE & UPDATES ───────────────────────────────────────────────
-    const checkboxes = () => document.querySelectorAll('.class-item input[type="checkbox"]');
     const totalDisplay = document.getElementById('total-display');
     const checkoutBtn = document.getElementById('checkout-btn');
     const modal = document.getElementById('cohort-modal');
-    let modalDismissed = false;  // don't re-prompt once dismissed
+    let modalDismissed = { beginner: false, intermediate: false };
 
     function getSelected() {
-        return Array.from(checkboxes()).filter(cb => cb.checked);
+        return document.querySelectorAll('.class-item input[type="checkbox"]:checked');
     }
 
     function getTotal() {
-        return getSelected().reduce((sum, cb) => sum + parseInt(cb.dataset.price), 0);
+        let total = 0;
+        document.querySelectorAll('.class-item input[type="checkbox"]:checked').forEach(cb => {
+            const idx = parseInt(cb.dataset.index);
+            total += allClasses[idx].price;
+        });
+        return total;
+    }
+
+    function getSelectedByTier() {
+        const byTier = {};
+        document.querySelectorAll('.class-item input[type="checkbox"]:checked').forEach(cb => {
+            const idx = parseInt(cb.dataset.index);
+            const cls = allClasses[idx];
+            if (!byTier[cls.tier]) byTier[cls.tier] = [];
+            byTier[cls.tier].push(cls);
+        });
+        return byTier;
     }
 
     function updateUI() {
@@ -240,36 +325,54 @@
         totalDisplay.textContent = `$${total}`;
         checkoutBtn.disabled = selected.length === 0;
 
-        // Show cohort modal?
-        if (!modalDismissed && selected.length >= COHORT_THRESHOLD) {
-            document.getElementById('cohort-count').textContent = selected.length;
-            document.getElementById('cohort-total').textContent = `$${total}`;
-            document.getElementById('cohort-pass-price').textContent = `$${COHORT_PRICE}`;
-            modal.classList.add('active');
-        }
-    }
+        // Check each tier for full selection → show modal
+        const byTier = getSelectedByTier();
+        Object.entries(TIERS).forEach(([tierKey, tier]) => {
+            const tierSelected = byTier[tierKey] || [];
+            const allInTier = tier.classes.length;
 
-    // Event listeners on all checkboxes
-    document.querySelectorAll('.class-item input[type="checkbox"]').forEach(cb => {
-        cb.addEventListener('change', updateUI);
-    });
+            if (!modalDismissed[tierKey] && tierSelected.length === allInTier && allInTier > 0) {
+                const individualTotal = tierSelected.length * tier.price;
+                const savings = individualTotal - tier.cohortPrice;
+
+                document.getElementById('modal-title').textContent = `📦 The ${tier.label} cohort is a better deal!`;
+                document.getElementById('modal-tier').textContent = tier.label;
+                document.getElementById('cohort-total').textContent = `$${individualTotal}`;
+                document.getElementById('cohort-pass-price').textContent = `$${tier.cohortPrice}`;
+                document.getElementById('cohort-savings-amount').textContent = `$${savings}`;
+                document.getElementById('cohort-go').textContent = `Switch to Cohort Pass — $${tier.cohortPrice}`;
+                document.getElementById('cohort-dismiss').textContent = `Keep Individual Classes ($${individualTotal})`;
+
+                // Store which tier's cohort we're offering
+                modal.dataset.activeTier = tierKey;
+
+                modal.classList.add('active');
+            }
+        });
+    }
 
     // ─── MODAL ACTIONS ──────────────────────────────────────────────────
     document.getElementById('cohort-go').addEventListener('click', () => {
+        const tierKey = modal.dataset.activeTier;
         modal.classList.remove('active');
-        window.location.href = COHORT_LINK;
+        if (tierKey && TIERS[tierKey]) {
+            window.location.href = TIERS[tierKey].cohortLink;
+        }
     });
 
     document.getElementById('cohort-dismiss').addEventListener('click', () => {
+        const tierKey = modal.dataset.activeTier;
         modal.classList.remove('active');
-        modalDismissed = true;
+        if (tierKey) {
+            modalDismissed[tierKey] = true;
+        }
     });
 
-    // Click overlay to dismiss too
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('active');
-            modalDismissed = true;
+            const tierKey = modal.dataset.activeTier;
+            if (tierKey) modalDismissed[tierKey] = true;
         }
     });
 
@@ -278,11 +381,14 @@
         const selected = getSelected();
         if (selected.length === 0) return;
 
-        const lineItems = selected.map(cb => ({
-            name: cb.dataset.name,
-            price: parseInt(cb.dataset.price),
-            quantity: 1,
-        }));
+        const lineItems = Array.from(selected).map(cb => {
+            const idx = parseInt(cb.dataset.index);
+            return {
+                name: allClasses[idx].name,
+                price: allClasses[idx].price,
+                quantity: 1,
+            };
+        });
 
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = 'Redirecting...';
@@ -306,7 +412,7 @@
         }
     });
 
-    // Initial UI update
+    // Initial update
     updateUI();
 </script>
 </body>
