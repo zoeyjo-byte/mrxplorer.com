@@ -226,10 +226,10 @@
     <div class="modal">
         <h3>📦 The full cohort is a significantly better deal!</h3>
         <p>
-            You've selected all 4 available individual classes at <strong id="cohort-total">$1,196</strong>.
+            You've selected all 4 available individual classes covering 5 weeks at <strong id="cohort-total">$1,495</strong>.
         </p>
         <div class="savings">
-            The cohort pass covers all 5 sessions (including the 90-Day Implementation Plan) for <strong>$1,599</strong> — just <strong id="cohort-diff">$403</strong> more for the implementation plan and live cohort experience.
+            The cohort pass covers all 6 sessions (including the 90-Day Implementation Plan) for <strong>$1,595</strong> — just <strong id="cohort-diff">$100</strong> more for the implementation plan!
         </div>
         <div class="modal-actions">
             <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass — $1,599</button>
@@ -261,8 +261,8 @@
             desc: "Explore best practices for setting acceptable use rules for AI, and review privacy and security policies that apply to different subscription licenses to help determine which tier you should buy for your organization.",
         },
         {
-            name: "Workflows — Let's Map and Decide (2 weeks)",
-            desc: "Map the steps your teams use to develop studies and reports to identify where AI can realistically make a difference.",
+            name: "Workflows — Let's Map and Decide (2-session sequence)",
+            desc: "Week 1, we map the steps your teams use to develop studies and reports. Week 2, we identify where AI can realistically make a difference.",
         },
     ];
 
@@ -340,7 +340,7 @@
 
         // Show cohort modal when all 4 individual classes are selected
         if (!modalDismissed && count === 4) {
-            const individualTotal = 4 * PRICE_PER_CLASS;
+            const individualTotal = 5 * PRICE_PER_CLASS;
             const diff = COHORT_PRICE - individualTotal;
 
             document.getElementById('cohort-total').textContent = `$${individualTotal}`;
