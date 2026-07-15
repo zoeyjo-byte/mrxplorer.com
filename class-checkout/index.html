@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register for Classes</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #555; margin-bottom: 2rem; }
+
+        .tier { margin-bottom: 2rem; }
+        .tier h2 {
+            font-size: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 0.75rem;
+        }
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .tier-price { color: #666; font-weight: 400; font-size: 0.9rem; }
+
+        .class-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .class-item:hover { background: #f0f0f5; }
+        .class-item input[type="checkbox"] {
+            width: 1.2rem; height: 1.2rem; cursor: pointer;
+        }
+        .class-item label { flex: 1; cursor: pointer; font-weight: 500; }
+        .class-price { color: #666; font-size: 0.9rem; }
+
+        .summary {
+            position: sticky; bottom: 0;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+            padding: 1.25rem 0;
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .total { font-size: 1.3rem; font-weight: 700; }
+        .total span { color: #1a1a2e; }
+        .checkout-btn {
+            background: #635bff;
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkout-btn:hover { background: #4a42e0; }
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Modal overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+        .modal p { color: #555; line-height: 1.5; margin-bottom: 1.5rem; }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+        .modal-actions button {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-cohort {
+            background: #635bff;
+            color: white;
+        }
+        .btn-cohort:hover { background: #4a42e0; }
+        .btn-dismiss {
+            background: #e8e8e8;
+            color: #333;
+        }
+        .btn-dismiss:hover { background: #d0d0d0; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<h1>🧑‍🏫 Select Your Classes</h1>
+<p class="subtitle">Check the classes you want. Total updates automatically.</p>
+
+<!-- EMPLOYED TIER -->
+<div class="tier" id="tier-employed">
+    <div class="tier-header">
+        <h2>Employed</h2>
+        <span class="tier-price">$100 / class</span>
+    </div>
+    <div id="employed-classes"></div>
+</div>
+
+<!-- UNEMPLOYED / STUDENT TIER -->
+<div class="tier" id="tier-concession">
+    <div class="tier-header">
+        <h2>Unemployed / Students</h2>
+        <span class="tier-price">$50 / class</span>
+    </div>
+    <div id="concession-classes"></div>
+</div>
+
+<!-- STICKY SUMMARY BAR -->
+<div class="summary">
+    <div class="total">Total: <span id="total-display">$0</span></div>
+    <button class="checkout-btn" id="checkout-btn" disabled>
+        Proceed to Checkout
+    </button>
+</div>
+
+<!-- COHORT UPSELL MODAL -->
+<div class="modal-overlay" id="cohort-modal">
+    <div class="modal">
+        <h3>📦 Cohort pass might save you money!</h3>
+        <p id="cohort-modal-text">
+            You're selecting <span id="cohort-count"></span> classes at <span id="cohort-total"></span>.
+            The full cohort pass covers everything for <strong id="cohort-pass-price"></strong>.
+        </p>
+        <div class="modal-actions">
+            <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass</button>
+            <button class="btn-dismiss" id="cohort-dismiss">Keep Individual Classes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ─── CONFIG ─────────────────────────────────────────────────────────
+    // Replace these with your actual class data
+    const EMPLOYED_PRICE = 100;   // dollars
+    const CONCESSION_PRICE = 50;
+
+    const COHORT_THRESHOLD = 5;   // show modal when 5+ classes selected
+    const COHORT_PRICE = 450;     // cohort pass price in dollars
+    const COHORT_LINK = "https://buy.stripe.com/your_cohort_link_here";
+
+    // Your backend endpoint that creates a Stripe Checkout Session
+    const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
+
+    // List of classes. Add your real class names here.
+    const employedClasses = [
+        "Prompt Engineering Fundamentals",
+        "Advanced RAG Techniques",
+        "Fine-Tuning & LoRA",
+        "Evaluation & Red Teaming",
+        "Deploying LLMs in Production",
+        "Multimodal AI",
+        "AI Agents & Tool Use",
+    ];
+
+    const concessionClasses = [
+        "Prompt Engineering Fundamentals",
+        "Advanced RAG Techniques",
+        "Fine-Tuning & LoRA",
+        "Evaluation & Red Teaming",
+    ];
+
+    // ─── RENDER CLASSES ─────────────────────────────────────────────────
+    function renderClasses(containerId, classes, price) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = classes.map(name => `
+            <div class="class-item">
+                <input type="checkbox" 
+                       data-price="${price}" 
+                       data-name="${name}" 
+                       id="cb-${name.replace(/\s+/g, '-')}" />
+                <label for="cb-${name.replace(/\s+/g, '-')}">${name}</label>
+                <span class="class-price">$${price}</span>
+            </div>
+        `).join('');
+    }
+
+    renderClasses('employed-classes', employedClasses, EMPLOYED_PRICE);
+    renderClasses('concession-classes', concessionClasses, CONCESSION_PRICE);
+
+    // ─── STATE & UPDATES ───────────────────────────────────────────────
+    const checkboxes = () => document.querySelectorAll('.class-item input[type="checkbox"]');
+    const totalDisplay = document.getElementById('total-display');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const modal = document.getElementById('cohort-modal');
+    let modalDismissed = false;  // don't re-prompt once dismissed
+
+    function getSelected() {
+        return Array.from(checkboxes()).filter(cb => cb.checked);
+    }
+
+    function getTotal() {
+        return getSelected().reduce((sum, cb) => sum + parseInt(cb.dataset.price), 0);
+    }
+
+    function updateUI() {
+        const selected = getSelected();
+        const total = getTotal();
+        totalDisplay.textContent = `$${total}`;
+        checkoutBtn.disabled = selected.length === 0;
+
+        // Show cohort modal?
+        if (!modalDismissed && selected.length >= COHORT_THRESHOLD) {
+            document.getElementById('cohort-count').textContent = selected.length;
+            document.getElementById('cohort-total').textContent = `$${total}`;
+            document.getElementById('cohort-pass-price').textContent = `$${COHORT_PRICE}`;
+            modal.classList.add('active');
+        }
+    }
+
+    // Event listeners on all checkboxes
+    document.querySelectorAll('.class-item input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', updateUI);
+    });
+
+    // ─── MODAL ACTIONS ──────────────────────────────────────────────────
+    document.getElementById('cohort-go').addEventListener('click', () => {
+        modal.classList.remove('active');
+        window.location.href = COHORT_LINK;
+    });
+
+    document.getElementById('cohort-dismiss').addEventListener('click', () => {
+        modal.classList.remove('active');
+        modalDismissed = true;
+    });
+
+    // Click overlay to dismiss too
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            modalDismissed = true;
+        }
+    });
+
+    // ─── CHECKOUT ───────────────────────────────────────────────────────
+    checkoutBtn.addEventListener('click', async () => {
+        const selected = getSelected();
+        if (selected.length === 0) return;
+
+        const lineItems = selected.map(cb => ({
+            name: cb.dataset.name,
+            price: parseInt(cb.dataset.price),
+            quantity: 1,
+        }));
+
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Redirecting...';
+
+        try {
+            const response = await fetch(CHECKOUT_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: lineItems }),
+            });
+
+            if (!response.ok) throw new Error('Failed to create checkout session');
+
+            const { url } = await response.json();
+            window.location.href = url;
+        } catch (err) {
+            console.error(err);
+            alert('Something went wrong. Please try again.');
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = 'Proceed to Checkout';
+        }
+    });
+
+    // Initial UI update
+    updateUI();
+</script>
+</body>
+</html>
