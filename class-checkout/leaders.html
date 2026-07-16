@@ -499,6 +499,7 @@
             }
 
             const { url } = await response.json();
+            sessionStorage.setItem('mrx_purchases', JSON.stringify(lineItems));
             window.location.href = url;
         } catch (err) {
             console.error(err);
