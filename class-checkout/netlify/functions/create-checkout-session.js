@@ -17,6 +17,9 @@ exports.handler = async (event) => {
                 currency: 'usd',
                 product_data: {
                     name: item.name,
+                    metadata: {
+                        class_date: item.date || '',
+                    },
                 },
                 unit_amount: item.price * 100,
             },

@@ -78,6 +78,35 @@
             margin-top: 0.2rem;
         }
 
+        .date-picker {
+            display: none;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e0e0e0;
+            width: 100%;
+        }
+        .class-item.selected .date-picker { display: block; }
+        .date-picker label {
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-right: 1rem;
+            margin-bottom: 0.25rem;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .date-picker label:hover { border-color: #635bff; background: #f8f7ff; }
+        .date-picker input[type="radio"]:checked + label {
+            border-color: #635bff;
+            background: #e7e5ff;
+            font-weight: 600;
+        }
+        .date-picker input[type="radio"] { display: none; }
+        .date-picker .date-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
+
         .summary {
             position: sticky; bottom: 0;
             background: white;
@@ -221,13 +250,67 @@
 </div>
 
 <script>
+    // ─── SCHEDULE HELPERS ───────────────────────────────────────────────
+    function getNthWeekdayOfMonth(year, month, weekday, nth) {
+        const first = new Date(year, month, 1);
+        const firstWeekday = first.getDay();
+        let diff = weekday - firstWeekday;
+        if (diff < 0) diff += 7;
+        const day = 1 + diff + (nth - 1) * 7;
+        const lastDay = new Date(year, month + 1, 0).getDate();
+        if (day > lastDay) return null;
+        return new Date(year, month, day);
+    }
+
+    function getNextOccurrences(weekday, nth, hour, minute, count) {
+        const results = [];
+        const now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth();
+        while (results.length < count) {
+            const date = getNthWeekdayOfMonth(year, month, weekday, nth);
+            if (date && date > now) {
+                date.setHours(hour, minute, 0, 0);
+                results.push(date);
+            }
+            month++;
+            if (month > 11) { month = 0; year++; }
+        }
+        return results;
+    }
+
+    function formatDate(d) {
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+    }
+
+    function formatDateValue(d) {
+        return d.toISOString();
+    }
+
+    const SCHEDULE = {
+        beginner: [
+            { weekday: 2, nth: 1, hour: 12, minute: 0 },   // 1st Tue 12pm
+            { weekday: 2, nth: 2, hour: 12, minute: 0 },   // 2nd Tue 12pm
+            { weekday: 2, nth: 3, hour: 12, minute: 0 },   // 3rd Tue 12pm
+            { weekday: 2, nth: 4, hour: 12, minute: 0 },   // 4th Tue 12pm
+        ],
+        intermediate: [
+            { weekday: 1, nth: 2, hour: 12, minute: 0 },   // 2nd Mon 12pm — Chat/Projects
+            { weekday: 4, nth: 4, hour: 12, minute: 0 },   // 4th Thu 12pm — Quant Analysis
+            { weekday: 4, nth: 2, hour: 12, minute: 0 },   // 2nd Thu 12pm — Agents
+            { weekday: 1, nth: 4, hour: 12, minute: 0 },   // 4th Mon 12pm — Projects
+            { weekday: 1, nth: 2, hour: 9, minute: 0 },    // 2nd Mon 9am — Data Privacy
+            { weekday: 1, nth: 3, hour: 12, minute: 0 },   // 3rd Mon 12pm — Automate
+        ],
+    };
+
     // ─── CONFIG ─────────────────────────────────────────────────────────
     const TIERS = {
         beginner: {
             label: "AI for Beginners",
             price: 79,
             cohortPrice: 249,
-            cohortLink: "https://buy.stripe.com/4gMdR20aX8bngG04Cges004",  
+            cohortLink: "https://buy.stripe.com/4gMdR20aX8bngG04Cges004",
             classes: [
                 { name: "Prompt Frameworks for Better Results", desc: "Learn how to set up prompts that get you good results — and then how to make the results even better." },
                 { name: "AI as a Thinking Partner", desc: "Walk through ways to prompt AI to avoid the sycophantic, \"What a great idea!\" responses. Turn the AI into a tool that pushes on your thinking." },
@@ -236,10 +319,10 @@
             ],
         },
         intermediate: {
-            label: "AI for Intermediate Users",
+            label: "AI for Intermediates",
             price: 99,
             cohortPrice: 499,
-            cohortLink: "https://buy.stripe.com/cNifZaaPBfDPdtO1q4es005",  
+            cohortLink: "https://buy.stripe.com/cNifZaaPBfDPdtO1q4es005",
             classes: [
                 { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn when to use each, and then build your first mini-app to help you with a traditional market research workflow." },
                 { name: "Quantitative Analysis with an LLM", desc: "LLMs used to have troubles counting, but they are more sophisticated now and most will call on relevant Python scripts to analyze data. Learn use cases for quant research and realistic limits to what they can do now." },
@@ -254,14 +337,17 @@
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
     // ─── RENDER TIERS ───────────────────────────────────────────────────
-    let allClasses = [];  // flat array with tier metadata
+    let allClasses = [];
 
     Object.entries(TIERS).forEach(([tierKey, tier]) => {
         const container = document.getElementById(`${tierKey}-classes`);
+        const schedule = SCHEDULE[tierKey];
 
         tier.classes.forEach((cls, index) => {
             const globalIndex = allClasses.length;
-            allClasses.push({ ...cls, tier: tierKey, tierLabel: tier.label, price: tier.price });
+            const sched = schedule[index];
+            const dates = sched ? getNextOccurrences(sched.weekday, sched.nth, sched.hour, sched.minute, 2) : [];
+            allClasses.push({ ...cls, tier: tierKey, tierLabel: tier.label, price: tier.price, schedule: sched, dates });
 
             const div = document.createElement('div');
             div.className = 'class-item';
@@ -278,7 +364,7 @@
 
             // Click on card toggles checkbox
             div.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && !e.target.closest('.date-picker')) {
                     const cb = div.querySelector('input[type="checkbox"]');
                     cb.checked = !cb.checked;
                     cb.dispatchEvent(new Event('change'));
@@ -292,6 +378,29 @@
             });
         });
     });
+
+    // ─── RENDER DATES ───────────────────────────────────────────────────
+    function renderDates() {
+        document.querySelectorAll('.class-item').forEach(div => {
+            const idx = parseInt(div.dataset.index);
+            const cls = allClasses[idx];
+            if (!cls.dates || cls.dates.length === 0) return;
+
+            let picker = div.querySelector('.date-picker');
+            if (!picker) {
+                picker = document.createElement('div');
+                picker.className = 'date-picker';
+                div.appendChild(picker);
+            }
+            picker.innerHTML = '<div class="date-label">Select your date:</div>' +
+                cls.dates.map((d, i) => `
+                    <input type="radio" name="date-${idx}" id="d-${idx}-${i}" value="${formatDateValue(d)}" data-idx="${idx}" ${i === 0 ? 'checked' : ''}>
+                    <label for="d-${idx}-${i}">${formatDate(d)}</label>
+                `).join('');
+        });
+    }
+
+    renderDates();
 
     // ─── STATE & UPDATES ───────────────────────────────────────────────
     const totalDisplay = document.getElementById('total-display');
@@ -329,7 +438,6 @@
         totalDisplay.textContent = `$${total}`;
         checkoutBtn.disabled = selected.length === 0;
 
-        // Check each tier for full selection → show modal
         const byTier = getSelectedByTier();
         Object.entries(TIERS).forEach(([tierKey, tier]) => {
             const tierSelected = byTier[tierKey] || [];
@@ -347,9 +455,7 @@
                 document.getElementById('cohort-go').textContent = `Switch to Cohort Pass — $${tier.cohortPrice}`;
                 document.getElementById('cohort-dismiss').textContent = `Keep Individual Classes ($${individualTotal})`;
 
-                // Store which tier's cohort we're offering
                 modal.dataset.activeTier = tierKey;
-
                 modal.classList.add('active');
             }
         });
@@ -387,10 +493,13 @@
 
         const lineItems = Array.from(selected).map(cb => {
             const idx = parseInt(cb.dataset.index);
+            const cls = allClasses[idx];
+            const selectedDate = document.querySelector(`input[name="date-${idx}"]:checked`);
             return {
-                name: allClasses[idx].name,
-                price: allClasses[idx].price,
+                name: cls.name,
+                price: cls.price,
                 quantity: 1,
+                date: selectedDate ? selectedDate.value : null,
             };
         });
 
@@ -416,7 +525,6 @@
         }
     });
 
-    // Initial update
     updateUI();
 </script>
 </body>
