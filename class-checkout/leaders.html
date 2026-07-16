@@ -490,13 +490,19 @@
                 body: JSON.stringify({ items: lineItems }),
             });
 
-            if (!response.ok) throw new Error('Failed to create checkout session');
+            if (!response.ok) {
+                const data = await response.json();
+                if (data.error === 'class_full') {
+                    throw new Error(data.message);
+                }
+                throw new Error('Failed to create checkout session');
+            }
 
             const { url } = await response.json();
             window.location.href = url;
         } catch (err) {
             console.error(err);
-            alert('Something went wrong. Please try again.');
+            alert(err.message || 'Something went wrong. Please try again.');
             checkoutBtn.disabled = false;
             checkoutBtn.textContent = 'Proceed to Checkout';
         }
