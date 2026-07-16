@@ -46,6 +46,7 @@ exports.handler = async (event) => {
                 currency: 'usd',
                 product_data: {
                     name: item.name,
+                    tax_code: 'txcd_20060045',
                     metadata: {
                         class_date: item.date || '',
                     },
@@ -58,6 +59,7 @@ exports.handler = async (event) => {
         const session = await stripe.checkout.sessions.create({
             mode: 'payment',
             line_items: lineItems,
+            automatic_tax: { enabled: true },
             success_url: `https://${event.headers.host}/success.html`,
             cancel_url: `https://${event.headers.host}/`,
         });
