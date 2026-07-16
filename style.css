@@ -66,7 +66,7 @@ h1, h2, h3, h4 {
 
 .section-label {
   font-family: var(--font-body);
-  font-size: .72rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -97,7 +97,7 @@ h1, h2, h3, h4 {
   border-radius: var(--radius);
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 1rem;
   letter-spacing: .02em;
   transition: var(--transition);
   cursor: pointer;
@@ -198,7 +198,7 @@ h1, h2, h3, h4 {
 }
 .nav-link {
   font-family: var(--font-body);
-  font-size: .88rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--gray-mid);
   padding: 7px 14px;
@@ -303,7 +303,7 @@ h1, h2, h3, h4 {
 
 .hero-eyebrow {
   font-family: var(--font-body);
-  font-size: .72rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -370,7 +370,7 @@ h1, h2, h3, h4 {
 }
 .stat-label {
   display: block;
-  font-size: .82rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.55);
   font-weight: 300;
   line-height: 1.4;
@@ -398,13 +398,13 @@ h1, h2, h3, h4 {
 }
 .marquee-track span {
   font-family: var(--font-body);
-  font-size: .78rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--gray-mid);
 }
-.marquee-track .dot { color: var(--orange); font-size: .6rem; }
+.marquee-track .dot { color: var(--orange); font-size: 1rem; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -455,13 +455,13 @@ h1, h2, h3, h4 {
   color: var(--navy);
 }
 .what-card p {
-  font-size: .9rem;
+  font-size: 1rem;
   color: var(--gray-mid);
   line-height: 1.6;
   margin-bottom: 20px;
 }
 .card-link {
-  font-size: .84rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--orange);
   text-decoration: none;
@@ -499,7 +499,7 @@ h1, h2, h3, h4 {
 
 .newsletter-desc {
   color: rgba(255,255,255,.7);
-  font-size: .95rem;
+  font-size: 1rem;
   line-height: 1.7;
   margin-bottom: 32px;
   max-width: 480px;
@@ -523,7 +523,7 @@ h1, h2, h3, h4 {
 .issue-card:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.25); }
 .issue-card-muted { opacity: .6; }
 .issue-num {
-  font-size: .7rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -532,12 +532,12 @@ h1, h2, h3, h4 {
   width: 52px;
 }
 .issue-title {
-  font-size: .88rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.85);
   flex: 1;
   font-weight: 400;
 }
-.issue-arrow { color: rgba(255,255,255,.4); font-size: .9rem; flex-shrink: 0; }
+.issue-arrow { color: rgba(255,255,255,.4); font-size: 1rem; flex-shrink: 0; }
 
 /* ── WHO THIS IS FOR ────────────────────────────────────────── */
 .section-for { background: var(--off-white); }
@@ -562,7 +562,7 @@ h1, h2, h3, h4 {
   color: var(--navy);
 }
 .for-item p {
-  font-size: .88rem;
+  font-size: 1rem;
   color: var(--gray-mid);
   line-height: 1.65;
 }
@@ -620,7 +620,7 @@ h1, h2, h3, h4 {
 .footer-brand .nav-logo { margin-bottom: 12px; }
 .footer-brand .logo-type { color: var(--white); }
 .footer-tagline {
-  font-size: .83rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.4);
   font-weight: 300;
 }
@@ -631,7 +631,7 @@ h1, h2, h3, h4 {
   gap: 10px;
 }
 .footer-nav a {
-  font-size: .85rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.55);
   transition: var(--transition);
 }
@@ -643,7 +643,7 @@ h1, h2, h3, h4 {
   gap: 10px;
 }
 .footer-contact a {
-  font-size: .85rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.55);
   transition: var(--transition);
 }
@@ -657,7 +657,7 @@ h1, h2, h3, h4 {
   gap: 12px;
 }
 .footer-base span {
-  font-size: .75rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.3);
 }
 
@@ -709,7 +709,7 @@ h1, h2, h3, h4 {
 .form-field { margin-bottom: 20px; }
 .form-label {
   display: block;
-  font-size: .8rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -722,7 +722,7 @@ h1, h2, h3, h4 {
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-body);
-  font-size: .93rem;
+  font-size: 1rem;
   color: var(--gray-dk);
   background: var(--white);
   transition: var(--transition);

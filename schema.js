@@ -97,6 +97,66 @@
     }
   };
 
+  // ── COURSE DATA ────────────────────────────────────────────
+
+  const COURSES = {
+    beginner: [
+      { name: "Prompt Frameworks for Better Results", desc: "Learn how to set up prompts that get you good results — and then how to make the results even better." },
+      { name: "AI as a Thinking Partner", desc: "Walk through ways to prompt AI to avoid sycophantic responses and turn it into a tool that pushes on your thinking." },
+      { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn what each of these tools are within Claude and ChatGPT and when to use each." },
+      { name: "Hallucination, Pricing, and Privacy Basics", desc: "A realistic look at AI's capabilities, privacy best practices, and why everyone talks about token pricing." }
+    ],
+    intermediate: [
+      { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn when to use each tool and build your first mini-app for a market research workflow." },
+      { name: "Quantitative Analysis with an LLM", desc: "LLMs can now call Python scripts to analyze data. Learn use cases for quantitative research and realistic limits." },
+      { name: "Building and Working with Agents", desc: "Turn repeated prompts into time-saving automations. Learn the difference between a skill and an agent." },
+      { name: "Projects — When You Actually Want a Siloed Experience", desc: "Learn how to use projects in Claude and ChatGPT to support brand-side or agency-side client work." },
+      { name: "Data Privacy and Security", desc: "What data you should never put into an AI, what settings to use, and best practices for any subscription level." },
+      { name: "When to Automate", desc: "Evaluate your own routines and decide what to automate. Work through often-overlooked considerations that impact complexity." }
+    ],
+    leaders: [
+      { name: "AI Foundations for Market Research Leaders", desc: "What AI can actually do, key model differences, and where teams are overestimating or underusing it." },
+      { name: "Practical AI", desc: "Use Claude Code or Codex to create agents, prompt tools better, and understand how long automations actually take." },
+      { name: "Governance, Risk, and Tool Standardization", desc: "Set acceptable use rules for AI and review privacy/security policies for your organization." },
+      { name: "Workflows — Let's Map and Decide (2 weeks)", desc: "Map the steps your teams use to develop studies and identify where AI can make a difference." },
+      { name: "Your 90-Day Implementation Plan", desc: "Who should be involved, what steps to take, and your next 90 days to align on tools, governance, and adoption." }
+    ]
+  };
+
+  function buildCourseSchemas() {
+    const schemas = [];
+    let position = 1;
+    const tiers = [
+      { key: 'beginner', level: 'Beginner', price: 79, cohortPrice: 249 },
+      { key: 'intermediate', level: 'Intermediate', price: 99, cohortPrice: 499 },
+      { key: 'leaders', level: 'Leaders', price: 499, cohortPrice: 2595 }
+    ];
+    tiers.forEach(tier => {
+      COURSES[tier.key].forEach(cls => {
+        schemas.push({
+          "@type": "Course",
+          "name": cls.name,
+          "description": cls.desc,
+          "provider": { "@id": "https://www.mrxplorer.com/#organization" },
+          "author": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Market Research Professionals"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": tier.price,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "coursePrerequisites": tier.key === 'beginner' ? "None" : tier.key === 'intermediate' ? "Familiarity with AI tools" : "Experience leading research teams"
+        });
+        position++;
+      });
+    });
+    return schemas;
+  }
+
   // ── PAGE SCHEMAS ───────────────────────────────────────────
 
   const SCHEMAS = {
@@ -112,8 +172,8 @@
           "@type": "WebPage",
           "@id": "https://www.mrxplorer.com/#webpage",
           "url": "https://www.mrxplorer.com",
-          "name": "MRXplorer — AI Training for Market Research Teams",
-          "description": "Z Johnson teaches market research agencies and insights teams how to build, prompt, and manage AI workflows using Claude. Training, not implementation.",
+          "name": "MRXplorer — Live AI Classes for Market Researchers",
+          "description": "Live virtual AI classes for market researchers. Beginner to advanced. Learn prompt engineering, AI agents, governance, and practical workflows from Z Johnson.",
           "isPartOf": { "@id": "https://www.mrxplorer.com/#website" },
           "about": { "@id": "https://www.mrxplorer.com/#organization" },
           "breadcrumb": {
@@ -128,39 +188,7 @@
             ]
           }
         },
-        {
-          "@type": "Service",
-          "@id": "https://www.mrxplorer.com/#workflow-diagnostic",
-          "name": "Workflow Diagnostic",
-          "description": "A free diagnostic tool that identifies which of your research workflows have the highest AI automation potential — and which need a staged approach.",
-          "url": "https://www.mrxplorer.com/diagnostic",
-          "provider": { "@id": "https://www.mrxplorer.com/#organization" },
-          "serviceType": "AI Readiness Assessment",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-          }
-        },
-        {
-          "@type": "Service",
-          "@id": "https://www.mrxplorer.com/#training-consultation",
-          "name": "Training Consultation",
-          "description": "A focused session reviewing your diagnostic results, sequencing your AI training roadmap, and identifying your team's first real AI capability.",
-          "url": "https://www.mrxplorer.com/contact",
-          "provider": { "@id": "https://www.mrxplorer.com/#organization" },
-          "serviceType": "AI Training Consultation"
-        },
-        {
-          "@type": "Service",
-          "@id": "https://www.mrxplorer.com/#ai-insights-residency",
-          "name": "AI Insights Residency",
-          "description": "A structured training engagement where research teams build real workflows with Claude, Claude Cowork, and Claude Code, guided by an expert with 20+ years in research operations.",
-          "url": "https://www.mrxplorer.com/contact",
-          "provider": { "@id": "https://www.mrxplorer.com/#organization" },
-          "serviceType": "AI Training Program"
-        },
+        ...buildCourseSchemas(),
         {
           "@type": "FAQPage",
           "mainEntity": [
@@ -169,31 +197,31 @@
               "name": "What does MRXplorer do?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MRXplorer trains market research agencies and insights teams to build and manage AI workflows themselves using Claude. The model is education and enablement — not building tools for clients or implementing automation on their behalf."
+                "text": "MRXplorer teaches live virtual AI classes for market research agencies, insights teams, and research leaders. Classes cover beginner through advanced topics including prompt engineering, AI agents, governance, and workflow automation."
               }
             },
             {
               "@type": "Question",
-              "name": "Who is MRXplorer for?",
+              "name": "Who are MRXplorer classes for?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MRXplorer works with boutique research agencies, in-house insights teams, and research technology companies that want to build internal AI capabilities without relying on vendors to do it for them."
+                "text": "MRXplorer classes are for boutique research agencies, in-house insights teams, and research leaders who want to build practical AI skills. Three tracks available: Beginner, Intermediate, and Leaders."
               }
             },
             {
               "@type": "Question",
-              "name": "What AI tools does MRXplorer train teams on?",
+              "name": "How much do classes cost?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MRXplorer training focuses on Claude, Claude Cowork, and Claude Code — Anthropic's suite of AI tools — applied specifically to market research and insights workflows."
+                "text": "Beginner classes are $79 each or $249 for the full cohort. Intermediate classes are $99 each or $499 for the full cohort. Leaders classes are $499 each or $2,595 for the full cohort."
               }
             },
             {
               "@type": "Question",
-              "name": "How do I get started with MRXplorer?",
+              "name": "How do I register for classes?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Start with the free Workflow Diagnostic at mrxplorer.com/diagnostic. It identifies your highest-potential automation workflows and generates personalized verdict cards to bring to a training consultation."
+                "text": "Browse the class catalog at mrxplorer.com, select your classes, and check out via Stripe. You'll receive a confirmation email with class details and a calendar invite."
               }
             }
           ]
