@@ -51,9 +51,9 @@
     "url": "https://www.mrxplorer.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.mrxplorer.com/assets/MRXplorer_Logo_PNG.png",
-      "width": 400,
-      "height": 120
+      "url": "https://www.mrxplorer.com/assets/mrxplorer-logo.png",
+      "width": 1466,
+      "height": 442
     },
     "description": "MRXplorer trains market research agencies and insights teams to build, prompt, and manage AI workflows using Claude. Education and enablement — not implementation.",
     "email": "zjohnson@mrxplorer.com",
