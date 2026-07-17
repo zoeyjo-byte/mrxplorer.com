@@ -1,12 +1,11 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { getStore } = require('@netlify/blobs');
-const { Resend } = require('resend');
+import Stripe from 'stripe';
+import { getStore } from '@netlify/blobs';
+import { Resend } from 'resend';
+import { Buffer } from 'node:buffer';
 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'updates@mrxplorer.com';
-
-const INDIVIDUAL_CAP = 12;
-const COHORT_CAP = 9;
 
 function makeKey(name, date) {
     const safe = name.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60);
@@ -36,26 +35,27 @@ function generateICS(eventName, dateStr, durationMinutes) {
     ].join('\r\n');
 }
 
-exports.handler = async (event) => {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method not allowed' };
+export default async (req, context) => {
+    if (req.method !== 'POST') {
+        return new Response('Method not allowed', { status: 405 });
     }
 
-    const sig = event.headers['stripe-signature'];
+    const sig = req.headers.get('stripe-signature');
+    const body = await req.text();
     let stripeEvent;
     try {
         stripeEvent = stripe.webhooks.constructEvent(
-            event.body,
+            body,
             sig,
             process.env.STRIPE_WEBHOOK_SECRET
         );
     } catch (err) {
         console.error('Signature verification failed:', err.message);
-        return { statusCode: 400, body: `Signature verification failed: ${err.message}` };
+        return new Response(`Signature verification failed: ${err.message}`, { status: 400 });
     }
 
     if (stripeEvent.type !== 'checkout.session.completed') {
-        return { statusCode: 200, body: 'Ignored event type' };
+        return new Response('Ignored event type', { status: 200 });
     }
 
     const session = stripeEvent.data.object;
@@ -74,8 +74,8 @@ exports.handler = async (event) => {
 
             if (date) {
                 const key = makeKey(name, date);
-                const entry = await store.get(key);
-                const current = entry ? JSON.parse(entry).count : 0;
+                const entry = await store.get(key, { type: 'json' });
+                const current = entry ? entry.count : 0;
                 await store.set(key, JSON.stringify({ count: current + 1 }));
 
                 purchases.push({ name, date });
@@ -87,7 +87,6 @@ exports.handler = async (event) => {
             }
         }
 
-        // Send confirmation email
         const customerEmail = session.customer_details?.email || session.customer_email;
         if (customerEmail) {
             const itemsHtml = purchases.map(p =>
@@ -119,15 +118,15 @@ exports.handler = async (event) => {
             }
         }
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ received: true, purchases }),
-        };
+        return new Response(JSON.stringify({ received: true, purchases }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
     } catch (err) {
         console.error('Webhook handler error:', err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: err.message }),
-        };
+        return new Response(JSON.stringify({ error: err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 };

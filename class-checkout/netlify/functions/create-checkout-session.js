@@ -1,5 +1,6 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { getStore } = require('@netlify/blobs');
+import Stripe from 'stripe';
+import { getStore } from '@netlify/blobs';
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const INDIVIDUAL_CAP = 12;
 const COHORT_CAP = 9;
@@ -9,38 +10,36 @@ function makeKey(name, date) {
     return `${safe}::${date || 'no-date'}`;
 }
 
-exports.handler = async (event) => {
-    if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+export default async (req, context) => {
+    if (req.method !== 'POST') {
+        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+            status: 405,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 
     try {
-        const { items } = JSON.parse(event.body);
+        const { items } = await req.json();
 
-        // ── Capacity check ──────────────────────────────────────
         const store = getStore('capacity');
         const cap = items[0]?.type === 'cohort' ? COHORT_CAP : INDIVIDUAL_CAP;
 
         for (const item of items) {
             if (!item.date) continue;
             const key = makeKey(item.name, item.date);
-            const entry = await store.get(key);
-            const current = entry ? JSON.parse(entry).count : 0;
+            const entry = await store.get(key, { type: 'json' });
+            const current = entry ? entry.count : 0;
             if (current >= cap) {
-                return {
-                    statusCode: 409,
-                    body: JSON.stringify({
-                        error: 'class_full',
-                        message: `"${item.name}" is sold out for the selected date. Please choose another date or class.`,
-                    }),
-                };
+                return new Response(JSON.stringify({
+                    error: 'class_full',
+                    message: `"${item.name}" is sold out for the selected date. Please choose another date or class.`,
+                }), {
+                    status: 409,
+                    headers: { 'Content-Type': 'application/json' },
+                });
             }
         }
 
-        // ── Create Stripe session ───────────────────────────────
         const lineItems = items.map(item => ({
             price_data: {
                 currency: 'usd',
@@ -60,19 +59,19 @@ exports.handler = async (event) => {
             mode: 'payment',
             line_items: lineItems,
             automatic_tax: { enabled: true },
-            success_url: `https://${event.headers.host}/success.html`,
-            cancel_url: `https://${event.headers.host}/`,
+            success_url: `https://${req.headers.get('host')}/success.html`,
+            cancel_url: `https://${req.headers.get('host')}/`,
         });
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ url: session.url }),
-        };
+        return new Response(JSON.stringify({ url: session.url }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
     } catch (err) {
         console.error(err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: err.message }),
-        };
+        return new Response(JSON.stringify({ error: err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 };
