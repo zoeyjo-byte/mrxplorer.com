@@ -142,6 +142,13 @@
       font-family: var(--serif);
       font-size: clamp(1.5rem, 3vw, 2rem);
       color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .tools-section .tools-intro {
+      font-size: 1.03rem;
+      color: var(--gray-dark);
+      max-width: 620px;
       margin-bottom: 2.5rem;
     }
 
@@ -254,18 +261,6 @@
     .tool-card-cta .opens-in {
       font-size: 0.8rem;
       color: var(--gray-mid);
-    }
-
-    /* ── COMING SOON CARD ── */
-    .tool-card.coming-soon {
-      opacity: 0.65;
-      border-style: dashed;
-    }
-
-    .tool-card.coming-soon .btn-tool {
-      background: var(--gray-mid);
-      cursor: default;
-      pointer-events: none;
     }
 
     /* ── CTA BRIDGE ── */
@@ -394,7 +389,7 @@
       <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
       <li><a href="https://www.mrxplorer.com/tools" class="active">Tools</a></li>
       <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
-      <li><a href="https://mrxplorations.beehiiv.com">Newsletter ↗</a></li>
+      <li><a href="https://www.mrxplorer.com/newsletter">Newsletter</a></li>
     </ul>
   </nav>
 
@@ -407,10 +402,13 @@
 
   <!-- TOOLS GRID -->
   <section class="tools-section">
-    <p class="section-label">Available now</p>
-    <h2>What's here</h2>
+    <p class="section-label">Free Diagnostic</p>
+    <h2>How complex is that automation, really?</h2>
+    <p class="tools-intro">
+      Before you sink hours — or a vendor contract — into automating a research task, get a clear-eyed read on what it would actually take.
+    </p>
 
-    <!-- TOOL 1: Workflow Diagnostic -->
+    <!-- TOOL: Workflow Diagnostic -->
     <div class="tool-card">
       <div class="tool-card-content">
         <div class="tool-meta">
@@ -435,24 +433,6 @@
           Start Diagnostic →
         </a>
         <span class="opens-in">Opens in a new tab</span>
-      </div>
-    </div>
-
-    <!-- TOOL 2: PLACEHOLDER / COMING SOON -->
-    <div class="tool-card coming-soon">
-      <div class="tool-card-content">
-        <div class="tool-meta">
-          <span class="tool-badge free">Free</span>
-          <span class="tool-badge">Coming soon</span>
-        </div>
-        <h3>Survey Screener Builder</h3>
-        <p>
-          Paste a discussion guide or research brief and get a draft screener with flow logic. Built for qualitative research teams. Coming soon.
-        </p>
-      </div>
-      <div class="tool-card-cta">
-        <a class="btn-tool" href="#" aria-disabled="true">Coming Soon</a>
-        <span class="opens-in">Sign up for Quick Tips to hear first</span>
       </div>
     </div>
 
@@ -489,7 +469,7 @@
           <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
           <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
           <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
-          <li><a href="https://mrxplorations.beehiiv.com">Newsletter ↗</a></li>
+          <li><a href="https://www.mrxplorer.com/newsletter">Newsletter</a></li>
         </ul>
       </nav>
     </div>

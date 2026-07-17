@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MRXplorer Quick Tips — AI Prompts for Market Researchers</title>
-  <meta name="description" content="Short, practical AI tips for market researchers. Each issue is one prompt, one use case, and one thing you can do today. Free weekly newsletter from Z Johnson." />
+  <title>Newsletters — MRXplorer</title>
+  <meta name="description" content="Two free newsletters from MRXplorer: MRXplorations, a weekly AI news briefing for market researchers, and AI Tips for MRX, a weekly newsletter of practical AI tips for research work." />
   <meta name="author" content="Z Johnson" />
-  <meta property="og:title" content="MRXplorer Quick Tips — AI Prompts for Market Researchers" />
-  <meta property="og:description" content="Short, practical AI tips for market researchers. Each issue is one prompt, one use case, and one thing you can do today." />
+  <meta property="og:title" content="Newsletters — MRXplorer" />
+  <meta property="og:description" content="Two free newsletters from MRXplorer: MRXplorations (AI news + trends for MRX) and AI Tips for MRX (weekly practical tips)." />
   <meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.mrxplorer.com/quick-tips" />
+  <meta property="og:url" content="https://www.mrxplorer.com/newsletter" />
 
   <link rel="icon" href="https://www.mrxplorer.com/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -124,35 +124,65 @@
       font-weight: 300;
     }
 
-    /* ── SIGNUP CARD ── */
+    /* ── NEWSLETTERS GRID ── */
     .signup-section {
       background: var(--gray-light);
       padding: 4rem 2rem;
-      display: flex;
-      justify-content: center;
+    }
+
+    .newsletters-grid {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+    }
+    @media (max-width: 760px) {
+      .newsletters-grid { grid-template-columns: 1fr; }
     }
 
     .signup-card {
       background: var(--white);
       border-radius: 6px;
       box-shadow: 0 2px 20px rgba(3,44,100,0.09);
-      padding: 3rem 2.5rem;
-      max-width: 520px;
+      border-top: 4px solid var(--navy);
+      padding: 2.5rem 2rem;
       width: 100%;
-      text-align: center;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .signup-card.tips-card { border-top-color: var(--orange); }
+
+    .signup-card .nl-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
     }
 
     .signup-card h2 {
       font-family: var(--serif);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--navy);
       margin-bottom: 0.6rem;
     }
 
     .signup-card p {
       color: var(--gray-mid);
-      font-size: 0.97rem;
-      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .signup-card .card-cta {
+      margin-top: auto;
     }
 
     .signup-card form {
@@ -178,7 +208,8 @@
       border-color: var(--navy);
     }
 
-    .signup-card button {
+    .signup-card button,
+    .signup-card .btn-external {
       background: var(--orange);
       color: var(--white);
       border: none;
@@ -190,9 +221,13 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
       letter-spacing: 0.01em;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .signup-card button:hover {
+    .signup-card button:hover,
+    .signup-card .btn-external:hover {
       background: #d9640f;
     }
 
@@ -203,7 +238,8 @@
     .signup-card .disclaimer {
       font-size: 0.8rem;
       color: var(--gray-mid);
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0;
     }
 
     /* ── WHAT YOU'LL GET ── */
@@ -494,37 +530,54 @@
       <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
       <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
       <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
-      <li><a href="https://mrxplorations.beehiiv.com" class="active">Newsletter ↗</a></li>
+      <li><a href="https://www.mrxplorer.com/newsletter" class="active">Newsletter</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <span class="eyebrow">Free Weekly Newsletter</span>
-    <h1>AI prompts for market researchers.<br /><em>One tip. Every week.</em></h1>
-    <p>Short, practical, and ready to use before your next project kicks off.</p>
+    <span class="eyebrow">Free Newsletters</span>
+    <h1>AI news and tips <em>for market researchers.</em></h1>
+    <p>Two free newsletters from MRXplorer. Pick one, or get both.</p>
   </section>
 
-  <!-- SIGNUP CARD -->
+  <!-- NEWSLETTERS -->
   <section class="signup-section">
-    <div class="signup-card">
-      <h2>Get Quick Tips in your inbox</h2>
-      <p>No hype, no fluff. Just one prompt or technique you can use in your actual research work.</p>
-      <form action="https://ai-for-mrx.beehiiv.com/subscribe" method="POST" target="_blank">
-        <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" />
-        <input type="email" name="email" placeholder="Work email" required autocomplete="email" />
-        <button type="submit">Yes, send me Quick Tips →</button>
-        <p class="disclaimer">Free. No spam. Unsubscribe any time. Separate from the MRXplorations newsletter.</p>
-      </form>
+    <div class="newsletters-grid">
+
+      <!-- MRXplorations -->
+      <div class="signup-card">
+        <span class="nl-badge">Weekly · AI News + MRX</span>
+        <h2>MRXplorations</h2>
+        <p>A weekly briefing on AI news and trends — read through a market research lens. What's happening in AI, and what it actually means for your work.</p>
+        <div class="card-cta">
+          <a class="btn-external" href="https://mrxplorations.beehiiv.com" target="_blank" rel="noopener">Subscribe to MRXplorations ↗</a>
+          <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
+        </div>
+      </div>
+
+      <!-- AI Tips for MRX -->
+      <div class="signup-card tips-card">
+        <span class="nl-badge">Weekly · Quick Tips</span>
+        <h2>AI Tips for MRX</h2>
+        <p>One practical AI tip a week — a prompt, a technique, a way to use a tool — built for real market research tasks. Sometimes about a specific LLM, sometimes tool-agnostic.</p>
+        <form action="https://ai-for-mrx.beehiiv.com/subscribe" method="POST" target="_blank">
+          <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" />
+          <input type="email" name="email" placeholder="Work email" required autocomplete="email" />
+          <button type="submit">Subscribe to AI Tips for MRX →</button>
+        </form>
+        <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
+      </div>
+
     </div>
   </section>
 
   <!-- WHAT YOU'LL GET -->
   <section class="what-section">
-    <p class="section-label">What to expect</p>
+    <p class="section-label">More about AI Tips for MRX</p>
     <h2>One idea. Every week.<br />Always actionable.</h2>
     <p class="intro">
-      MRXplorer Quick Tips is a separate newsletter from MRXplorations. Where MRXplorations is a weekly briefing on AI trends with a research lens, Quick Tips is pure technique: one specific thing you can do with an LLM on your next project.
+      Where MRXplorations zooms out to AI news and trends, AI Tips for MRX zooms all the way in: one specific technique you can use on your next project.
     </p>
     <div class="features">
       <div class="feature">
@@ -548,9 +601,9 @@
   <!-- SAMPLE ISSUE -->
   <section class="sample-section">
     <p class="section-label">Sample issue</p>
-    <h2>Here's what a Quick Tip looks like.</h2>
+    <h2>Here's what an AI Tips for MRX issue looks like.</h2>
     <div class="sample-card">
-      <p class="tip-label">Quick Tip #4</p>
+      <p class="tip-label">AI Tips for MRX · Issue #4</p>
       <h3>Turn a discussion guide into a screener in about 60 seconds</h3>
       <p>
         You've already done the hard work of writing a discussion guide. The screener is mostly the same information — just reoriented toward filtering, not exploring. Here's the prompt I use:
@@ -571,7 +624,7 @@
   <section class="classes-cta">
     <h2>Ready to go deeper than a weekly tip?</h2>
     <p>
-      Quick Tips gives you techniques. MRXplorer's live classes give you the full picture: prompt frameworks, AI agents, quantitative analysis with LLMs, and how to actually build this into your workflow. Taught live by Z Johnson.
+      AI Tips for MRX gives you techniques. MRXplorer's live classes give you the full picture: prompt frameworks, AI agents, quantitative analysis with LLMs, and how to actually build this into your workflow. Taught live by Z Johnson.
     </p>
     <div class="btn-group">
       <a class="btn-primary" href="https://class-checkout.netlify.app/">Browse Classes →</a>
@@ -596,7 +649,7 @@
           <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
           <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
           <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
-          <li><a href="https://mrxplorations.beehiiv.com">Newsletter ↗</a></li>
+          <li><a href="https://www.mrxplorer.com/newsletter">Newsletter</a></li>
         </ul>
       </nav>
     </div>
