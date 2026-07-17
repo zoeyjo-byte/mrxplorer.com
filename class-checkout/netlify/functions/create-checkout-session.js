@@ -59,6 +59,7 @@ export default async (req, context) => {
             mode: 'payment',
             line_items: lineItems,
             automatic_tax: { enabled: true },
+            allow_promotion_codes: true,
             success_url: `https://${req.headers.get('host')}/success.html`,
             cancel_url: `https://${req.headers.get('host')}/`,
         });
