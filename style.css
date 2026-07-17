@@ -681,6 +681,32 @@ h1, h2, h3, h4 {
 .prose p { margin-bottom: 20px; }
 .prose a { color: var(--orange); text-decoration: underline; }
 
+/* ── ABOUT INTRO (headshot + bio) ──────────────────────────────── */
+.about-intro {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.about-intro-text { max-width: 680px; margin: 0; }
+.about-intro-photo {
+  flex-shrink: 0;
+  width: 220px;
+  order: 2;
+}
+.about-intro-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+@media (max-width: 860px) {
+  .about-intro { flex-direction: column; }
+  .about-intro-photo { order: -1; width: 160px; margin: 0 auto; }
+}
+
 /* ── CONTACT PAGE SHELL ─────────────────────────────────────── */
 /* Use these classes when building contact.html */
 .contact-grid {
