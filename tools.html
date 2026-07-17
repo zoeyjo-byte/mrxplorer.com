@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Tools for Market Researchers — MRXplorer</title>
+  <meta name="description" content="Free AI tools for market researchers from Z Johnson and MRXplorer. Includes the Workflow Diagnostic: a complexity assessment for research teams thinking about automation." />
+  <meta name="author" content="Z Johnson" />
+  <meta property="og:title" content="Free Tools for Market Researchers — MRXplorer" />
+  <meta property="og:description" content="Free AI tools for market researchers. Start with the Workflow Diagnostic." />
+  <meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mrxplorer.com/tools" />
+
+  <link rel="icon" href="https://www.mrxplorer.com/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #032c64;
+      --orange: #f47721;
+      --white:  #ffffff;
+      --gray-light: #f5f5f5;
+      --gray-mid:   #808080;
+      --gray-dark:  #333333;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Alegreya Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      color: var(--gray-dark);
+      background: var(--white);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid #e8e8e8;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    nav a.logo-link img { height: 44px; width: auto; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+      align-items: center;
+    }
+
+    nav ul li a {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--navy);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover { color: var(--orange); }
+
+    nav ul li a.active {
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+    }
+
+    .page-header .eyebrow {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 640px;
+      margin: 0 auto 1rem;
+    }
+
+    .page-header h1 em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 520px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ── TOOLS GRID ── */
+    .tools-section {
+      padding: 4.5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tools-section .section-label {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+
+    .tools-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 2.5rem;
+    }
+
+    .tool-card {
+      border: 1.5px solid #e2e2e2;
+      border-radius: 6px;
+      padding: 2.25rem 2rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem 2rem;
+      align-items: start;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .tool-card:hover {
+      box-shadow: 0 4px 20px rgba(3,44,100,0.08);
+      border-color: var(--navy);
+    }
+
+    .tool-card-content {}
+
+    .tool-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .tool-badge {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+    }
+
+    .tool-badge.free {
+      background: #1a7a3c;
+    }
+
+    .tool-card h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .tool-card p {
+      font-size: 0.97rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 0.6rem;
+    }
+
+    .tool-what {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .tool-what span {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      padding-left: 1.1em;
+      position: relative;
+    }
+
+    .tool-what span::before {
+      content: "◈";
+      color: var(--orange);
+      font-size: 0.65rem;
+      position: absolute;
+      left: 0;
+      top: 0.25em;
+    }
+
+    .tool-card-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      padding-top: 0.25rem;
+      min-width: 160px;
+    }
+
+    .btn-tool {
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.93rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 4px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .btn-tool:hover { background: #d9640f; }
+
+    .tool-card-cta .opens-in {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .tool-card.coming-soon {
+      opacity: 0.65;
+      border-style: dashed;
+    }
+
+    .tool-card.coming-soon .btn-tool {
+      background: var(--gray-mid);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── CTA BRIDGE ── */
+    .cta-bridge {
+      background: var(--gray-light);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta-bridge .inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-bridge h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .cta-bridge p {
+      color: var(--gray-dark);
+      font-size: 1.03rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.97rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #021e45; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.97rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      border: 2px solid var(--navy);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { background: var(--navy); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    footer img.footer-logo { height: 38px; width: auto; display: block; margin-bottom: 0.5rem; }
+    footer p.tagline { font-size: 0.88rem; color: rgba(255,255,255,0.55); }
+
+    footer nav ul { display: flex; flex-direction: column; gap: 0.4rem; }
+    footer nav ul li a { font-size: 0.9rem; color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer nav ul li a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      max-width: 1000px;
+      margin: 2rem auto 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .footer-bottom p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+    .footer-badges { display: flex; gap: 1rem; align-items: center; }
+    .footer-badges img { height: 44px; width: auto; }
+
+    @media (max-width: 680px) {
+      .tool-card {
+        grid-template-columns: 1fr;
+      }
+      .tool-card-cta {
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo-link" href="https://www.mrxplorer.com/">
+      <img src="https://www.mrxplorer.com/assets/mrxplorer-logo.png" alt="MRXplorer" />
+    </a>
+    <ul>
+      <li><a href="https://www.mrxplorer.com/">Home</a></li>
+      <li><a href="https://www.mrxplorer.com/about">About</a></li>
+      <li><a href="https://class-checkout.netlify.app/">Classes</a></li>
+      <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
+      <li><a href="https://www.mrxplorer.com/tools" class="active">Tools</a></li>
+      <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
+      <li><a href="https://mrxplorations.beehiiv.com">Newsletter ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <span class="eyebrow">Free Tools</span>
+    <h1>Tools built for <em>research teams.</em></h1>
+    <p>Practical, free tools from MRXplorer. No login required.</p>
+  </header>
+
+  <!-- TOOLS GRID -->
+  <section class="tools-section">
+    <p class="section-label">Available now</p>
+    <h2>What's here</h2>
+
+    <!-- TOOL 1: Workflow Diagnostic -->
+    <div class="tool-card">
+      <div class="tool-card-content">
+        <div class="tool-meta">
+          <span class="tool-badge free">Free</span>
+          <span class="tool-badge">Interactive</span>
+        </div>
+        <h3>Workflow Diagnostic</h3>
+        <p>
+          Thinking about automating something — but not sure how complex it actually is? This diagnostic walks you through up to three of your research workflows and generates a plain-language complexity assessment for each one: what it would take, what inputs you'd need, and what to think through before you start building.
+        </p>
+        <p>
+          Takes 8–12 minutes per workflow. At the end, Z reviews your results before a free 30-minute training consultation.
+        </p>
+        <div class="tool-what">
+          <span>Works for both existing workflows and wishlist workflows</span>
+          <span>Covers solo practitioners and teams of any size</span>
+          <span>Pairs with a free consultation call with Z</span>
+        </div>
+      </div>
+      <div class="tool-card-cta">
+        <a class="btn-tool" href="https://zoeyjo-byte.github.io/mrxplorer-taselector/" target="_blank" rel="noopener">
+          Start Diagnostic →
+        </a>
+        <span class="opens-in">Opens in a new tab</span>
+      </div>
+    </div>
+
+    <!-- TOOL 2: PLACEHOLDER / COMING SOON -->
+    <div class="tool-card coming-soon">
+      <div class="tool-card-content">
+        <div class="tool-meta">
+          <span class="tool-badge free">Free</span>
+          <span class="tool-badge">Coming soon</span>
+        </div>
+        <h3>Survey Screener Builder</h3>
+        <p>
+          Paste a discussion guide or research brief and get a draft screener with flow logic. Built for qualitative research teams. Coming soon.
+        </p>
+      </div>
+      <div class="tool-card-cta">
+        <a class="btn-tool" href="#" aria-disabled="true">Coming Soon</a>
+        <span class="opens-in">Sign up for Quick Tips to hear first</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA BRIDGE -->
+  <section class="cta-bridge">
+    <div class="inner">
+      <h2>Want to build skills, not just use tools?</h2>
+      <p>
+        MRXplorer's live virtual classes teach you the reasoning behind these techniques, so you can adapt them to your actual work. Beginner to leadership level, 90 minutes each, taught by Z Johnson.
+      </p>
+      <div class="btn-group">
+        <a class="btn-primary" href="https://class-checkout.netlify.app/">Browse Classes →</a>
+        <a class="btn-secondary" href="https://www.mrxplorer.com/newsletter">Get Quick Tips (Free)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="https://www.mrxplorer.com/">
+          <img class="footer-logo" src="https://www.mrxplorer.com/assets/mrxplorer-logo-white-text.png" alt="MRXplorer" />
+        </a>
+        <p class="tagline">AI training for market research teams.</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://www.mrxplorer.com/">Home</a></li>
+          <li><a href="https://www.mrxplorer.com/about">About</a></li>
+          <li><a href="https://class-checkout.netlify.app/">Classes</a></li>
+          <li><a href="https://class-checkout.netlify.app/leaders.html">For Leaders</a></li>
+          <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
+          <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
+          <li><a href="https://mrxplorations.beehiiv.com">Newsletter ↗</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MRXplorer LLC &nbsp;·&nbsp; Built with intention, not a template. &nbsp;·&nbsp; <a href="mailto:zjohnson@mrxplorer.com" style="color:rgba(255,255,255,0.45); text-decoration:none;">zjohnson@mrxplorer.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/zontziry/" style="color:rgba(255,255,255,0.45); text-decoration:none;">LinkedIn</a></p>
+      <div class="footer-badges">
+        <a href="https://thegsba.org/"><img src="https://www.mrxplorer.com/Proud_Member_GSBA_150px.png" alt="Proud Member — GSBA" /></a>
+        <a href="https://www.greenbook.org/insights/authors/z-johnson"><img src="https://www.mrxplorer.com/Greenbook_2025_Author_150px.png" alt="Greenbook Featured Author 2025" /></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
