@@ -4,6 +4,8 @@
 
 **How to use this document:** Work through phases in order. Each task lists the files to touch, exactly what to do, and an acceptance check. Tasks marked **[OWNER INPUT]** need information or an action from Z and should be skipped (not guessed at) until that input exists. Everything else is implementable directly from this repo.
 
+**Companion document:** `mrxplorer-build-plan.md` is the **source of truth** for the class catalog, recurring schedule, capacity rules, cohort logistics, and Stripe/tax details. Several items below that were originally [OWNER INPUT] have since been confirmed there — always check that file before asking for owner input on schedule, pricing, capacity, or tax facts.
+
 **Repo facts the implementer needs:**
 - This repo IS the live site, served by GitHub Pages at `https://www.mrxplorer.com` (see `CNAME`).
 - GitHub Pages serves `about.html` at both `/about` and `/about.html`. All internal links and canonicals must use the **extensionless** form (`/about`, `/tools`, etc.) to match the existing nav.
@@ -34,7 +36,7 @@
 9. Course schema is missing `hasCourseInstance` — **required** by Google for Course rich results — plus `courseMode`, `instructor`, and an `offers.url`.
 10. Root contains duplicate badge images with spaces in filenames (`Greenbook 2025 Author 150px.png`, `Proud Member GSBA 150px.png`) alongside the underscore versions actually used. The space-named ones are unreferenced clutter.
 11. No analytics and no search-console verification anywhere — the site currently cannot measure anything this plan improves.
-12. No class dates/schedule appear anywhere on the site ("live virtual, Pacific time" only) — a conversion blocker and a missed `CourseInstance.startDate`.
+12. No class dates/schedule appear anywhere on the site ("live virtual, Pacific time" only) — a conversion blocker and a missed `CourseInstance.startDate`. **Update:** the recurring schedule is now confirmed in `mrxplorer-build-plan.md` ("Class catalog + schedule" section) — see task 3.2.
 13. The AI Tips signup form (`newsletter.html:564-568`) POSTs `first_name`/`email` to `https://ai-for-mrx.beehiiv.com/subscribe`. Beehiiv's supported patterns are their embed script/iframe or a GET to `/subscribe?email=`. This form likely fails silently. Needs verification.
 
 ---
@@ -175,7 +177,7 @@ Replace runtime injection with static JSON-LD:
                  "url": "https://www.mrxplorer.com/classes",
                  "category": "Paid" }
      ```
-     (When class dates exist — task 3.2 — add `startDate`/`endDate` to each CourseInstance.)
+     (Task 3.2 adds `startDate` to each CourseInstance from the confirmed recurring schedule in `mrxplorer-build-plan.md`; if Phase 2/3 ships together, include it now.)
    - Remove the `WEBSITE.potentialAction` SearchAction (`schema.js:90-97`) — the site has no search endpoint; the template is a lie to crawlers.
    - The FAQPage schema moves to the homepage inline block **only after** task 3.1 makes the FAQ visible; until then omit it from the inline JSON-LD.
    - Contact page: drop the "Bring your workflow diagnostic results" phrasing in `schema.js:287` — say "Email Z Johnson with questions about classes, team cohorts, or AI training for your research organization."
@@ -204,14 +206,16 @@ A full catalog page using the shared `style.css`, same nav/footer as `index.html
 - H1: "Live AI Classes for Market Researchers" (this page owns the money keyword; retitle the homepage H1 focus if needed — homepage keeps its current brand-y H1, this page is the descriptive one).
 - Title tag: `AI Classes for Market Researchers — Beginner & Intermediate | MRXplorer`
 - Meta description: ~155 chars covering tracks + prices + live/virtual format.
-- The Beginner and Intermediate tiers with **every class as its own subsection**: an `<h3>` per class, the existing description expanded to 2–3 sentences ("who it's for / what you'll walk away with" — source copy from `index.html:133-195` and `class-checkout/index.html`), price, duration, format.
-- A visible per-page FAQ (5–6 questions): "Do I need AI experience?", "What tools do the classes use?", "Are sessions recorded?" **[OWNER INPUT for the answers to recording/refund/schedule questions]**, "Can my whole team attend?", "What time zone are classes in?" — with matching FAQPage JSON-LD inline.
+- The Beginner and Intermediate tiers with **every class as its own subsection**: an `<h3>` per class, the existing description expanded to 2–3 sentences ("who it's for / what you'll walk away with" — source copy from `index.html:133-195` and the class descriptions in `mrxplorer-build-plan.md`), price, duration, format, and its recurring slot from the schedule table (e.g. "1st Tuesday, 12pm Pacific").
+- A pricing note near the prices (confirmed): **prices are tax-exclusive — applicable sales tax is added at checkout.** Use phrasing like "plus applicable tax, calculated at checkout."
+- Mention cohorts as their own offering (confirmed in the build plan): cohort bundles run at 9am Pacific starting every 2 months, cover the same content as the individual classes, cap at 9 registrants, and need 5+ enrolled to run. Individual class sessions cap at 12.
+- A visible per-page FAQ (5–6 questions), with matching FAQPage JSON-LD inline. Confirmed answers available now: "What time zone are classes in?" (Pacific; individual classes at 12pm, cohorts at 9am), "How big are classes?" (12 for individual sessions, 9 for cohorts), "What happens if a cohort doesn't fill?" (cohorts need 5+; if short 5 days before start, Z contacts registrants to wait for the next cohort or switch to individual classes at the cohort discount). Still **[OWNER INPUT]**: recording policy and refund policy — do not invent these.
 - CTA buttons → `https://class-checkout.netlify.app/` (unchanged checkout).
 - Inline JSON-LD: WebPage + Breadcrumb + the full Course list for beginner/intermediate (moved from the homepage block — the homepage keeps Organization/Person/Website + a *reference* to the classes page; the Course entities' canonical home becomes this page. Avoid duplicating full Course objects on both pages).
 
 ### 2.2 Create `/classes/leaders` (new `classes/leaders.html`)
 
-Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each of the 5 sessions into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure. Leaders-specific FAQ (procurement, invoicing, team pricing — **[OWNER INPUT]** for answers). CTA → `https://class-checkout.netlify.app/leaders.html`.
+Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each session into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure, and recurring schedule slots from `mrxplorer-build-plan.md` (e.g. Foundations: 1st Wednesday 12pm PT; 6-week cohort starts 1st Friday every 2 months, 9am PT). Pricing is confirmed at $499/class, $2,595 for the full cohort — but note the session-count phrasing is inconsistent across sources (homepage says "all 5 sessions"; the build plan heading says "all 6", reflecting the 6-week cohort format that includes the 90-day implementation work). **Resolve the count against `class-checkout/leaders.html` (the checkout source of truth) before writing the page copy; don't propagate the discrepancy.** Same tax-exclusive pricing note as 2.1. Leaders-specific FAQ (procurement, invoicing, team pricing — **[OWNER INPUT]** for answers). CTA → `https://class-checkout.netlify.app/leaders.html`.
 
 ### 2.3 Repoint every internal link
 
@@ -236,9 +240,14 @@ The **only** remaining links to the Netlify URLs are the "Register/Checkout" but
 
 Add a "Common questions" section to `index.html` (before the CTA strip) rendering the 4 existing FAQ Q&As from `schema.js:193-228` as visible `<h3>`/`<p>` content (or `<details>` elements), updating the "How do I register" answer to reference the /classes pages. Re-add the FAQPage JSON-LD to the homepage inline schema **only once this section exists**. Answer text in schema must match page text.
 
-### 3.2 [OWNER INPUT] Publish the class schedule
+### 3.2 Publish the class schedule (now unblocked — schedule confirmed)
 
-Get actual upcoming dates from Z. Add a "Upcoming sessions" block to `/classes` and `/classes/leaders`, and `startDate` (ISO 8601 with `-07:00`/`-08:00` offset) to each `CourseInstance`. If dates truly don't exist yet, add "Next cohort: <season> 2026 — join the newsletter to be notified" — a page selling live classes with no dates loses both conversions and CourseInstance eligibility.
+The recurring schedule is confirmed in `mrxplorer-build-plan.md` ("Class catalog + schedule" — its tables are the source of truth). Every class runs on a fixed monthly pattern ("Nth weekday, 12pm Pacific"; cohorts start every 2 months at 9am Pacific).
+
+- Add an "Upcoming sessions" block to `/classes` and `/classes/leaders` showing each class's recurring slot **and its next concrete occurrence date**, computed from the pattern.
+- Add `startDate` (ISO 8601 with `-07:00`/`-08:00` Pacific offset) to each `CourseInstance` using that next occurrence.
+- **[OWNER INPUT — one narrow question, not the whole schedule]:** Z has said next occurrences should skip dates that collide with commonly observed US holidays, but how to handle the displaced session (skip the month vs. shift a week) is not yet decided. Compute the candidate dates first, flag any that land on/near a holiday, and confirm the handling with Z for just those cases.
+- Keep dates fresh per the Phase 4 checklist: rolled forward manually on each cycle, or generated at build time by a small script — either is fine, but a stale date is worse than no date.
 
 ### 3.3 [OWNER INPUT] Social proof
 
@@ -279,7 +288,7 @@ Test the form at `newsletter.html:564-568`. If the POST to `https://ai-for-mrx.b
 
 - **Do not** redesign, restyle, or refactor CSS. Match existing visual patterns exactly (copy nav/footer markup from `index.html`; new pages use `style.css` classes that already exist).
 - **Do not** touch `class-checkout/netlify/functions/*`, Stripe keys, price logic, or `main.js`.
-- **Do not** change prices, class names, or class descriptions beyond expanding them; never invent testimonials, dates, credentials, or student counts — those are [OWNER INPUT].
+- **Do not** change prices, class names, or class descriptions beyond expanding them; never invent testimonials, credentials, or student counts — those are [OWNER INPUT]. Session dates are not invented either: compute them from the confirmed schedule tables in `mrxplorer-build-plan.md`.
 - **Do not** add cookie banners, popups, or third-party scripts beyond the one analytics snippet Z chooses.
 - Preserve the extensionless-URL convention everywhere (`/classes`, not `/classes.html`).
 - After every phase: validate changed pages at validator.schema.org, check all internal links resolve, and view each page at 375px width.
@@ -293,4 +302,4 @@ Test the form at `newsletter.html:564-568`. If the POST to `https://ai-for-mrx.b
 - [ ] Homepage FAQ is visible text with matching schema.
 - [ ] Articles section exists with ≥5 published, owner-reviewed articles and a weekly pipeline from the newsletter.
 - [ ] GSC + Bing verified, sitemap submitted, analytics on every page.
-- [ ] Class schedule (or explicit next-cohort note) visible; email capture verified working.
+- [ ] Class schedule visible on both class pages (recurring slots + next occurrence dates from `mrxplorer-build-plan.md`), with `CourseInstance.startDate` in schema; email capture verified working.
