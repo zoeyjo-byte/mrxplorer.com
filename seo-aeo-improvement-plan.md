@@ -220,13 +220,22 @@ A full catalog page using the shared `style.css`, same nav/footer as `index.html
 - The Beginner and Intermediate tiers with **every class as its own subsection**: an `<h3>` per class, the existing description expanded to 2–3 sentences ("who it's for / what you'll walk away with" — source copy from `index.html:133-195` and the class descriptions in `mrxplorer-build-plan.md`), price, duration, format, and its recurring slot from the schedule table (e.g. "1st Tuesday, 12pm Pacific").
 - A pricing note near the prices (confirmed): **prices are tax-exclusive — applicable sales tax is added at checkout.** Use phrasing like "plus applicable tax, calculated at checkout."
 - Mention cohorts as their own offering (confirmed in the build plan): cohort bundles run at 9am Pacific starting every 2 months, cover the same content as the individual classes, cap at 9 registrants, and need 5+ enrolled to run. Individual class sessions cap at 12.
-- A visible per-page FAQ (5–6 questions), with matching FAQPage JSON-LD inline. Confirmed answers available now: "What time zone are classes in?" (Pacific; individual classes at 12pm, cohorts at 9am), "How big are classes?" (12 for individual sessions, 9 for cohorts), "What happens if a cohort doesn't fill?" (cohorts need 5+; if short 5 days before start, Z contacts registrants to wait for the next cohort or switch to individual classes at the cohort discount). Still **[OWNER INPUT]**: recording policy and refund policy — do not invent these.
+- A visible per-page FAQ (6–7 questions), with matching FAQPage JSON-LD inline. Confirmed answers available now:
+  - "What time zone are classes in?" — Pacific; individual classes at 12pm, cohorts at 9am.
+  - "How big are classes?" — 12 for individual sessions, 9 for cohorts.
+  - "What happens if a cohort doesn't fill?" — cohorts need 5+ enrolled; if short 5 days before start, Z contacts registrants to wait for the next cohort or switch to individual classes at the cohort discount.
+  - "Are classes recorded?" — **Yes.** Recordings are provided only to those who registered for that session. Registrants who could not attend live still receive the recording.
+  - "What is the refund policy?" — **Full refund up to 72 hours before the scheduled start time.** No refund inside the 72-hour window (this is what protects the waitlist — see task 2.5).
 - CTA buttons → `https://class-checkout.netlify.app/` (unchanged checkout).
 - Inline JSON-LD: WebPage + Breadcrumb + the full Course list for beginner/intermediate (moved from the homepage block — the homepage keeps Organization/Person/Website + a *reference* to the classes page; the Course entities' canonical home becomes this page. Avoid duplicating full Course objects on both pages).
 
 ### 2.2 Create `/classes/leaders` (new `classes/leaders.html`)
 
-Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each session into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure, and recurring schedule slots from `mrxplorer-build-plan.md` (e.g. Foundations: 1st Wednesday 12pm PT; 6-week cohort starts 1st Friday every 2 months, 9am PT). Pricing is confirmed at $499/class, $2,595 for the full cohort — but note the session-count phrasing is inconsistent across sources (homepage says "all 5 sessions"; the build plan heading says "all 6", reflecting the 6-week cohort format that includes the 90-day implementation work). **Resolve the count against `class-checkout/leaders.html` (the checkout source of truth) before writing the page copy; don't propagate the discrepancy.** Same tax-exclusive pricing note as 2.1. Leaders-specific FAQ (procurement, invoicing, team pricing — **[OWNER INPUT]** for answers). CTA → `https://class-checkout.netlify.app/leaders.html`.
+Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each session into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure, and recurring schedule slots from `mrxplorer-build-plan.md` (e.g. Foundations: 1st Wednesday 12pm PT; 6-week cohort starts 1st Friday every 2 months, 9am PT). Pricing is confirmed at $499/class, $2,595 for the full cohort — but note the session-count phrasing is inconsistent across sources (homepage says "all 5 sessions"; the build plan heading says "all 6", reflecting the 6-week cohort format that includes the 90-day implementation work). **Resolve the count against `class-checkout/leaders.html` (the checkout source of truth) before writing the page copy; don't propagate the discrepancy.** Same tax-exclusive pricing note as 2.1. Leaders-specific FAQ — confirmed answers:
+  - "Can my company pay by invoice?" — **Yes.** Contact Z directly to arrange invoicing for organization-wide training.
+  - "Is there team pricing?" — For teams larger than the cohort cap, the offering is a **private team session scheduled separately** (see task 2.6). Contact Z to scope.
+  - "What if competitors are in my cohort?" — See task 2.7: company name is screened at registration, and the workflow-mapping session uses a synthetic/redacted workflow so participants never have to expose their real workflows to the group.
+- CTA → `https://class-checkout.netlify.app/leaders.html`.
 
 ### 2.3 Repoint every internal link
 
@@ -243,6 +252,43 @@ The **only** remaining links to the Netlify URLs are the "Register/Checkout" but
 
 **Acceptance:** `site:mrxplorer.com` eventually shows /classes pages; no nav/footer link on mrxplorer.com points at netlify.app; checkout flow still completes (test a Stripe checkout session opens from both new pages' buttons).
 
+### 2.5 Automated waitlist (pairs with the 72-hour refund policy in 2.1)
+
+The 72-hour refund window exists precisely so a waitlisted registrant can take the freed seat. Make that handoff automatic — do not require Z to manually broker it.
+
+- On `/classes` and `/classes/leaders`, when a class session is at capacity, surface a **"Join waitlist"** form (name, email, target session) instead of hiding the CTA. The form POSTs to a **new** serverless function on the class-checkout Netlify site (e.g. `class-checkout/netlify/functions/join-waitlist.js`) — same deployment target as the existing Stripe functions, CORS-allowed for `https://www.mrxplorer.com`.
+- Waitlist entries persist in Netlify Blobs (the `netlify-blobs` dependency is already in the repo) keyed by session ID, in arrival order.
+- Extend the existing `class-checkout/netlify/functions/stripe-webhook.js` to handle `charge.refunded` (or `checkout.session.expired` / cancellation) events: when a refund fires more than 72 hours before a session start, peek the next waitlist entry for that session, send it a single-use Stripe Checkout link valid for 24 hours, and remove it from the queue on successful payment. If the link expires unclaimed, advance to the next entry.
+- Inside the 72-hour window: no waitlist promotion fires (the refund policy explicitly protects the seat for the registrant). Log and email Z so she can decide manually if she wants.
+- Surface waitlist length to Z on a simple admin view (or just via the email notifications) — not to the public.
+- **Guardrail:** do NOT touch existing Stripe price logic, `create-checkout-session.js`, or the webhook's current event handling. Only **add** a new event branch and a new function. Test with Stripe's test-mode events before going live.
+
+**Acceptance:** in test mode, registering a session to cap, joining the waitlist, then triggering a refund >72h out auto-promotes the next waitlisted entry within minutes; refunding inside 72h does not.
+
+### 2.6 Over-capacity team → private session conversion
+
+When a team wants to train together and exceeds a cohort cap (9 for cohorts, 12 for individual sessions), the offering is a **private team session scheduled separately** — not an overflow of the public cohort. This frees the public cohort seats and gives the team a dedicated slot.
+
+- On `/classes` and `/classes/leaders`, add a short "Training a team larger than a cohort?" callout (one paragraph) pointing to a short inquiry form (name, email, company, team size, track of interest). The form emails Z directly — no pricing logic on the page.
+- The callout copy: private team sessions are scheduled at a mutually agreed time, cover the same content as the public track, and bypass the public cohort entirely. "Contact Z to scope."
+- Do **not** publish a private-session price on the page — that is scoped per engagement. The page's job is to surface the option and capture the lead.
+- When a private session is booked, Z confirms the team size, date, and invoice terms out-of-band; no code path in the checkout site handles private-session billing in this phase.
+
+**Acceptance:** the callout exists on both class pages; the inquiry form delivers an email to Z with the four fields; nothing on the page invents a price or competes with the cohort offering.
+
+### 2.7 Competitor screening + synthetic workflow for the mapping session
+
+Market research is a small industry — direct competitors will land in the same public cohort. Two layers of protection, both required:
+
+1. **Company-name screening at registration.** The class-checkout registration flow captures the registrant's company name (add a required "Company" field to the checkout form on `class-checkout/index.html` and `leaders.html` — Store it as Stripe metadata on the session). Before the first session of any cohort, Z reviews the company list. If two direct competitors are enrolled, Z contacts the later registrant to offer either (a) the next cohort, or (b) a private team session (2.6). This is a manual step — do not attempt to auto-detect "competitor" status.
+2. **Synthetic workflow for the workflow-mapping session.** The Leaders cohort includes a session on workflow mapping. Participants use a **provided synthetic/redacted workflow** for the group exercise — never their own real workflows. Real workflows stay private. State this explicitly in the session description on `/classes/leaders` and in the Leaders FAQ ("Will I have to share my team's real workflows? — No. The mapping exercise uses a provided synthetic workflow; your real workflows stay private.").
+
+- Update the Leaders FAQ (2.2) and the session description copy accordingly.
+- The "Company" field on checkout is the only schema-relevant change: surface it as `additionalType`/metadata on the Order, not on the public Course schema.
+
+**Acceptance:** both checkout pages capture a required Company field stored as Stripe metadata; `/classes/leaders` states the synthetic-workflow policy visibly in the session description and FAQ; nothing on the page claims competitor detection is automated.
+
+
 ---
 
 ## Phase 3 — AEO content (visible answers, proof, and freshness)
@@ -257,7 +303,7 @@ The recurring schedule is confirmed in `mrxplorer-build-plan.md` ("Class catalog
 
 - Add an "Upcoming sessions" block to `/classes` and `/classes/leaders` showing each class's recurring slot **and its next concrete occurrence date**, computed from the pattern.
 - Add `startDate` (ISO 8601 with `-07:00`/`-08:00` Pacific offset) to each `CourseInstance` using that next occurrence.
-- **[OWNER INPUT — one narrow question, not the whole schedule]:** Z has said next occurrences should skip dates that collide with commonly observed US holidays, but how to handle the displaced session (skip the month vs. shift a week) is not yet decided. Compute the candidate dates first, flag any that land on/near a holiday, and confirm the handling with Z for just those cases.
+- **Holiday handling (confirmed):** do NOT auto-shift a class by a week when its recurring date collides with a commonly observed US holiday — that disrupts the rest of the schedule. Instead: compute the full set of candidate dates per class for the next ~12 months, flag any that land on or near a holiday, surface that short list to Z, and Z selects an alternate date **for each flagged instance only** (the rest of the pattern stays put). Hard-code Z's selected alternates into the schedule data; do not infer them.
 - Keep dates fresh per the Phase 4 checklist: rolled forward manually on each cycle, or generated at build time by a small script — either is fine, but a stale date is worse than no date.
 
 ### 3.3 [OWNER INPUT] Social proof
@@ -295,10 +341,20 @@ Test the form at `newsletter.html:564-568`. If the POST to `https://ai-for-mrx.b
 
 ---
 
+## Remaining open decisions (blocking specific tasks)
+
+These are the only items still requiring owner input. Everything else in this plan is implementable now.
+
+- **3.3 testimonials.** Z will collect 3–5 real, attributable quotes from past students or consulting clients and deliver them (format TBD by Z). Blocks the testimonial section on `/classes`, `/classes/leaders`, and the homepage, plus any `Review` / `aggregateRating` schema. No invented testimonials — ever.
+- **3.4 article review.** The 5 launch articles must be written or reviewed/edited by Z before publish. The implementer can draft structure, outlines, and pull from existing class descriptions + newsletter content, but the voice and experience claims must be hers (E-E-A-T requirement). Blocks article publication; does not block building the `/articles/` template and listing page.
+- **3.5 beehiiv embed snippet (conditional).** Only needed if the existing POST form at `newsletter.html:564-568` proves broken when tested. If broken, Z grabs the official embed snippet from the beehiiv dashboard for the AI Tips for MRX publication. Blocks only the email-capture fix, and only if the form is actually broken.
+- **2.5 waitlist lead-time constant.** The plan uses 72 hours (from the refund policy) as the auto-promotion threshold. If Z wants a different lead time for promotion vs. refund, decide before implementing 2.5. Default: 72h matches the refund window.
+- **2.7 competitor-screening policy refinement.** The plan ships with manual screening + synthetic workflows. If Z later wants an NDA option or a private-cohort upsell path, that is a future scope decision — not blocking the initial ship.
+
 ## Guardrails for the implementing model
 
 - **Do not** redesign, restyle, or refactor CSS. Match existing visual patterns exactly (copy nav/footer markup from `index.html`; new pages use `style.css` classes that already exist).
-- **Do not** touch `class-checkout/netlify/functions/*`, Stripe keys, price logic, or `main.js`.
+- **Do not** touch `class-checkout/netlify/functions/*` (with the explicit exceptions of task 2.5, which **adds** a new event branch to `stripe-webhook.js` and a new `join-waitlist.js` function, and task 2.7, which **adds** a required Company field to the checkout forms), Stripe keys, price logic, or `main.js`.
 - **Do not** change prices, class names, or class descriptions beyond expanding them; never invent testimonials, credentials, or student counts — those are [OWNER INPUT]. Session dates are not invented either: compute them from the confirmed schedule tables in `mrxplorer-build-plan.md`.
 - **Do not** add cookie banners, popups, or third-party scripts beyond the one analytics snippet Z chooses.
 - Preserve the extensionless-URL convention everywhere (`/classes`, not `/classes.html`).
@@ -314,3 +370,6 @@ Test the form at `newsletter.html:564-568`. If the POST to `https://ai-for-mrx.b
 - [ ] Articles section exists with ≥5 published, owner-reviewed articles and a weekly pipeline from the newsletter.
 - [ ] GSC + Bing verified, sitemap submitted, analytics on every page.
 - [ ] Class schedule visible on both class pages (recurring slots + next occurrence dates from `mrxplorer-build-plan.md`), with `CourseInstance.startDate` in schema; email capture verified working.
+- [ ] Automated waitlist live on both class pages: capacity sessions surface a waitlist form; refunds >72h out auto-promote the next entry via `stripe-webhook.js`; refunds inside 72h do not.
+- [ ] Over-capacity team callout + inquiry form on both class pages; leads emailed to Z; no private-session price published.
+- [ ] Company name captured on checkout (Stripe metadata); `/classes/leaders` states the synthetic-workflow policy in session description and FAQ.
