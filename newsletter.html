@@ -12,7 +12,116 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.mrxplorer.com/newsletter" />
 
-  <link rel="icon" href="https://www.mrxplorer.com/favicon.ico" />
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.mrxplorer.com/newsletter" />
+
+  <link rel="icon" href="/favicon.ico" />
+<!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Newsletters — MRXplorer" />
+  <meta name="twitter:description" content="Two free newsletters from MRXplorer: MRXplorations (AI news + trends for MRX) and AI Tips for MRX (weekly practical tips)." />
+  <meta name="twitter:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TB3GBL2RQ0');
+</script>
+
+<!-- Inline structured data (static for AEO crawlers) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.mrxplorer.com/#z-johnson",
+      "name": "Z Johnson",
+      "url": "https://www.mrxplorer.com/about"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.mrxplorer.com/#organization",
+      "name": "MRXplorer LLC",
+      "url": "https://www.mrxplorer.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mrxplorer.com/#website",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.mrxplorer.com/newsletter#webpage",
+      "url": "https://www.mrxplorer.com/newsletter",
+      "name": "Newsletters — MRXplorer",
+      "description": "Two free newsletters from MRXplorer: MRXplorations, a weekly AI news briefing for market researchers, and AI Tips for MRX, a weekly newsletter of practical AI tips for research work.",
+      "isPartOf": {
+        "@id": "https://www.mrxplorer.com/#website"
+      },
+      "about": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.mrxplorer.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Newsletter",
+            "item": "https://www.mrxplorer.com/newsletter"
+          }
+        ]
+      }
+    },
+    {
+      "@type": [
+        "CreativeWorkSeries",
+        "Periodical"
+      ],
+      "name": "MRXplorations",
+      "description": "Weekly AI news briefing for market researchers. AI-built, human-reviewed, analyzing 12+ sources of AI and tech news with a 'what does this mean for market research' lens.",
+      "url": "https://mrxplorations.beehiiv.com",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      }
+    },
+    {
+      "@type": [
+        "CreativeWorkSeries",
+        "Periodical"
+      ],
+      "name": "AI Tips for MRX",
+      "description": "Weekly practical AI tip for market researchers, drawn from real market research workflows.",
+      "url": "https://ai-for-mrx.beehiiv.com",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      }
+    }
+  ]
+}
+
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />

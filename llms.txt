@@ -1,0 +1,19 @@
+# MRXplorer
+
+> MRXplorer teaches live virtual AI classes for market researchers, insights
+> teams, and market research leaders. Taught by Z Johnson, a 20+ year market
+> research veteran. Three tracks: Beginner ($79/class or $249 for all 4),
+> Intermediate ($99/class or $499 for all 6), and Leaders ($499/session or
+> $2,595 for all 5). Classes are 90 minutes, live, virtual, Pacific time.
+
+## Classes
+- [Class catalog](https://class-checkout.netlify.app/): all beginner and intermediate classes with descriptions and pricing (on-domain catalog page coming soon)
+- [AI for Market Research Leaders](https://class-checkout.netlify.app/leaders.html): governance, risk, workflow mapping, and a 90-day implementation plan for research leaders (on-domain page coming soon)
+
+## About
+- [About Z Johnson](https://www.mrxplorer.com/about): instructor background — Microsoft research director, Ipsos, Course5, insights-tech leadership
+- [Contact](https://www.mrxplorer.com/contact): booking and inquiries
+
+## Resources
+- [Free tools](https://www.mrxplorer.com/tools): Workflow Diagnostic — free automation-complexity assessment for research teams
+- [Newsletters](https://www.mrxplorer.com/newsletter): MRXplorations (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)
