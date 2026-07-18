@@ -47,7 +47,18 @@ These make every later change measurable. The code parts are trivial; the accoun
 
 - **0.1 CONFIRMED DONE BY Z** Create a Google Search Console property for `mrxplorer.com` (domain property, DNS verification — Z controls DNS). sitemap.xml is uploaded to root folder.
 - **0.2 CONFIRMED DONE BY Z** Create a Bing Webmaster Tools property (imports from GSC in one click). Bing matters disproportionately here: its index feeds ChatGPT search.
-- **0.3** Add lightweight analytics to every page, immediately before `</head>`. Recommend Plausible (`<script defer data-domain="mrxplorer.com" src="https://plausible.io/js/script.outbound-links.js"></script>`) or GA4 — **[OWNER INPUT]** for the account/choice; wire whichever snippet Z provides into all 5 pages + both checkout pages.
+- **0.3** Add lightweight analytics to every page, immediately before `</head>`.
+GA4 tag script below. wire this into all 5 pages + both checkout pages.  —
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TB3GBL2RQ0');
+</script>
+
 - **Acceptance:** GSC + Bing verified; sitemap submitted; analytics events visible from all pages.
 
 ---
