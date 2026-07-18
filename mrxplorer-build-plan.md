@@ -93,16 +93,13 @@ check, no webhook for post-payment logic.
   October 1, 2025 (WA ESSB 5814). Z is tax-registered in WA. Stripe Tax must be
   enabled.
   - Tax code (confirmed via Stripe's own picker): `txcd_20060045`
-  - **Open decision, needs Z's input before finalizing:** tax_behavior —
-    tax-inclusive pricing (displayed price includes tax) vs. tax-exclusive (tax
-    added at checkout, shown separately). Default to `exclusive` unless told
-    otherwise, but confirm with Z before shipping.
-- **Email sender:** confirmation emails will come via Resend, likely from a
-  subdomain (e.g. `updates.mrxplorer.com` or `mail.mrxplorer.com`) rather than the
+  - tax_behavior —
+    tax-exclusive (tax
+    added at checkout, shown separately). 
+- **Email sender:** confirmation emails will come via Resend, from 
+  subdomain `updates.mrxplorer.com rather than the
   bare `zjohnson@mrxplorer.com`, to avoid touching existing Google Workspace
-  MX/SPF records. **Confirm the exact subdomain and verify Resend domain status
-  before wiring up the webhook email step** — this is a prerequisite, not
-  something to build around.
+  MX/SPF records.
 
 ---
 
@@ -131,8 +128,8 @@ Descriptions (from existing checkout copy):
 
 | Class | Date | Time |
 |---|---|---|
-| Chat / Projects / Cowork / Code(x) (Intermediate) | 2nd Monday | 12pm Pacific |
-| Data Privacy and Security | 2nd Monday | 9am Pacific |
+| Chat / Projects / Cowork / Code(x) (Intermediate) | 1st Monday | 12pm Pacific |
+| Data Privacy and Security | 2nd Monday | 12pm Pacific |
 | When to Automate | 3rd Monday | 12pm Pacific |
 | Projects — When You Actually Want a Siloed Experience | 4th Monday | 12pm Pacific |
 | Building and Working with Agents | 2nd Thursday | 12pm Pacific |
@@ -147,7 +144,7 @@ Descriptions (from existing checkout copy):
 - **Data Privacy and Security** — What plans allow you to put what data into the AI? What data should you never put into an AI? What settings should you have in place? Review some best practices no matter what subscription you have.
 - **When to Automate** — Learn how to evaluate your own routines and what to consider when deciding what to automate. Work through often-overlooked considerations that impact complexity.
 
-### Leaders (AI for Market Research Leaders)
+### Leaders (AI for Market Research Leaders) — $499/class, cohort (all 6) $2595
 
 | Class | Date | Time |
 |---|---|---|
@@ -158,8 +155,7 @@ Descriptions (from existing checkout copy):
 | **AI for Market Research Team Leaders — 6-week Cohort** (includes 90-day implementation) | starts 1st Friday, every 2 months | 9am Pacific |
 
 Note: pricing for Leaders individual/cohort classes was not confirmed in this
-conversation — check with Z or pull current pricing from `leaders.html` before
-building, do not assume parity with Intermediate pricing.
+conversation — check with Z or pull current pricing from `leaders.html` 
 
 ---
 
@@ -182,9 +178,8 @@ building, do not assume parity with Intermediate pricing.
 - Add a `sessionDate` (or `sessionId`) field to each class object in
   `class-checkout/index.html` and `leaders.html`, using the schedule table above.
 - Individual classes: fixed single date per billing cycle (no picker needed since
-  dates are fixed, not rolling — confirm whether the site should show the *next*
-  upcoming occurrence dynamically, or a static date per class. **Open question for
-  Z.**
+  dates are fixed, not rolling — show the *next*
+  upcoming occurrence dynamically, but skip known US holidays typically observed as c days off. **Confirm with Z how these will be handled once occurrences are identified**
 - Cohort sessions: locked as a set, no date picker, just cohort start date shown.
 
 ### Phase 3 — Capacity tracking
@@ -206,14 +201,12 @@ building, do not assume parity with Intermediate pricing.
   ```js
   tax_code: 'txcd_20060045',
   ```
-- Confirm `tax_behavior` (inclusive/exclusive) with Z before finalizing — see
-  Business Rules above.
+- `tax_behavior` should be exclusive with note that applicable tax will be applied at checkout (already confirmed with Z)
 - No DNS/dashboard work needed here — Z has confirmed WA tax registration is
   already active in Stripe.
 
 ### Phase 5 — Webhook + confirmation + calendar file
-**Prerequisite: confirm Resend domain verification is complete before building
-this phase.**
+**confirmed Resend domain verification is complete.**
 - New Netlify function listening for Stripe's `checkout.session.completed`
   webhook event.
 - On successful payment:
