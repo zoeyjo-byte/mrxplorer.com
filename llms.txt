@@ -7,8 +7,8 @@
 > $2,595 for all 5). Classes are 90 minutes, live, virtual, Pacific time.
 
 ## Classes
-- [Class catalog](https://class-checkout.netlify.app/): all beginner and intermediate classes with descriptions and pricing (on-domain catalog page coming soon)
-- [AI for Market Research Leaders](https://class-checkout.netlify.app/leaders.html): governance, risk, workflow mapping, and a 90-day implementation plan for research leaders (on-domain page coming soon)
+- [Class catalog](https://www.mrxplorer.com/classes): all beginner and intermediate classes with descriptions, pricing, and schedule
+- [AI for Market Research Leaders](https://www.mrxplorer.com/classes/leaders): governance, risk, workflow mapping, and a 90-day implementation plan for research leaders
 
 ## About
 - [About Z Johnson](https://www.mrxplorer.com/about): instructor background — Microsoft research director, Ipsos, Course5, insights-tech leadership

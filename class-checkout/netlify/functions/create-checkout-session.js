@@ -48,6 +48,7 @@ export default async (req, context) => {
                     tax_code: 'txcd_20060045',
                     metadata: {
                         class_date: item.date || '',
+                        company_name: item.company || '',
                     },
                 },
                 unit_amount: item.price * 100,

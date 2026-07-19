@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Courses — Register</title>
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Register for MRXplorer AI classes — beginner and intermediate tracks. Secure checkout powered by Stripe.">
+    <title>Register — MRXplorer AI Classes</title>
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -206,6 +208,7 @@
     </a>
     <nav style="display: flex; gap: 1.5rem; font-size: 1rem; font-weight: 600;">
         <a href="https://www.mrxplorer.com" target="_blank" style="color: #000; text-decoration: none;">Home</a>
+        <a href="https://www.mrxplorer.com/classes" style="color: #000; text-decoration: none;">Class Details</a>
         <a href="leaders.html" style="color: #000; text-decoration: none;">For Leaders</a>
     </nav>
 </header>
@@ -232,6 +235,11 @@
 </div>
 
 <!-- STICKY SUMMARY BAR -->
+<div style="margin: 1rem 0 1.5rem;">
+    <label for="company-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Company name (required)</label>
+    <input type="text" id="company-field" placeholder="Your company" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+</div>
+
 <div class="summary">
     <div class="total">Total: <span id="total-display">$0</span></div>
     <button class="checkout-btn" id="checkout-btn" disabled>
@@ -304,11 +312,11 @@
             { weekday: 2, nth: 4, hour: 12, minute: 0 },   // 4th Tue 12pm
         ],
         intermediate: [
-            { weekday: 1, nth: 2, hour: 12, minute: 0 },   // 2nd Mon 12pm — Chat/Projects
+            { weekday: 1, nth: 1, hour: 12, minute: 0 },   // 1st Mon 12pm — Chat/Projects
             { weekday: 4, nth: 4, hour: 12, minute: 0 },   // 4th Thu 12pm — Quant Analysis
             { weekday: 4, nth: 2, hour: 12, minute: 0 },   // 2nd Thu 12pm — Agents
             { weekday: 1, nth: 4, hour: 12, minute: 0 },   // 4th Mon 12pm — Projects
-            { weekday: 1, nth: 2, hour: 9, minute: 0 },    // 2nd Mon 9am — Data Privacy
+            { weekday: 1, nth: 2, hour: 12, minute: 0 },   // 2nd Mon 12pm — Data Privacy
             { weekday: 1, nth: 3, hour: 12, minute: 0 },   // 3rd Mon 12pm — Automate
         ],
     };
@@ -500,6 +508,9 @@
         const selected = getSelected();
         if (selected.length === 0) return;
 
+        const companyName = document.getElementById('company-field').value.trim();
+        if (!companyName) { alert('Please enter your company name.'); return; }
+
         const lineItems = Array.from(selected).map(cb => {
             const idx = parseInt(cb.dataset.index);
             const cls = allClasses[idx];
@@ -509,6 +520,7 @@
                 price: cls.price,
                 quantity: 1,
                 date: selectedDate ? selectedDate.value : null,
+                company: companyName,
             };
         });
 

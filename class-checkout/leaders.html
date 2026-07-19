@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI for Market Research Leaders — Register</title>
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Register for MRXplorer Leaders AI classes — governance, risk, workflow mapping, and 90-day implementation. Secure checkout powered by Stripe.">
+    <title>Register for Leaders — MRXplorer AI Classes</title>
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -240,6 +242,7 @@
     </a>
     <nav style="display: flex; gap: 1.5rem; font-size: 1rem; font-weight: 600;">
         <a href="https://www.mrxplorer.com" target="_blank" style="color: #000; text-decoration: none;">Home</a>
+        <a href="https://www.mrxplorer.com/classes/leaders" style="color: #000; text-decoration: none;">Class Details</a>
         <a href="index.html" style="color: #000; text-decoration: none;">Practitioner Classes</a>
     </nav>
 </header>
@@ -247,14 +250,19 @@
 <h1>📊 AI for Market Research Leaders</h1>
 <p class="subtitle">Select individual classes or join the full 6-week live cohort.</p>
 <div class="pricing-note">
-    <strong>Individual classes:</strong> $299 each &nbsp;·&nbsp;
-    <strong>6-week live cohort (all 5 sessions):</strong> $1,599<br />
+    <strong>Individual classes:</strong> $499 each &nbsp;·&nbsp;
+    <strong>6-week live cohort (all 5 sessions + 90-Day Implementation Plan):</strong> $2,595<br />
     <em>Note:</em> <strong>Your 90-Day Implementation Plan</strong> <span class="cohort-only">Cohort only</span> — only available as part of the full cohort.
 </div>
 
 <div class="class-list" id="class-list"></div>
 
 <!-- STICKY SUMMARY BAR -->
+<div style="margin: 1rem 0 1.5rem;">
+    <label for="company-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Company name (required)</label>
+    <input type="text" id="company-field" placeholder="Your company" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+</div>
+
 <div class="summary">
     <div class="total">Total: <span id="total-display">$0</span></div>
     <button class="checkout-btn" id="checkout-btn" disabled>
@@ -270,10 +278,10 @@
             You've selected all 4 available individual classes covering 5 weeks at <strong id="cohort-total">$2,495</strong>.
         </p>
         <div class="savings">
-            The cohort pass covers all 6 sessions (including the 90-Day Implementation Plan) for <strong>$2,695</strong> — just <strong id="cohort-diff">$200</strong> more for the implementation plan!
+            The cohort pass covers all 5 sessions plus the 90-Day Implementation Plan for <strong>$2,595</strong> — just <strong id="cohort-diff">$200</strong> more for the implementation plan!
         </div>
         <div class="modal-actions">
-            <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass — $1,599</button>
+            <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass — $2,595</button>
             <button class="btn-dismiss" id="cohort-dismiss">Keep Individual Classes</button>
         </div>
     </div>
@@ -320,7 +328,7 @@
 
     // ─── CONFIG ─────────────────────────────────────────────────────────
     const PRICE_PER_CLASS = 499;
-    const COHORT_PRICE = 2695;
+    const COHORT_PRICE = 2595;
     const COHORT_LINK = "https://buy.stripe.com/cNi28kcXJezL0H21q4es007";
 
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
@@ -477,6 +485,9 @@
         const selected = getSelected();
         if (selected.length === 0) return;
 
+        const companyName = document.getElementById('company-field').value.trim();
+        if (!companyName) { alert('Please enter your company name.'); return; }
+
         const lineItems = Array.from(selected).map(cb => {
             const index = parseInt(cb.dataset.index);
             const cls = purchasableClasses[index];
@@ -486,6 +497,7 @@
                 price: PRICE_PER_CLASS,
                 quantity: 1,
                 date: selectedDate ? selectedDate.value : null,
+                company: companyName,
             };
         });
 
