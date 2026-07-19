@@ -224,6 +224,26 @@
             color: #000;
         }
         .btn-dismiss:hover { background: #d0d0d0; }
+
+        /* Capacity display */
+        .date-picker .spots-info {
+            display: block;
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 0.2rem;
+        }
+        .date-picker .spots-low {
+            color: #c85e15;
+            font-weight: 600;
+        }
+        .date-picker .spots-full {
+            color: #999;
+        }
+        .date-picker label.date-option-full {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
@@ -289,6 +309,29 @@
 
 <script>
     // ─── SCHEDULE HELPERS ───────────────────────────────────────────────
+    const INDIVIDUAL_CAP = 12;
+
+    function makeKey(name, date) {
+        const safe = name.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60);
+        return `${safe}::${date || 'no-date'}`;
+    }
+
+    let capacityData = {};
+    async function loadCapacity() {
+        try {
+            const resp = await fetch('/api/capacity');
+            if (resp.ok) capacityData = await resp.json();
+        } catch (e) {
+            console.error('Failed to load capacity:', e);
+        }
+    }
+
+    function getSpotsRemaining(className, dateValue) {
+        const key = makeKey(className, dateValue);
+        const taken = capacityData[key] || 0;
+        return Math.max(0, INDIVIDUAL_CAP - taken);
+    }
+
     function getNthWeekdayOfMonth(year, month, weekday, nth) {
         const first = new Date(year, month, 1);
         const firstWeekday = first.getDay();
@@ -415,20 +458,41 @@
     container.appendChild(cohortDiv);
 
     // ─── RENDER DATES ───────────────────────────────────────────────────
-    document.querySelectorAll('#class-list .class-item:not(.cohort-only)').forEach(div => {
-        const idx = parseInt(div.dataset.index);
-        const cls = purchasableClasses[idx];
-        if (!cls.dates || cls.dates.length === 0) return;
+    function renderDates() {
+        document.querySelectorAll('#class-list .class-item:not(.cohort-only)').forEach(div => {
+            const idx = parseInt(div.dataset.index);
+            const cls = purchasableClasses[idx];
+            if (!cls.dates || cls.dates.length === 0) return;
 
-        const picker = document.createElement('div');
-        picker.className = 'date-picker';
-        picker.innerHTML = '<div class="date-label">Select your date:</div>' +
-            cls.dates.map((d, i) => `
-                <input type="radio" name="date-${idx}" id="d-${idx}-${i}" value="${formatDateValue(d)}" data-idx="${idx}" ${i === 0 ? 'checked' : ''}>
-                <label for="d-${idx}-${i}">${formatDate(d)}</label>
-            `).join('');
-        div.appendChild(picker);
-    });
+            let picker = div.querySelector('.date-picker');
+            if (!picker) {
+                picker = document.createElement('div');
+                picker.className = 'date-picker';
+                div.appendChild(picker);
+            }
+            const firstAvailIdx = cls.dates.findIndex(d => getSpotsRemaining(cls.name, formatDateValue(d)) > 0);
+            const defaultIdx = firstAvailIdx >= 0 ? firstAvailIdx : 0;
+            picker.innerHTML = '<div class="date-label">Select your date:</div>' +
+                cls.dates.map((d, i) => {
+                    const dateValue = formatDateValue(d);
+                    const remaining = getSpotsRemaining(cls.name, dateValue);
+                    const isFull = remaining <= 0;
+                    const isLow = remaining > 0 && remaining <= 3;
+                    const spotsClass = isFull ? 'spots-full' : (isLow ? 'spots-low' : 'spots-info');
+                    const spotsText = isFull ? 'Sold out' : `${remaining} ${remaining === 1 ? 'spot' : 'spots'} left`;
+                    return `
+                        <input type="radio" name="date-${idx}" id="d-${idx}-${i}" value="${dateValue}" data-idx="${idx}" ${i === defaultIdx && !isFull ? 'checked' : ''} ${isFull ? 'disabled' : ''}>
+                        <label for="d-${idx}-${i}" class="${isFull ? 'date-option-full' : ''}">
+                            ${formatDate(d)}
+                            <span class="${spotsClass}">${spotsText}</span>
+                        </label>
+                    `;
+                }).join('');
+        });
+    }
+
+    renderDates();
+    loadCapacity().then(() => renderDates());
 
     // ─── STATE & UPDATES ───────────────────────────────────────────────
     const totalDisplay = document.getElementById('total-display');
