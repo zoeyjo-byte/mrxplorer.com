@@ -1,1 +1,28 @@
-{}
+{
+  "Chat / Projects / Cowork / Code(x)": {
+    "2027-01-19": "2027-01-20",
+    "2027-02-16": "2027-02-17"
+  },
+  "Chat / Projects / Cowork / Code(x) (Intermediate)": {
+    "2026-09-07": "2026-09-09"
+  },
+  "Data Privacy and Security": {
+    "2026-10-12": "2026-10-14"
+  },
+  "When to Automate": {
+    "2027-01-18": "2027-01-20",
+    "2027-02-15": "2027-02-17"
+  },
+  "Quantitative Analysis with an LLM": {
+    "2026-11-26": "2026-11-19",
+    "2026-12-24": "2026-12-17"
+  },
+  "Workflows — Let's Map and Decide (2-part sequence)": {
+    "2026-11-27": "2026-11-18",
+    "2026-12-25": "2026-12-16",
+    "2027-06-18": "2027-06-16"
+  },
+  "AI for Market Research Team Leaders — 6-week Cohort": {
+    "2027-01-01": "2027-01-07"
+  }
+}

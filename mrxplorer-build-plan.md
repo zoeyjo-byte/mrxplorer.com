@@ -116,7 +116,7 @@ Nth occurrence of that weekday in the month.
 | AI as a Thinking Partner | 2nd Tuesday | 12pm Pacific |
 | Chat / Projects / Cowork / Code(x) | 3rd Tuesday | 12pm Pacific |
 | Hallucination, Pricing, and Privacy Basics | 4th Tuesday | 12pm Pacific |
-| **AI Beginners 4-week Bundle (cohort)** | starts 2nd Tuesday, every 2 months | 9am Pacific |
+| **AI Beginners 4-week Bundle (cohort)** | starts 1st Tuesday, every 2 months | 9am Pacific |
 
 Descriptions (from existing checkout copy):
 - **Prompt Frameworks for Better Results** — Learn how to set up prompts that get you good results, and then how to make the results even better.
@@ -134,7 +134,7 @@ Descriptions (from existing checkout copy):
 | Projects — When You Actually Want a Siloed Experience | 4th Monday | 12pm Pacific |
 | Building and Working with Agents | 2nd Thursday | 12pm Pacific |
 | Quantitative Analysis with an LLM | 4th Thursday | 12pm Pacific |
-| **Intermediate AI 6-week Cohort** | starts 2nd Thursday, every 2 months | 9am Pacific |
+| **Intermediate AI 6-week Cohort** | starts 1st Thursday, every 2 months | 9am Pacific |
 
 Descriptions (from existing checkout copy):
 - **Chat / Projects / Cowork / Code(x)** — Learn when to use each, and then build your first mini-app to help you with a traditional market research workflow.
