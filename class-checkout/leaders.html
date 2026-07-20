@@ -144,6 +144,17 @@
         .date-picker input[type="radio"] { display: none; }
         .date-picker .date-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
 
+        .cohort-register-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .cohort-start {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
         .summary {
             position: sticky; bottom: 0;
             background: white;
@@ -276,7 +287,10 @@
 </div>
 
 <div style="margin-bottom: 1.5rem;">
-    <button type="button" class="checkout-btn cohort-register">Register for the Leadership cohort — $2,595</button>
+    <div class="cohort-register-option">
+        <button type="button" class="checkout-btn cohort-register">Register for the Leadership cohort — $2,595</button>
+        <span class="cohort-start" id="cohort-start"></span>
+    </div>
 </div>
 
 <div class="class-list" id="class-list"></div>
@@ -426,6 +440,14 @@
     ];
     const GENERATED_SCHEDULE = {"AI Foundations for Market Research Leaders":["2026-08-05T12:00:00-07:00","2026-09-02T12:00:00-07:00"],"Practical AI":["2026-08-06T12:00:00-07:00","2026-09-03T12:00:00-07:00"],"Governance, Risk, and Tool Standardization":["2026-08-14T12:00:00-07:00","2026-09-11T12:00:00-07:00"],"Workflows — Let's Map and Decide (2-part sequence)":["2026-08-21T12:00:00-07:00","2026-08-28T12:00:00-07:00"]};
     const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-08-07T09:00:00-07:00","2026-09-04T09:00:00-07:00"]};
+
+    const generatedCohortStart = GENERATED_COHORTS[COHORT_NAME]?.[0];
+    const cohortStartDate = generatedCohortStart
+        ? new Date(generatedCohortStart)
+        : getNextOccurrences(COHORT_SCHEDULE.weekday, COHORT_SCHEDULE.nth, COHORT_SCHEDULE.hour, COHORT_SCHEDULE.minute, 1)[0];
+    document.getElementById('cohort-start').textContent = cohortStartDate
+        ? `Next cohort starts ${formatDate(cohortStartDate)}`
+        : 'Next cohort date to be announced';
 
     const purchasableClasses = [
         {
