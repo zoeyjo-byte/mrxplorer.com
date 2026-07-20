@@ -117,8 +117,8 @@ Markdown file per the llms.txt convention — a concise map of the site for LLM 
 
 > MRXplorer teaches live virtual AI classes for market researchers, insights
 > teams, and market research leaders. Taught by Z Johnson, a 20+ year market
-> research veteran. Three tracks: Beginner ($79/class or $249 for all 4),
-> Intermediate ($99/class or $499 for all 6), and Leaders ($499/session or
+> research veteran. Three tracks: Beginner ($129/class or $395 for all 4),
+> Intermediate ($199/class or $995 for all 6), and Leaders ($499/session or
 > $2,595 for all 5). Classes are 90 minutes, live, virtual, Pacific time.
 
 ## Classes
