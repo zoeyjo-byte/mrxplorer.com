@@ -1,5 +1,6 @@
 {
   "timezone": "America/Los_Angeles",
+  "firstStartDate": "2026-09-01",
   "horizonMonths": 12,
   "classes": [
     { "name": "Prompt Frameworks for Better Results", "page": "classes.html", "weekday": 2, "nth": [1], "hour": 12, "minute": 0 },
@@ -18,8 +19,8 @@
     { "name": "Workflows — Let's Map and Decide (2-part sequence)", "page": "classes/leaders.html", "weekday": 5, "nth": [3, 4], "hour": 12, "minute": 0, "sequence": true }
   ],
   "cohorts": [
-    { "name": "AI Beginners 4-Week Bundle (cohort)", "displayName": "AI Beginners 4-Week Bundle (Cohort)", "page": "classes.html", "weekday": 2, "nth": [2], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-08" },
-    { "name": "Intermediate AI 6-Week Cohort", "page": "classes.html", "weekday": 4, "nth": [2], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-08" },
-    { "name": "AI for Market Research Team Leaders — 6-week Cohort", "page": "classes/leaders.html", "weekday": 5, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-08" }
+    { "name": "AI Beginners 4-Week Bundle (cohort)", "displayName": "AI Beginners 4-Week Bundle (Cohort)", "page": "classes.html", "weekday": 2, "nth": [2], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-09" },
+    { "name": "Intermediate AI 6-Week Cohort", "page": "classes.html", "weekday": 4, "nth": [2], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-09" },
+    { "name": "AI for Market Research Team Leaders — 6-week Cohort", "page": "classes/leaders.html", "weekday": 5, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-09" }
   ]
 }

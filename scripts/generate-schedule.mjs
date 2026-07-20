@@ -35,6 +35,15 @@ function makeZonedDate(year, month, day, hour, minute) {
   return new Date(`${date}T${pad(hour)}:${pad(minute)}:00${offset}`);
 }
 
+function parseDateOnly(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) throw new Error(`Invalid firstStartDate: ${value}`);
+  return makeZonedDate(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 0, 0);
+}
+
+const configuredStart = config.firstStartDate ? parseDateOnly(config.firstStartDate) : now;
+const scheduleStart = configuredStart > now ? configuredStart : now;
+
 function formatISO(date) {
   const p = partsInZone(date);
   return `${dateOnly(p.year, p.month, p.day)}T${pad(p.hour)}:${pad(p.minute)}:00${offsetFor(date)}`;
@@ -56,7 +65,7 @@ function nthWeekday(year, month, weekday, nth) {
 }
 
 function candidateDates(rule, includePast = false) {
-  const start = partsInZone(now);
+  const start = partsInZone(scheduleStart);
   const end = new Date(now);
   end.setUTCMonth(end.getUTCMonth() + config.horizonMonths);
   const dates = [];
@@ -79,7 +88,7 @@ function candidateDates(rule, includePast = false) {
       const day = nthWeekday(year, month, rule.weekday, nth);
       if (!day) continue;
       const candidate = makeZonedDate(year, month, day.getUTCDate(), rule.hour, rule.minute);
-      if ((includePast || candidate > now) && candidate <= end) dates.push(candidate);
+      if ((includePast || candidate > now) && candidate >= scheduleStart && candidate <= end) dates.push(candidate);
     }
     month += 1;
     if (month > 11) { month = 0; year += 1; }
@@ -159,6 +168,7 @@ function buildEntry(rule) {
   }
   return {
     name: rule.name,
+    displayName: rule.displayName,
     page: rule.page,
     candidates: candidates.map(formatISO),
     labels: candidates.map(formatDate),

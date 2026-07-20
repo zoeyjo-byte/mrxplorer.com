@@ -35,9 +35,9 @@ const SCHEDULES = {
   'Governance, Risk, and Tool Standardization': { weekday: 5, nth: [2], hour: 12 },
   'Workflows — Let\'s Map and Decide (2-session sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
   'Workflows — Let\'s Map and Decide (2-part sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
-  'AI Beginners 4-Week Bundle (cohort)': { weekday: 2, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
-  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
-  'AI for Market Research Team Leaders — 6-week Cohort': { weekday: 5, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
+  'AI Beginners 4-Week Bundle (cohort)': { weekday: 2, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
+  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
+  'AI for Market Research Team Leaders — 6-week Cohort': { weekday: 5, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
 };
 
 export function isScheduledDate(name, date) {

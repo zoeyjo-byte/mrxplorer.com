@@ -451,7 +451,7 @@
     const PRICE_PER_CLASS = 499;
     const COHORT_PRICE = 2595;
     const COHORT_NAME = "AI for Market Research Team Leaders — 6-week Cohort";
-    const COHORT_SCHEDULE = { weekday: 5, nth: 1, hour: 9, minute: 0, cadenceMonths: 2, cadenceAnchorMonth: 7 };
+    const COHORT_SCHEDULE = { weekday: 5, nth: 1, hour: 9, minute: 0, cadenceMonths: 2, cadenceAnchorMonth: 8 };
 
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
@@ -461,8 +461,8 @@
         { weekday: 5, nth: 2, hour: 12, minute: 0 },   // 2nd Fri 12pm — Governance
         { weekday: 5, nth: [3, 4], hour: 12, minute: 0 },   // 3rd + 4th Fri 12pm — Workflows (2-part)
     ];
-    const GENERATED_SCHEDULE = {"AI Foundations for Market Research Leaders":["2026-08-05T12:00:00-07:00","2026-09-02T12:00:00-07:00"],"Practical AI":["2026-08-06T12:00:00-07:00","2026-09-03T12:00:00-07:00"],"Governance, Risk, and Tool Standardization":["2026-08-14T12:00:00-07:00","2026-09-11T12:00:00-07:00"],"Workflows — Let's Map and Decide (2-part sequence)":["2026-08-21T12:00:00-07:00","2026-08-28T12:00:00-07:00"]};
-    const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-08-07T09:00:00-07:00","2026-10-02T09:00:00-07:00"]};
+    const GENERATED_SCHEDULE = {"AI Foundations for Market Research Leaders":["2026-09-02T12:00:00-07:00","2026-10-07T12:00:00-07:00"],"Practical AI":["2026-09-03T12:00:00-07:00","2026-10-01T12:00:00-07:00"],"Governance, Risk, and Tool Standardization":["2026-09-11T12:00:00-07:00","2026-10-09T12:00:00-07:00"],"Workflows — Let's Map and Decide (2-part sequence)":["2026-09-18T12:00:00-07:00","2026-09-25T12:00:00-07:00"]};
+    const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-09-04T09:00:00-07:00","2026-11-06T09:00:00-08:00"]};
 
     const cohortDates = GENERATED_COHORTS[COHORT_NAME]?.length
         ? GENERATED_COHORTS[COHORT_NAME].slice(0, 2).map(date => new Date(date))
