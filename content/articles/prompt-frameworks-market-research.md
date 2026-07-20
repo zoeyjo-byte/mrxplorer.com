@@ -2,7 +2,10 @@
 title: Prompt Frameworks for Market Research: A Starter Guide
 slug: prompt-frameworks-market-research
 description: Three practical prompt frameworks for market researchers: role-based prompts, reasoning prompts, and structured outputs, with examples to adapt today.
+teaser: Three practical patterns with prompts you can adapt today.
 datePublished: 2026-07-19
+dateModified: 2026-07-19
+order: 5
 ---
 
 The most useful prompt frameworks for market researchers are role-based prompts, chain-of-thought prompts, and structured output prompts. Master these three and you can handle about 90 percent of what research teams actually use AI for. You don't need to learn 20 different frameworks with clever acronyms.

@@ -2,7 +2,10 @@
 title: How Market Researchers Are Actually Using AI in 2026
 slug: how-market-researchers-are-using-ai-2026
 description: How market researchers are using AI for open-end coding, research guides, transcript summaries, and practical workflow improvements in 2026.
+teaser: Where research teams are getting practical value, and where AI still falls short.
 datePublished: 2026-07-19
+dateModified: 2026-07-19
+order: 1
 ---
 
 Most market researchers in 2026 are using AI for three things: analyzing open-ended survey responses at scale, drafting discussion guides and screeners, and summarizing transcripts and findings. The hype has settled into something practical. Researchers aren't replacing their thinking with AI, but they are finding places where it saves real time.

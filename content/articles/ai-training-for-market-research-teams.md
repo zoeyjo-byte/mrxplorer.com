@@ -2,7 +2,10 @@
 title: AI Training for Market Research Teams: What to Look For (and What to Skip)
 slug: ai-training-for-market-research-teams
 description: What effective AI training for market research teams should teach, what to skip, and how to tell whether the training actually sticks.
+teaser: How to choose training that builds durable research skills instead of showcasing tools.
 datePublished: 2026-07-19
+dateModified: 2026-07-19
+order: 2
 ---
 
 The best AI training for market research teams teaches prompt engineering, output evaluation, and ethical data use, all through hands-on exercises using the actual tools and data types the team works with every day. Skip the vendor demos, the generic "AI for business" courses, and anything that doesn't let participants build a skill they can use immediately.

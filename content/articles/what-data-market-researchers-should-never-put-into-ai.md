@@ -2,7 +2,10 @@
 title: What Data Should Market Researchers Never Put Into an AI Tool?
 slug: what-data-market-researchers-should-never-put-into-ai
 description: A practical guide to PII, respondent data, client information, enterprise AI plans, and the questions researchers should ask before uploading data.
+teaser: A practical checklist for respondent PII, client data, and enterprise safeguards.
 datePublished: 2026-07-19
+dateModified: 2026-07-19
+order: 3
 ---
 
 Market researchers should never put personally identifiable respondent data (names, locations, phone numbers, email addresses, IP addresses) into a public AI tool unless the tool has a contractual data processing agreement and you've confirmed it's active. If you're using a free or pro account on ChatGPT, Claude, or similar tools, assume everything you type is visible to the provider and could surface elsewhere.

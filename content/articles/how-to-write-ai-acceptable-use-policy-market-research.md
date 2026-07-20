@@ -2,7 +2,10 @@
 title: How to Write an AI Acceptable-Use Policy for a Market Research Team
 slug: how-to-write-ai-acceptable-use-policy-market-research
 description: How to write a short, practical AI acceptable-use policy covering approved tools, data classification, output review, incident reporting, and ownership.
+teaser: A short, specific structure teams can actually follow.
 datePublished: 2026-07-19
+dateModified: 2026-07-19
+order: 4
 ---
 
 A good AI acceptable-use policy for a market research team lists which tools are approved for which data types, specifies what researchers can and can't input, and explains how to flag problems. It should fit on two pages. The goal is to let your team use AI productively without exposing respondent data or client information to unnecessary risk.

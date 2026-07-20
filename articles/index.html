@@ -42,19 +42,124 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebPage",
+      "@type": "CollectionPage",
       "@id": "https://www.mrxplorer.com/articles#webpage",
       "url": "https://www.mrxplorer.com/articles",
       "name": "Articles — MRXplorer | AI for Market Researchers",
       "description": "Practical articles on AI for market research: prompt engineering, AI governance, workflow automation, and how research teams are using AI in 2026.",
-      "isPartOf": { "@id": "https://www.mrxplorer.com/#website" },
-      "about": { "@id": "https://www.mrxplorer.com/#organization" },
+      "isPartOf": {
+        "@id": "https://www.mrxplorer.com/#website"
+      },
+      "about": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      },
+      "datePublished": "2026-07-19",
+      "dateModified": "2026-07-19",
       "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.mrxplorer.com" },
-          { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://www.mrxplorer.com/articles" }
-        ]
+        "@id": "https://www.mrxplorer.com/articles#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://www.mrxplorer.com/articles#list"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.mrxplorer.com/articles#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.mrxplorer.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://www.mrxplorer.com/articles"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://www.mrxplorer.com/articles#list",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "How Market Researchers Are Actually Using AI in 2026",
+          "url": "https://www.mrxplorer.com/articles/how-market-researchers-are-using-ai-2026"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI Training for Market Research Teams: What to Look For (and What to Skip)",
+          "url": "https://www.mrxplorer.com/articles/ai-training-for-market-research-teams"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What Data Should Market Researchers Never Put Into an AI Tool?",
+          "url": "https://www.mrxplorer.com/articles/what-data-market-researchers-should-never-put-into-ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "How to Write an AI Acceptable-Use Policy for a Market Research Team",
+          "url": "https://www.mrxplorer.com/articles/how-to-write-ai-acceptable-use-policy-market-research"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Prompt Frameworks for Market Research: A Starter Guide",
+          "url": "https://www.mrxplorer.com/articles/prompt-frameworks-market-research"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mrxplorer.com/#website",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer",
+      "description": "AI training for market research teams.",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.mrxplorer.com/#organization",
+      "name": "MRXplorer LLC",
+      "url": "https://www.mrxplorer.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.mrxplorer.com/assets/mrxplorer-logo.png",
+        "width": 1466,
+        "height": 442
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://mrxplorations.beehiiv.com"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.mrxplorer.com/#z-johnson",
+      "name": "Z Johnson",
+      "jobTitle": "Founder and Principal",
+      "description": "AI training consultant for market research agencies and insights teams. 20+ years in research operations. Founder of MRXplorer LLC.",
+      "url": "https://www.mrxplorer.com/about",
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://mrxplorations.beehiiv.com"
+      ],
+      "worksFor": {
+        "@id": "https://www.mrxplorer.com/#organization"
       }
     }
   ]
@@ -115,31 +220,42 @@
 
         <h2 id="articles-heading" class="visually-hidden">MRXplorer articles</h2>
 
-        <p style="font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 3rem; max-width: 680px;">
+        <p style="font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 0.75rem; max-width: 680px;">
           Practical guidance from Z Johnson on using AI in market research, choosing training, protecting research data, building team policies, and writing prompts that produce better work.
         </p>
 
+        <!-- BEGIN GENERATED: last-updated -->
+        <p style="font-size: 0.9rem; color: var(--gray-mid); margin-bottom: 3rem;">Written by <a href="/about">Z Johnson</a> · Last updated <time datetime="2026-07-19">July 19, 2026</time></p>
+        <!-- END GENERATED: last-updated -->
+
         <div class="article-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;">
+          <!-- BEGIN GENERATED: article-cards -->
           <a class="what-card" href="/articles/how-market-researchers-are-using-ai-2026">
             <h3>How Market Researchers Are Actually Using AI in 2026</h3>
             <p>Where research teams are getting practical value, and where AI still falls short.</p>
+            <p style="font-size: 0.85rem; margin-bottom: 0;"><time datetime="2026-07-19">July 19, 2026</time></p>
           </a>
           <a class="what-card" href="/articles/ai-training-for-market-research-teams">
             <h3>AI Training for Market Research Teams: What to Look For (and What to Skip)</h3>
             <p>How to choose training that builds durable research skills instead of showcasing tools.</p>
+            <p style="font-size: 0.85rem; margin-bottom: 0;"><time datetime="2026-07-19">July 19, 2026</time></p>
           </a>
           <a class="what-card" href="/articles/what-data-market-researchers-should-never-put-into-ai">
             <h3>What Data Should Market Researchers Never Put Into an AI Tool?</h3>
             <p>A practical checklist for respondent PII, client data, and enterprise safeguards.</p>
+            <p style="font-size: 0.85rem; margin-bottom: 0;"><time datetime="2026-07-19">July 19, 2026</time></p>
           </a>
           <a class="what-card" href="/articles/how-to-write-ai-acceptable-use-policy-market-research">
             <h3>How to Write an AI Acceptable-Use Policy for a Market Research Team</h3>
             <p>A short, specific structure teams can actually follow.</p>
+            <p style="font-size: 0.85rem; margin-bottom: 0;"><time datetime="2026-07-19">July 19, 2026</time></p>
           </a>
           <a class="what-card" href="/articles/prompt-frameworks-market-research">
             <h3>Prompt Frameworks for Market Research: A Starter Guide</h3>
             <p>Three practical patterns with prompts you can adapt today.</p>
+            <p style="font-size: 0.85rem; margin-bottom: 0;"><time datetime="2026-07-19">July 19, 2026</time></p>
           </a>
+          <!-- END GENERATED: article-cards -->
         </div>
 
       </div>
