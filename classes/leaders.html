@@ -69,7 +69,8 @@
         "@type": "CourseInstance",
         "courseMode": "Online",
         "courseWorkload": "PT1H30M",
-        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" }
+        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+        "startDate": "2026-08-05T12:00:00-07:00"
       },
       "offers": { "@type": "Offer", "price": 499, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.mrxplorer.com/classes/leaders", "category": "Paid" },
       "coursePrerequisites": "Experience leading research teams"
@@ -85,7 +86,8 @@
         "@type": "CourseInstance",
         "courseMode": "Online",
         "courseWorkload": "PT1H30M",
-        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" }
+        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+        "startDate": "2026-08-06T12:00:00-07:00"
       },
       "offers": { "@type": "Offer", "price": 499, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.mrxplorer.com/classes/leaders", "category": "Paid" },
       "coursePrerequisites": "Experience leading research teams"
@@ -101,7 +103,8 @@
         "@type": "CourseInstance",
         "courseMode": "Online",
         "courseWorkload": "PT1H30M",
-        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" }
+        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+        "startDate": "2026-08-14T12:00:00-07:00"
       },
       "offers": { "@type": "Offer", "price": 499, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.mrxplorer.com/classes/leaders", "category": "Paid" },
       "coursePrerequisites": "Experience leading research teams"
@@ -109,32 +112,26 @@
     {
       "@type": "Course",
       "name": "Workflows — Map and Decide (2-part sequence)",
-      "description": "Map the steps your teams use to develop studies and identify where AI can realistically make a difference.",
+      "description": "Map the steps your teams use to develop studies and identify where AI can realistically make a difference. The group exercise uses a provided synthetic workflow, not your team's real workflow, so you can engage openly without exposing proprietary processes.",
       "provider": { "@id": "https://www.mrxplorer.com/#organization" },
       "author": { "@id": "https://www.mrxplorer.com/#z-johnson" },
       "audience": { "@type": "Audience", "audienceType": "Market Research Leaders" },
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "Online",
-        "courseWorkload": "PT1H30M",
-        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" }
-      },
-      "offers": { "@type": "Offer", "price": 499, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.mrxplorer.com/classes/leaders", "category": "Paid" },
-      "coursePrerequisites": "Experience leading research teams"
-    },
-    {
-      "@type": "Course",
-      "name": "90-Day Implementation Plan",
-      "description": "Who should be involved, what steps to take, and what your next 90 days look like to align your team on tools, governance, and adoption.",
-      "provider": { "@id": "https://www.mrxplorer.com/#organization" },
-      "author": { "@id": "https://www.mrxplorer.com/#z-johnson" },
-      "audience": { "@type": "Audience", "audienceType": "Market Research Leaders" },
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "Online",
-        "courseWorkload": "PT1H30M",
-        "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" }
-      },
+      "hasCourseInstance": [
+        {
+          "@type": "CourseInstance",
+          "courseMode": "Online",
+          "courseWorkload": "PT1H30M",
+          "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+          "startDate": "2026-08-21T12:00:00-07:00"
+        },
+        {
+          "@type": "CourseInstance",
+          "courseMode": "Online",
+          "courseWorkload": "PT1H30M",
+          "instructor": { "@id": "https://www.mrxplorer.com/#z-johnson" },
+          "startDate": "2026-08-28T12:00:00-07:00"
+        }
+      ],
       "offers": { "@type": "Offer", "price": 499, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.mrxplorer.com/classes/leaders", "category": "Paid" },
       "coursePrerequisites": "Experience leading research teams"
     },
@@ -149,32 +146,32 @@
         {
           "@type": "Question",
           "name": "How big are the Leaders cohort sessions?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Individual class sessions are capped at 12 registrants. The Leadership cohort is capped at 9 registrants." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Individual class sessions are capped at 12 registrants. The Leadership cohort is capped at 9 registrants to keep the experience collaborative and hands-on." }
         },
         {
           "@type": "Question",
           "name": "Can my company pay by invoice?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Contact Z directly to arrange invoicing for organization-wide training. She can be reached at zjohnson@mrxplorer.com." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Contact Z directly at zjohnson@mrxplorer.com to arrange invoicing for organization-wide training." }
         },
         {
           "@type": "Question",
           "name": "Is there team pricing?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For teams larger than the cohort cap, the offering is a private team session scheduled separately. Contact Z to scope pricing and availability." }
+          "acceptedAnswer": { "@type": "Answer", "text": "For teams larger than the cohort cap, the offering is a private team session scheduled separately. Contact Z to scope pricing and availability — private sessions are priced per engagement, not per seat." }
         },
         {
           "@type": "Question",
           "name": "Will I have to share my team's real workflows?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. The workflow-mapping session uses a provided synthetic/redacted workflow designed for the group exercise. Your team's real workflows and data stay private." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The workflow-mapping session uses a provided synthetic/redacted workflow designed for the group exercise. Your team's real workflows and proprietary data stay private." }
         },
         {
           "@type": "Question",
           "name": "Are classes recorded?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Recordings are provided only to registrants of that session. If you cannot attend live, you still receive the recording." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Classes are recorded and the recording is provided only to those who registered for that session. If you cannot attend live, you still receive the recording." }
         },
         {
           "@type": "Question",
           "name": "What is the refund policy?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Full refund up to 72 hours before the scheduled start time. No refunds inside the 72-hour window." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Full refund available up to 72 hours before the scheduled start time. No refunds inside the 72-hour window." }
         }
       ]
     }
@@ -363,6 +360,7 @@ details.faq-item .faq-answer {
         <li><a href="/classes" class="nav-link">Classes</a></li>
         <li><a href="/classes/leaders" class="nav-link active">For Leaders</a></li>
         <li><a href="/tools" class="nav-link">Tools</a></li>
+        <li><a href="/articles" class="nav-link">Articles</a></li>
         <li><a href="/contact" class="nav-link">Contact</a></li>
         <li>
           <a href="/newsletter" class="nav-link nav-newsletter">
@@ -404,7 +402,7 @@ details.faq-item .faq-answer {
         <div class="tier-card">
           <div class="class-entry">
             <h3>AI Foundations for Market Research Leaders</h3>
-            <p class="class-meta">$499 · 90 min · live virtual · 1st Wednesday, 12pm Pacific · up to 12 students</p>
+            <p class="class-meta">$499 · 90 min · live virtual · 1st Wednesday, 12pm Pacific · <strong>Next: Aug 5, 2026</strong> · up to 12 students</p>
             <p class="class-desc">What can AI actually do in 2026, what are the key model differences (Claude vs. ChatGPT vs. Gemini vs. Perplexity), and where are teams overestimating or underusing it? Get the strategic grounding you need to make confident decisions about AI investment, tool selection, and team readiness. No technical background required.</p>
             <div class="class-actions">
               <a href="https://class-checkout.netlify.app/leaders.html" class="btn btn-primary btn-small" style="padding: 8px 18px; font-size: 0.9rem;">Register →</a>
@@ -423,7 +421,7 @@ details.faq-item .faq-answer {
 
           <div class="class-entry">
             <h3>Practical AI</h3>
-            <p class="class-meta">$499 · 90 min · live virtual · 1st Thursday, 12pm Pacific · up to 12 students</p>
+            <p class="class-meta">$499 · 90 min · live virtual · 1st Thursday, 12pm Pacific · <strong>Next: Aug 6, 2026</strong> · up to 12 students</p>
             <p class="class-desc">Learn for yourselves how to use tools like Claude Code or Codex to create agents, how to prompt tools better, and get a better understanding of how much time it actually takes to build automations. This session demystifies the hands-on work so you can evaluate your team's AI efforts realistically and set feasible timelines.</p>
             <div class="class-actions">
               <a href="https://class-checkout.netlify.app/leaders.html" class="btn btn-primary btn-small" style="padding: 8px 18px; font-size: 0.9rem;">Register →</a>
@@ -442,7 +440,7 @@ details.faq-item .faq-answer {
 
           <div class="class-entry">
             <h3>Governance, Risk, and Tool Standardization</h3>
-            <p class="class-meta">$499 · 90 min · live virtual · 2nd Friday, 12pm Pacific · up to 12 students</p>
+            <p class="class-meta">$499 · 90 min · live virtual · 2nd Friday, 12pm Pacific · <strong>Next: Aug 14, 2026</strong> · up to 12 students</p>
             <p class="class-desc">Explore best practices for setting acceptable use rules for AI, and review privacy and security policies that apply to different subscription licenses to help determine which tier you should buy for your organization. Walk away with a draft governance framework you can adapt for your team's specific compliance requirements.</p>
             <div class="class-actions">
               <a href="https://class-checkout.netlify.app/leaders.html" class="btn btn-primary btn-small" style="padding: 8px 18px; font-size: 0.9rem;">Register →</a>
@@ -461,7 +459,7 @@ details.faq-item .faq-answer {
 
           <div class="class-entry">
             <h3>Workflows — Let's Map and Decide (2-part sequence)</h3>
-            <p class="class-meta">$499 · 90 min each · live virtual · 3rd & 4th Friday, 12pm Pacific · up to 12 students</p>
+            <p class="class-meta">$499 · 90 min each · live virtual · 3rd & 4th Friday, 12pm Pacific · <strong>Next: Aug 21 & Aug 28, 2026</strong> · up to 12 students</p>
             <p class="class-desc"><strong>Week 1:</strong> Map the steps your teams use to develop studies and reports. <strong>Week 2:</strong> Identify where AI can realistically make a difference — and where it can't. The group exercise uses a <strong>provided synthetic workflow</strong>, not your team's real workflow, so you can engage openly without exposing proprietary processes.</p>
             <div class="class-actions">
               <a href="https://class-checkout.netlify.app/leaders.html" class="btn btn-primary btn-small" style="padding: 8px 18px; font-size: 0.9rem;">Register →</a>
@@ -487,7 +485,7 @@ details.faq-item .faq-answer {
         <div class="section-label">Leadership Cohort</div>
         <h2 class="section-heading" id="cohort-heading">The full 6-week <br><em>Leadership experience</em></h2>
         <p style="font-size: 1.05rem; color: var(--gray-mid); margin-bottom: 2rem; max-width: 680px;">
-          <strong>$2,595</strong> for all 5 sessions plus the 90-Day Implementation Plan. Cohort starts the <strong>1st Friday of the month, every 2 months, at 9am Pacific</strong>. Cohort caps at 9 registrants. Same content as the individual sessions, taught in a collaborative cohort format with your peers.
+          <strong>$2,595</strong> for all 5 sessions plus the 90-Day Implementation Plan. <strong>Next cohort starts Aug 7, 2026</strong> (1st Friday, every 2 months, at 9am Pacific). Cohort caps at 9 registrants. Same content as the individual sessions, taught in a collaborative cohort format with your peers.
         </p>
 
         <div class="cohort-card" style="margin-top: 0;">
@@ -604,6 +602,7 @@ details.faq-item .faq-answer {
             <li><a href="/classes">Classes</a></li>
             <li><a href="/classes/leaders">For Leaders</a></li>
             <li><a href="/tools">Tools</a></li>
+            <li><a href="/articles">Articles</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/newsletter">Newsletter</a></li>
           </ul>

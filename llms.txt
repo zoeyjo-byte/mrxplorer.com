@@ -16,4 +16,5 @@
 
 ## Resources
 - [Free tools](https://www.mrxplorer.com/tools): Workflow Diagnostic — free automation-complexity assessment for research teams
+- [Articles](https://www.mrxplorer.com/articles): practical guides on AI for market research
 - [Newsletters](https://www.mrxplorer.com/newsletter): MRXplorations (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)
