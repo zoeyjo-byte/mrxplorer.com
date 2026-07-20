@@ -108,7 +108,7 @@ check, no webhook for post-payment logic.
 All classes are 90 minutes, live virtual, Pacific time. "Nth [Weekday]" means the
 Nth occurrence of that weekday in the month.
 
-### Beginner — $79/class, cohort (all 4) $249
+### Beginner — $129/class, cohort (all 4) $395
 
 | Class | Date | Time |
 |---|---|---|
@@ -124,7 +124,7 @@ Descriptions (from existing checkout copy):
 - **Chat / Projects / Cowork / Code(x)** — Learn what each of these tools are within Claude and ChatGPT and when to use each.
 - **Hallucination, Pricing, and Privacy Basics** — A realistic look at AI's capabilities, privacy best practices, and why everyone talks about the price of tokens.
 
-### Intermediate — $99/class, cohort (all 6) $499
+### Intermediate — $199/class, cohort (all 6) $995
 
 | Class | Date | Time |
 |---|---|---|
