@@ -84,6 +84,16 @@
     const list = document.getElementById('purchase-list');
     const msg = document.getElementById('confirmation-msg');
 
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (character) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        }[character]));
+    }
+
     try {
         const data = sessionStorage.getItem('mrx_purchases');
         if (data) {
@@ -94,12 +104,15 @@
                 ? 'You\'re registered for 1 class. You\'ll receive a confirmation email with calendar files shortly.'
                 : `You're registered for ${count} classes. You'll receive a confirmation email with calendar files shortly.`;
 
-            list.innerHTML = items.map(item => `
-                <div class="purchase-item">
-                    <div class="name">${item.name}</div>
-                    ${item.date ? `<div class="date">${new Date(item.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })}</div>` : ''}
-                </div>
-            `).join('');
+            list.innerHTML = items.map(item => {
+                const dates = Array.isArray(item.dates) ? item.dates : [item.date];
+                return `
+                    <div class="purchase-item">
+                        <div class="name">${escapeHtml(item.name)}</div>
+                        ${dates.filter(Boolean).map(date => `<div class="date">${escapeHtml(new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }))}</div>`).join('')}
+                    </div>
+                `;
+            }).join('');
 
             sessionStorage.removeItem('mrx_purchases');
         }

@@ -4,7 +4,8 @@
 > teams, and market research leaders. Taught by Z Johnson, a 20+ year market
 > research veteran. Three tracks: Beginner ($79/class or $249 for all 4),
 > Intermediate ($99/class or $499 for all 6), and Leaders ($499/session or
-> $2,595 for all 5). Classes are 90 minutes, live, virtual, Pacific time.
+> $2,595 for all 5 sessions plus a 90-day implementation plan). Classes are 90
+> minutes, live, virtual, Pacific time.
 
 ## Classes
 - [Class catalog](https://www.mrxplorer.com/classes): all beginner and intermediate classes with descriptions, pricing, and schedule
@@ -17,4 +18,9 @@
 ## Resources
 - [Free tools](https://www.mrxplorer.com/tools): Workflow Diagnostic — free automation-complexity assessment for research teams
 - [Articles](https://www.mrxplorer.com/articles): practical guides on AI for market research
+  - [How Market Researchers Are Actually Using AI in 2026](https://www.mrxplorer.com/articles/how-market-researchers-are-using-ai-2026)
+  - [AI Training for Market Research Teams](https://www.mrxplorer.com/articles/ai-training-for-market-research-teams)
+  - [What Data Should Market Researchers Never Put Into an AI Tool?](https://www.mrxplorer.com/articles/what-data-market-researchers-should-never-put-into-ai)
+  - [How to Write an AI Acceptable-Use Policy](https://www.mrxplorer.com/articles/how-to-write-ai-acceptable-use-policy-market-research)
+  - [Prompt Frameworks for Market Research](https://www.mrxplorer.com/articles/prompt-frameworks-market-research)
 - [Newsletters](https://www.mrxplorer.com/newsletter): MRXplorations (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)

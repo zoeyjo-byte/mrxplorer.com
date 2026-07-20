@@ -1,0 +1,37 @@
+name: Refresh Class Schedule
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/schedule.json'
+      - 'data/schedule-overrides.json'
+      - 'scripts/generate-schedule.mjs'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate schedule and holiday report
+        run: node scripts/generate-schedule.mjs
+      - name: Commit generated schedule when changed
+        run: |
+          if git diff --quiet; then
+            echo "Schedule is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add classes.html classes/leaders.html class-checkout/index.html class-checkout/leaders.html data/generated-schedule.json data/holiday-review.md
+          git commit -m "Refresh generated class schedule"
+          git push

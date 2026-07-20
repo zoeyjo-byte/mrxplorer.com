@@ -231,7 +231,7 @@ A full catalog page using the shared `style.css`, same nav/footer as `index.html
 
 ### 2.2 Create `/classes/leaders` (new `classes/leaders.html`)
 
-Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each session into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure, and recurring schedule slots from `mrxplorer-build-plan.md` (e.g. Foundations: 1st Wednesday 12pm PT; 6-week cohort starts 1st Friday every 2 months, 9am PT). Pricing is confirmed at $499/class, $2,595 for the full cohort — but note the session-count phrasing is inconsistent across sources (homepage says "all 5 sessions"; the build plan heading says "all 6", reflecting the 6-week cohort format that includes the 90-day implementation work). **Resolve the count against `class-checkout/leaders.html` (the checkout source of truth) before writing the page copy; don't propagate the discrepancy.** Same tax-exclusive pricing note as 2.1. Leaders-specific FAQ — confirmed answers:
+Same treatment for the Leaders track. Title: `AI Training for Market Research Leaders — Governance & 90-Day Plan | MRXplorer`. This page targets the "market research team leaders" audience from the site goal directly: expand each session into a paragraph, state the outcomes (governance rules, tool standardization decision, 90-day implementation plan), pricing, cohort structure, and recurring schedule slots from `mrxplorer-build-plan.md` (e.g. Foundations: 1st Wednesday 12pm PT; 6-week cohort starts 1st Friday every 2 months, 9am PT). The checkout source confirms the cohort includes all 5 scheduled sessions plus the cohort-only 90-day implementation plan for $2,595. Same tax-exclusive pricing note as 2.1. Leaders-specific FAQ — confirmed answers:
   - "Can my company pay by invoice?" — **Yes.** Contact Z directly to arrange invoicing for organization-wide training.
   - "Is there team pricing?" — For teams larger than the cohort cap, the offering is a **private team session scheduled separately** (see task 2.6). Contact Z to scope.
   - "What if competitors are in my cohort?" — See task 2.7: company name is screened at registration, and the workflow-mapping session uses a synthetic/redacted workflow so participants never have to expose their real workflows to the group.
@@ -306,9 +306,9 @@ The recurring schedule is confirmed in `mrxplorer-build-plan.md` ("Class catalog
 - **Holiday handling (confirmed):** do NOT auto-shift a class by a week when its recurring date collides with a commonly observed US holiday — that disrupts the rest of the schedule. Instead: compute the full set of candidate dates per class for the next ~12 months, flag any that land on or near a holiday, surface that short list to Z, and Z selects an alternate date **for each flagged instance only** (the rest of the pattern stays put). Hard-code Z's selected alternates into the schedule data; do not infer them.
 - Keep dates fresh per the Phase 4 checklist: rolled forward manually on each cycle, or generated at build time by a small script — either is fine, but a stale date is worse than no date.
 
-### 3.3 [OWNER INPUT] Social proof
+### 3.3 Social proof (published)
 
-Collect 3–5 testimonials/results from past students or consulting clients. Add a testimonial section to `/classes`, `/classes/leaders`, and the homepage. Mark up with `Review`/`aggregateRating` schema only if they are genuine, attributable quotes.
+Four genuine, attributable testimonials supplied in `Testimonials July 2026.pdf` are published on `/classes`, `/classes/leaders`, and the homepage. They are displayed as visible testimonials without `Review`/`aggregateRating` schema because they describe leadership and consulting work rather than confirmed class outcomes.
 
 ### 3.4 Build an articles section (`/articles/`) seeded from newsletter content
 
@@ -321,7 +321,7 @@ This is the engine for AEO visibility; everything above is plumbing.
   3. "What Data Should Market Researchers Never Put Into an AI Tool?" — pulls from the Data Privacy class; strong AEO snippet bait.
   4. "How to Write an AI Acceptable-Use Policy for a Market Research Team" — leaders query, links to /classes/leaders.
   5. "Prompt Frameworks for Market Research: A Starter Guide" — pulls from the beginner class; include one real copy-paste prompt like the newsletter sample (`newsletter.html:605-619`).
-- **[OWNER INPUT]** Z reviews/edits every article before publish — the voice and the experience claims must be hers (E-E-A-T is the point; generic AI copy defeats it).
+- The five launch articles supplied in `Articles for Website July 2026.pdf` are published from `content/articles/`; future articles still need owner review before publication.
 - Ongoing cadence: each week, adapt one AI Tips for MRX issue into a short on-site article (the tip content already exists; the newsletter links to the article, the article links to the newsletter signup — both properties reinforce each other instead of beehiiv keeping all the content equity).
 - Add `/articles/` + each article to `sitemap.xml` and an "Articles" link to nav/footer on all pages; add the section to `llms.txt`.
 
@@ -345,9 +345,9 @@ Test the form at `newsletter.html:564-568`. If the POST to `https://ai-for-mrx.b
 
 These are the only items still requiring owner input. Everything else in this plan is implementable now.
 
-- **3.3 testimonials.** Z will collect 3–5 real, attributable quotes from past students or consulting clients and deliver them (format TBD by Z). Blocks the testimonial section on `/classes`, `/classes/leaders`, and the homepage, plus any `Review` / `aggregateRating` schema. No invented testimonials — ever.
-- **3.4 article review.** The 5 launch articles must be written or reviewed/edited by Z before publish. The implementer can draft structure, outlines, and pull from existing class descriptions + newsletter content, but the voice and experience claims must be hers (E-E-A-T requirement). Blocks article publication; does not block building the `/articles/` template and listing page.
-- **3.5 beehiiv embed snippet (conditional).** Only needed if the existing POST form at `newsletter.html:564-568` proves broken when tested. If broken, Z grabs the official embed snippet from the beehiiv dashboard for the AI Tips for MRX publication. Blocks only the email-capture fix, and only if the form is actually broken.
+- **3.3 testimonials.** Resolved: four attributable testimonials were supplied and published. No review schema is used because they are not explicitly class/student reviews.
+- **3.4 article review.** Resolved for the five launch articles supplied in the July 2026 PDF. Future newsletter-derived articles still need owner review before publication.
+- **3.5 beehiiv embed snippet.** Resolved: the official AI Tips for MRX embed is installed in `newsletter.html`. Live subscriber testing remains.
 - **2.5 waitlist lead-time constant.** The plan uses 72 hours (from the refund policy) as the auto-promotion threshold. If Z wants a different lead time for promotion vs. refund, decide before implementing 2.5. Default: 72h matches the refund window.
 - **2.7 competitor-screening policy refinement.** The plan ships with manual screening + synthetic workflows. If Z later wants an NDA option or a private-cohort upsell path, that is a future scope decision — not blocking the initial ship.
 
@@ -367,7 +367,7 @@ These are the only items still requiring owner input. Everything else in this pl
 - [ ] Every page has a unique, accurate title, meta description, canonical, OG + Twitter tags.
 - [ ] `/classes` and `/classes/leaders` exist on-domain, fully describe the product, and are the only pages linking out to the Netlify checkout (which is noindexed and branded).
 - [ ] Homepage FAQ is visible text with matching schema.
-- [ ] Articles section exists with ≥5 published, owner-reviewed articles and a weekly pipeline from the newsletter.
+- [x] Articles section exists with 5 published, owner-provided launch articles and a weekly pipeline from the newsletter.
 - [ ] GSC + Bing verified, sitemap submitted, analytics on every page.
 - [ ] Class schedule visible on both class pages (recurring slots + next occurrence dates from `mrxplorer-build-plan.md`), with `CourseInstance.startDate` in schema; email capture verified working.
 - [ ] Automated waitlist live on both class pages: capacity sessions surface a waitlist form; refunds >72h out auto-promote the next entry via `stripe-webhook.js`; refunds inside 72h do not.

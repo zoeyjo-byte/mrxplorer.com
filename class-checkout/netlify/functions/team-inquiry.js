@@ -5,6 +5,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'updates@mrxplorer.com';
 const Z_EMAIL = 'zjohnson@mrxplorer.com';
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[character]));
+}
+
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
@@ -29,7 +39,10 @@ export default async (req, context) => {
   try {
     const { name, email, company, teamSize, track } = await req.json();
 
-    if (!name || !email || !company || !teamSize || !track) {
+    const validEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (typeof name !== 'string' || name.trim().length === 0 || name.length > 200 ||
+        !validEmail || email.length > 320 || typeof company !== 'string' || company.trim().length === 0 ||
+        company.length > 200 || !teamSize || !track) {
       return new Response(JSON.stringify({ error: 'name, email, company, teamSize, and track are required' }), {
         status: 400,
         headers: corsHeaders(),
@@ -44,11 +57,11 @@ export default async (req, context) => {
         html: `
           <h1>Team Training Inquiry</h1>
           <table style="border-collapse: collapse;">
-            <tr><td style="padding: 8px; font-weight: 600;">Name:</td><td style="padding: 8px;">${name}</td></tr>
-            <tr><td style="padding: 8px; font-weight: 600;">Email:</td><td style="padding: 8px;">${email}</td></tr>
-            <tr><td style="padding: 8px; font-weight: 600;">Company:</td><td style="padding: 8px;">${company}</td></tr>
-            <tr><td style="padding: 8px; font-weight: 600;">Team Size:</td><td style="padding: 8px;">${teamSize}</td></tr>
-            <tr><td style="padding: 8px; font-weight: 600;">Track:</td><td style="padding: 8px;">${track}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Name:</td><td style="padding: 8px;">${escapeHtml(name)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Email:</td><td style="padding: 8px;">${escapeHtml(email)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Company:</td><td style="padding: 8px;">${escapeHtml(company)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Team Size:</td><td style="padding: 8px;">${escapeHtml(teamSize)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Track:</td><td style="padding: 8px;">${escapeHtml(track)}</td></tr>
           </table>
           <p>This inquiry came from the team training form on the MRXplorer website.</p>
         `,

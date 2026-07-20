@@ -144,7 +144,7 @@ Descriptions (from existing checkout copy):
 - **Data Privacy and Security** — What plans allow you to put what data into the AI? What data should you never put into an AI? What settings should you have in place? Review some best practices no matter what subscription you have.
 - **When to Automate** — Learn how to evaluate your own routines and what to consider when deciding what to automate. Work through often-overlooked considerations that impact complexity.
 
-### Leaders (AI for Market Research Leaders) — $499/class, cohort (all 6) $2595
+### Leaders (AI for Market Research Leaders) — $499/class, cohort (all 5 sessions plus 90-day implementation plan) $2595
 
 | Class | Date | Time |
 |---|---|---|
@@ -154,8 +154,8 @@ Descriptions (from existing checkout copy):
 | Workflows — Let's Map and Decide (2-part) | 3rd & 4th Friday | 12pm Pacific |
 | **AI for Market Research Team Leaders — 6-week Cohort** (includes 90-day implementation) | starts 1st Friday, every 2 months | 9am Pacific |
 
-Note: pricing for Leaders individual/cohort classes was not confirmed in this
-conversation — check with Z or pull current pricing from `leaders.html` 
+Leaders pricing is confirmed at $499 per individual class and $2,595 for the
+full cohort, including the 90-day implementation plan.
 
 ---
 

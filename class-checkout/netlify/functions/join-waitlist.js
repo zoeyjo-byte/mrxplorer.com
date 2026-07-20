@@ -1,4 +1,5 @@
 import { getStore } from '@netlify/blobs';
+import { CATALOG, isScheduledDate } from './catalog.js';
 
 const ALLOWED_ORIGIN = 'https://www.mrxplorer.com';
 
@@ -9,6 +10,21 @@ function corsHeaders() {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'application/json',
   };
+}
+
+function calendarDate(date) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return null;
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(parsed);
+  return [
+    parts.find(part => part.type === 'year')?.value,
+    parts.find(part => part.type === 'month')?.value,
+    parts.find(part => part.type === 'day')?.value,
+  ].join('-');
 }
 
 export default async (req, context) => {
@@ -26,8 +42,12 @@ export default async (req, context) => {
   try {
     const { name, email, className, sessionDate } = await req.json();
 
-    if (!name || !email || !className) {
-      return new Response(JSON.stringify({ error: 'name, email, and className are required' }), {
+    const normalizedDate = typeof sessionDate === 'string' ? calendarDate(sessionDate) : null;
+    const validEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (typeof name !== 'string' || name.trim().length === 0 || name.length > 200 ||
+        !validEmail || email.length > 320 || typeof className !== 'string' ||
+        !normalizedDate || !CATALOG[className] || !isScheduledDate(className, sessionDate)) {
+      return new Response(JSON.stringify({ error: 'name, email, className, and sessionDate are required' }), {
         status: 400,
         headers: corsHeaders(),
       });
@@ -35,11 +55,11 @@ export default async (req, context) => {
 
     const store = getStore('waitlist');
     const safe = className.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60);
-    const key = `${safe}::${sessionDate || 'any'}`;
+    const key = `${safe}::${normalizedDate}`;
 
     const existing = await store.get(key, { type: 'json' });
     const entries = existing || [];
-    entries.push({ name, email, createdAt: new Date().toISOString() });
+    entries.push({ name: name.trim(), email: email.trim().toLowerCase(), status: 'waiting', createdAt: new Date().toISOString() });
     await store.set(key, JSON.stringify(entries));
 
     return new Response(JSON.stringify({ received: true, position: entries.length }), {

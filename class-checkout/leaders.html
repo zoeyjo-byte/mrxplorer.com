@@ -275,6 +275,10 @@
     <em>Note:</em> <strong>Your 90-Day Implementation Plan</strong> <span class="cohort-only">Cohort only</span> — only available as part of the full cohort.
 </div>
 
+<div style="margin-bottom: 1.5rem;">
+    <button type="button" class="checkout-btn cohort-register">Register for the Leadership cohort — $2,595</button>
+</div>
+
 <div class="class-list" id="class-list"></div>
 
 <!-- STICKY SUMMARY BAR -->
@@ -313,7 +317,17 @@
 
     function makeKey(name, date) {
         const safe = name.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60);
-        return `${safe}::${date || 'no-date'}`;
+        if (!date) return `${safe}::no-date`;
+        const parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric', month: '2-digit', day: '2-digit',
+        }).formatToParts(new Date(date));
+        const calendarDate = [
+            parts.find(part => part.type === 'year')?.value,
+            parts.find(part => part.type === 'month')?.value,
+            parts.find(part => part.type === 'day')?.value,
+        ].join('-');
+        return `${safe}::${calendarDate}`;
     }
 
     let capacityData = {};
@@ -333,36 +347,63 @@
     }
 
     function getNthWeekdayOfMonth(year, month, weekday, nth) {
-        const first = new Date(year, month, 1);
-        const firstWeekday = first.getDay();
+        const first = new Date(Date.UTC(year, month, 1));
+        const firstWeekday = first.getUTCDay();
         let diff = weekday - firstWeekday;
         if (diff < 0) diff += 7;
         const day = 1 + diff + (nth - 1) * 7;
-        const lastDay = new Date(year, month + 1, 0).getDate();
+        const lastDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
         if (day > lastDay) return null;
-        return new Date(year, month, day);
+        return new Date(Date.UTC(year, month, day));
+    }
+
+    function getPacificOffset(date) {
+        const value = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            timeZoneName: 'longOffset',
+        }).formatToParts(date).find(part => part.type === 'timeZoneName').value;
+        if (value === 'GMT') return '+00:00';
+        const offset = value.replace('GMT', '');
+        return /^[+-]\d$/.test(offset) ? `${offset[0]}0${offset[1]}:00` : offset;
+    }
+
+    function makePacificDate(year, month, day, hour, minute) {
+        const offset = getPacificOffset(new Date(Date.UTC(year, month, day, 12)));
+        const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return new Date(`${date}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00${offset}`);
     }
 
     function getNextOccurrences(weekday, nth, hour, minute, count) {
         const results = [];
         const now = new Date();
-        let year = now.getFullYear();
-        let month = now.getMonth();
-        if (month < 8) month = 8;
+        const nowParts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric',
+            month: 'numeric',
+        }).formatToParts(now);
+        let year = Number(nowParts.find(part => part.type === 'year').value);
+        let month = Number(nowParts.find(part => part.type === 'month').value) - 1;
+        const weekdays = Array.isArray(nth) ? nth : [nth];
         while (results.length < count) {
-            const date = getNthWeekdayOfMonth(year, month, weekday, nth);
-            if (date && date > now) {
-                date.setHours(hour, minute, 0, 0);
-                results.push(date);
+            for (const occurrence of weekdays) {
+                const date = getNthWeekdayOfMonth(year, month, weekday, occurrence);
+                if (date) {
+                    const candidate = makePacificDate(year, month, date.getUTCDate(), hour, minute);
+                    if (candidate > now) results.push(candidate);
+                }
             }
             month++;
             if (month > 11) { month = 0; year++; }
         }
-        return results;
+        return results.sort((a, b) => a - b).slice(0, count);
     }
 
     function formatDate(d) {
-        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+        return new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
+            hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+        }).format(d);
     }
 
     function formatDateValue(d) {
@@ -372,7 +413,8 @@
     // ─── CONFIG ─────────────────────────────────────────────────────────
     const PRICE_PER_CLASS = 499;
     const COHORT_PRICE = 2595;
-    const COHORT_LINK = "https://buy.stripe.com/cNi28kcXJezL0H21q4es007";
+    const COHORT_NAME = "AI for Market Research Team Leaders — 6-week Cohort";
+    const COHORT_SCHEDULE = { weekday: 5, nth: 1, hour: 9, minute: 0 };
 
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
@@ -380,8 +422,10 @@
         { weekday: 3, nth: 1, hour: 12, minute: 0 },   // 1st Wed 12pm — AI Foundations
         { weekday: 4, nth: 1, hour: 12, minute: 0 },   // 1st Thu 12pm — Practical AI
         { weekday: 5, nth: 2, hour: 12, minute: 0 },   // 2nd Fri 12pm — Governance
-        { weekday: 5, nth: 3, hour: 12, minute: 0 },   // 3rd Fri 12pm — Workflows (2-part)
+        { weekday: 5, nth: [3, 4], hour: 12, minute: 0 },   // 3rd + 4th Fri 12pm — Workflows (2-part)
     ];
+    const GENERATED_SCHEDULE = {"AI Foundations for Market Research Leaders":["2026-08-05T12:00:00-07:00","2026-09-02T12:00:00-07:00"],"Practical AI":["2026-08-06T12:00:00-07:00","2026-09-03T12:00:00-07:00"],"Governance, Risk, and Tool Standardization":["2026-08-14T12:00:00-07:00","2026-09-11T12:00:00-07:00"],"Workflows — Let's Map and Decide (2-part sequence)":["2026-08-21T12:00:00-07:00","2026-08-28T12:00:00-07:00"]};
+    const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-08-07T09:00:00-07:00","2026-09-04T09:00:00-07:00"]};
 
     const purchasableClasses = [
         {
@@ -397,7 +441,7 @@
             desc: "Explore best practices for setting acceptable use rules for AI, and review privacy and security policies that apply to different subscription licenses to help determine which tier you should buy for your organization.",
         },
         {
-            name: "Workflows — Let's Map and Decide (2-session sequence)",
+            name: "Workflows — Let's Map and Decide (2-part sequence)",
             desc: "Week 1, we map the steps your teams use to develop studies and reports. Week 2, we identify where AI can realistically make a difference.",
         },
     ];
@@ -412,7 +456,7 @@
 
     purchasableClasses.forEach((cls, index) => {
         const sched = LEADER_SCHEDULE[index];
-        const dates = sched ? getNextOccurrences(sched.weekday, sched.nth, sched.hour, sched.minute, 2) : [];
+        const dates = GENERATED_SCHEDULE[cls.name]?.map(date => new Date(date)) || (sched ? getNextOccurrences(sched.weekday, sched.nth, sched.hour, sched.minute, 2) : []);
         cls.dates = dates;
         cls.schedule = sched;
 
@@ -465,12 +509,23 @@
             if (!cls.dates || cls.dates.length === 0) return;
 
             let picker = div.querySelector('.date-picker');
-            if (!picker) {
+             if (!picker) {
                 picker = document.createElement('div');
                 picker.className = 'date-picker';
-                div.appendChild(picker);
-            }
-            const firstAvailIdx = cls.dates.findIndex(d => getSpotsRemaining(cls.name, formatDateValue(d)) > 0);
+                 div.appendChild(picker);
+             }
+             if (Array.isArray(cls.schedule?.nth)) {
+                 const dateValues = cls.dates.map(formatDateValue);
+                 const isFull = dateValues.some(dateValue => getSpotsRemaining(cls.name, dateValue) <= 0);
+                 picker.innerHTML = '<div class="date-label">Select the sequence dates:</div>' + `
+                     <input type="radio" name="date-${idx}" id="d-${idx}-sequence" value="${dateValues[0]}" data-dates='${JSON.stringify(dateValues)}' ${isFull ? 'disabled' : 'checked'}>
+                     <label for="d-${idx}-sequence" class="${isFull ? 'date-option-full' : ''}">
+                         ${cls.dates.map(formatDate).join(' + ')}
+                         <span class="${isFull ? 'spots-full' : 'spots-info'}">${isFull ? 'Sold out' : `${INDIVIDUAL_CAP} spots per session`}</span>
+                     </label>`;
+                 return;
+             }
+             const firstAvailIdx = cls.dates.findIndex(d => getSpotsRemaining(cls.name, formatDateValue(d)) > 0);
             const defaultIdx = firstAvailIdx >= 0 ? firstAvailIdx : 0;
             picker.innerHTML = '<div class="date-label">Select your date:</div>' +
                 cls.dates.map((d, i) => {
@@ -529,7 +584,7 @@
     // ─── MODAL ACTIONS ──────────────────────────────────────────────────
     document.getElementById('cohort-go').addEventListener('click', () => {
         modal.classList.remove('active');
-        window.location.href = COHORT_LINK;
+        beginCohortCheckout();
     });
 
     document.getElementById('cohort-dismiss').addEventListener('click', () => {
@@ -545,6 +600,42 @@
     });
 
     // ─── CHECKOUT ───────────────────────────────────────────────────────
+    async function requestCheckout(lineItems, companyName) {
+        const response = await fetch(CHECKOUT_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: lineItems, companyName }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || data.error || 'Failed to create checkout session');
+        sessionStorage.setItem('mrx_purchases', JSON.stringify(lineItems));
+        window.location.href = data.url;
+    }
+
+    async function beginCohortCheckout() {
+        const companyName = document.getElementById('company-field').value.trim();
+        if (!companyName) { alert('Please enter your company name.'); return; }
+
+        const startDate = GENERATED_COHORTS[COHORT_NAME]?.[0]
+            ? new Date(GENERATED_COHORTS[COHORT_NAME][0])
+            : getNextOccurrences(COHORT_SCHEDULE.weekday, COHORT_SCHEDULE.nth, COHORT_SCHEDULE.hour, COHORT_SCHEDULE.minute, 1)[0];
+        if (!startDate) { alert('No upcoming cohort date is available. Please try again.'); return; }
+
+        try {
+            await requestCheckout([{
+                name: COHORT_NAME,
+                price: COHORT_PRICE,
+                quantity: 1,
+                date: formatDateValue(startDate),
+            }], companyName);
+        } catch (err) {
+            console.error(err);
+            alert(err.message || 'Something went wrong. Please try again.');
+        }
+    }
+
+    document.querySelector('.cohort-register').addEventListener('click', beginCohortCheckout);
+
     checkoutBtn.addEventListener('click', async () => {
         const selected = getSelected();
         if (selected.length === 0) return;
@@ -555,12 +646,14 @@
         const lineItems = Array.from(selected).map(cb => {
             const index = parseInt(cb.dataset.index);
             const cls = purchasableClasses[index];
-            const selectedDate = document.querySelector(`input[name="date-${index}"]:checked`);
-            return {
+             const selectedDate = document.querySelector(`input[name="date-${index}"]:checked`);
+             const selectedDates = selectedDate?.dataset.dates ? JSON.parse(selectedDate.dataset.dates) : [selectedDate?.value];
+             return {
                 name: cls.name,
                 price: PRICE_PER_CLASS,
                 quantity: 1,
-                date: selectedDate ? selectedDate.value : null,
+                 date: selectedDate ? selectedDate.value : null,
+                 dates: selectedDates.filter(Boolean),
                 company: companyName,
             };
         });
@@ -569,23 +662,7 @@
         checkoutBtn.textContent = 'Redirecting...';
 
         try {
-            const response = await fetch(CHECKOUT_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ items: lineItems }),
-            });
-
-            if (!response.ok) {
-                const data = await response.json();
-                if (data.error === 'class_full') {
-                    throw new Error(data.message);
-                }
-                throw new Error('Failed to create checkout session');
-            }
-
-            const { url } = await response.json();
-            sessionStorage.setItem('mrx_purchases', JSON.stringify(lineItems));
-            window.location.href = url;
+            await requestCheckout(lineItems, companyName);
         } catch (err) {
             console.error(err);
             alert(err.message || 'Something went wrong. Please try again.');
