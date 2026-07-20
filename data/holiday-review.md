@@ -22,10 +22,6 @@ Review these class occurrences before publishing a schedule override:
 | Workflows — Let's Map and Decide (2-part sequence) | 2026-11-27 | Thanksgiving Day | 1 day(s) | pending |
 | Workflows — Let's Map and Decide (2-part sequence) | 2026-12-25 | Christmas Day | 0 day(s) | pending |
 | Workflows — Let's Map and Decide (2-part sequence) | 2027-06-18 | Juneteenth | 0 day(s) | pending |
-| AI Beginners 4-Week Bundle (cohort) | 2026-09-08 | Labor Day | 1 day(s) | pending |
 | AI Beginners 4-Week Bundle (cohort) | 2026-10-13 | Columbus Day | 1 day(s) | pending |
-| AI Beginners 4-Week Bundle (cohort) | 2026-11-10 | Veterans Day | -1 day(s) | pending |
-| Intermediate AI 6-Week Cohort | 2026-11-12 | Veterans Day | 1 day(s) | pending |
-| AI for Market Research Team Leaders — 6-week Cohort | 2027-01-01 | New Year's Day | 0 day(s) | pending |
 
 Add approved changes to `data/schedule-overrides.json` using the candidate date as the key, then rerun `node scripts/generate-schedule.mjs`.

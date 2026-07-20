@@ -150,10 +150,27 @@
             gap: 0.75rem;
             flex-wrap: wrap;
         }
-        .cohort-start {
+        .cohort-date-options {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
             font-size: 0.9rem;
             color: #555;
         }
+        .cohort-date-options label {
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .cohort-date-options label:has(input:checked) {
+            border-color: #635bff;
+            background: #e7e5ff;
+            color: #000;
+            font-weight: 600;
+        }
+        .cohort-date-options input { margin-right: 0.25rem; }
 
         .summary {
             position: sticky; bottom: 0;
@@ -289,7 +306,7 @@
 <div style="margin-bottom: 1.5rem;">
     <div class="cohort-register-option">
         <button type="button" class="checkout-btn cohort-register">Register for the Leadership cohort — $2,595</button>
-        <span class="cohort-start" id="cohort-start"></span>
+        <div class="cohort-date-options" id="cohort-date-options"></div>
     </div>
 </div>
 
@@ -387,7 +404,7 @@
         return new Date(`${date}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00${offset}`);
     }
 
-    function getNextOccurrences(weekday, nth, hour, minute, count) {
+    function getNextOccurrences(weekday, nth, hour, minute, count, cadenceMonths = 1, cadenceAnchorMonth = null) {
         const results = [];
         const now = new Date();
         const nowParts = new Intl.DateTimeFormat('en-US', {
@@ -399,6 +416,12 @@
         let month = Number(nowParts.find(part => part.type === 'month').value) - 1;
         const weekdays = Array.isArray(nth) ? nth : [nth];
         while (results.length < count) {
+            const onCadence = cadenceMonths <= 1 || cadenceAnchorMonth === null || (month - cadenceAnchorMonth + 12) % cadenceMonths === 0;
+            if (!onCadence) {
+                month++;
+                if (month > 11) { month = 0; year++; }
+                continue;
+            }
             for (const occurrence of weekdays) {
                 const date = getNthWeekdayOfMonth(year, month, weekday, occurrence);
                 if (date) {
@@ -428,7 +451,7 @@
     const PRICE_PER_CLASS = 499;
     const COHORT_PRICE = 2595;
     const COHORT_NAME = "AI for Market Research Team Leaders — 6-week Cohort";
-    const COHORT_SCHEDULE = { weekday: 5, nth: 1, hour: 9, minute: 0 };
+    const COHORT_SCHEDULE = { weekday: 5, nth: 1, hour: 9, minute: 0, cadenceMonths: 2, cadenceAnchorMonth: 7 };
 
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
@@ -439,15 +462,27 @@
         { weekday: 5, nth: [3, 4], hour: 12, minute: 0 },   // 3rd + 4th Fri 12pm — Workflows (2-part)
     ];
     const GENERATED_SCHEDULE = {"AI Foundations for Market Research Leaders":["2026-08-05T12:00:00-07:00","2026-09-02T12:00:00-07:00"],"Practical AI":["2026-08-06T12:00:00-07:00","2026-09-03T12:00:00-07:00"],"Governance, Risk, and Tool Standardization":["2026-08-14T12:00:00-07:00","2026-09-11T12:00:00-07:00"],"Workflows — Let's Map and Decide (2-part sequence)":["2026-08-21T12:00:00-07:00","2026-08-28T12:00:00-07:00"]};
-    const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-08-07T09:00:00-07:00","2026-09-04T09:00:00-07:00"]};
+    const GENERATED_COHORTS = {"AI for Market Research Team Leaders — 6-week Cohort":["2026-08-07T09:00:00-07:00","2026-10-02T09:00:00-07:00"]};
 
-    const generatedCohortStart = GENERATED_COHORTS[COHORT_NAME]?.[0];
-    const cohortStartDate = generatedCohortStart
-        ? new Date(generatedCohortStart)
-        : getNextOccurrences(COHORT_SCHEDULE.weekday, COHORT_SCHEDULE.nth, COHORT_SCHEDULE.hour, COHORT_SCHEDULE.minute, 1)[0];
-    document.getElementById('cohort-start').textContent = cohortStartDate
-        ? `Next cohort starts ${formatDate(cohortStartDate)}`
-        : 'Next cohort date to be announced';
+    const cohortDates = GENERATED_COHORTS[COHORT_NAME]?.length
+        ? GENERATED_COHORTS[COHORT_NAME].slice(0, 2).map(date => new Date(date))
+        : getNextOccurrences(
+            COHORT_SCHEDULE.weekday,
+            COHORT_SCHEDULE.nth,
+            COHORT_SCHEDULE.hour,
+            COHORT_SCHEDULE.minute,
+            2,
+            COHORT_SCHEDULE.cadenceMonths,
+            COHORT_SCHEDULE.cadenceAnchorMonth,
+        );
+    document.getElementById('cohort-date-options').innerHTML = cohortDates.length
+        ? '<span>Choose a start:</span>' + cohortDates.map((date, index) => `
+            <label>
+                <input type="radio" name="cohort-start" value="${formatDateValue(date)}" ${index === 0 ? 'checked' : ''}>
+                ${formatDate(date)}
+            </label>
+        `).join('')
+        : '<span>Next cohort date to be announced</span>';
 
     const purchasableClasses = [
         {
@@ -638,17 +673,15 @@
         const companyName = document.getElementById('company-field').value.trim();
         if (!companyName) { alert('Please enter your company name.'); return; }
 
-        const startDate = GENERATED_COHORTS[COHORT_NAME]?.[0]
-            ? new Date(GENERATED_COHORTS[COHORT_NAME][0])
-            : getNextOccurrences(COHORT_SCHEDULE.weekday, COHORT_SCHEDULE.nth, COHORT_SCHEDULE.hour, COHORT_SCHEDULE.minute, 1)[0];
-        if (!startDate) { alert('No upcoming cohort date is available. Please try again.'); return; }
+        const selectedStart = document.querySelector('input[name="cohort-start"]:checked');
+        if (!selectedStart) { alert('No upcoming cohort date is available. Please try again.'); return; }
 
         try {
             await requestCheckout([{
                 name: COHORT_NAME,
                 price: COHORT_PRICE,
                 quantity: 1,
-                date: formatDateValue(startDate),
+                date: selectedStart.value,
             }], companyName);
         } catch (err) {
             console.error(err);

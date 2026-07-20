@@ -122,10 +122,27 @@
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-        .cohort-start {
+        .cohort-date-options {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
             font-size: 0.9rem;
             color: #555;
         }
+        .cohort-date-options label {
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .cohort-date-options label:has(input:checked) {
+            border-color: #635bff;
+            background: #e7e5ff;
+            color: #000;
+            font-weight: 600;
+        }
+        .cohort-date-options input { margin-right: 0.25rem; }
 
         .summary {
             position: sticky; bottom: 0;
@@ -276,11 +293,11 @@
     <strong>Prefer a full cohort?</strong>
     <div class="cohort-option">
         <button type="button" class="checkout-btn cohort-register" data-tier="beginner">Beginner cohort — $249</button>
-        <span class="cohort-start" data-tier="beginner"></span>
+        <div class="cohort-date-options" data-tier="beginner"></div>
     </div>
     <div class="cohort-option">
         <button type="button" class="checkout-btn cohort-register" data-tier="intermediate">Intermediate cohort — $499</button>
-        <span class="cohort-start" data-tier="intermediate"></span>
+        <div class="cohort-date-options" data-tier="intermediate"></div>
     </div>
 </div>
 
@@ -377,7 +394,7 @@
         return new Date(`${date}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00${offset}`);
     }
 
-    function getNextOccurrences(weekday, nth, hour, minute, count) {
+    function getNextOccurrences(weekday, nth, hour, minute, count, cadenceMonths = 1, cadenceAnchorMonth = null) {
         const results = [];
         const now = new Date();
         const nowParts = new Intl.DateTimeFormat('en-US', {
@@ -389,6 +406,12 @@
         let month = Number(nowParts.find(part => part.type === 'month').value) - 1;
         const weekdays = Array.isArray(nth) ? nth : [nth];
         while (results.length < count) {
+            const onCadence = cadenceMonths <= 1 || cadenceAnchorMonth === null || (month - cadenceAnchorMonth + 12) % cadenceMonths === 0;
+            if (!onCadence) {
+                month++;
+                if (month > 11) { month = 0; year++; }
+                continue;
+            }
             for (const occurrence of weekdays) {
                 const date = getNthWeekdayOfMonth(year, month, weekday, occurrence);
                 if (date) {
@@ -431,7 +454,7 @@
         ],
     };
     const GENERATED_SCHEDULE = {"Prompt Frameworks for Better Results":["2026-08-04T12:00:00-07:00","2026-09-01T12:00:00-07:00"],"AI as a Thinking Partner":["2026-08-11T12:00:00-07:00","2026-09-08T12:00:00-07:00"],"Chat / Projects / Cowork / Code(x)":["2026-07-21T12:00:00-07:00","2026-08-18T12:00:00-07:00"],"Hallucination, Pricing, and Privacy Basics":["2026-07-28T12:00:00-07:00","2026-08-25T12:00:00-07:00"],"Chat / Projects / Cowork / Code(x) (Intermediate)":["2026-08-03T12:00:00-07:00","2026-09-07T12:00:00-07:00"],"Data Privacy and Security":["2026-08-10T12:00:00-07:00","2026-09-14T12:00:00-07:00"],"When to Automate":["2026-07-20T12:00:00-07:00","2026-08-17T12:00:00-07:00"],"Projects — When You Actually Want a Siloed Experience":["2026-07-27T12:00:00-07:00","2026-08-24T12:00:00-07:00"],"Building and Working with Agents":["2026-08-13T12:00:00-07:00","2026-09-10T12:00:00-07:00"],"Quantitative Analysis with an LLM":["2026-07-23T12:00:00-07:00","2026-08-27T12:00:00-07:00"]};
-    const GENERATED_COHORTS = {"AI Beginners 4-Week Bundle (cohort)":["2026-08-11T09:00:00-07:00","2026-09-08T09:00:00-07:00"],"Intermediate AI 6-Week Cohort":["2026-08-13T09:00:00-07:00","2026-09-10T09:00:00-07:00"]};
+    const GENERATED_COHORTS = {"AI Beginners 4-Week Bundle (cohort)":["2026-08-11T09:00:00-07:00","2026-10-13T09:00:00-07:00"],"Intermediate AI 6-Week Cohort":["2026-08-13T09:00:00-07:00","2026-10-08T09:00:00-07:00"]};
 
     // ─── CONFIG ─────────────────────────────────────────────────────────
     const TIERS = {
@@ -440,7 +463,7 @@
             price: 79,
             cohortPrice: 249,
             cohortName: "AI Beginners 4-Week Bundle (cohort)",
-            cohortSchedule: { weekday: 2, nth: 2, hour: 9, minute: 0 },
+            cohortSchedule: { weekday: 2, nth: 2, hour: 9, minute: 0, cadenceMonths: 2, cadenceAnchorMonth: 7 },
             classes: [
                 { name: "Prompt Frameworks for Better Results", desc: "Learn how to set up prompts that get you good results — and then how to make the results even better." },
                 { name: "AI as a Thinking Partner", desc: "Walk through ways to prompt AI to avoid the sycophantic, \"What a great idea!\" responses. Turn the AI into a tool that pushes on your thinking." },
@@ -453,7 +476,7 @@
             price: 99,
             cohortPrice: 499,
             cohortName: "Intermediate AI 6-Week Cohort",
-            cohortSchedule: { weekday: 4, nth: 2, hour: 9, minute: 0 },
+            cohortSchedule: { weekday: 4, nth: 2, hour: 9, minute: 0, cadenceMonths: 2, cadenceAnchorMonth: 7 },
             classes: [
                 { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn when to use each, and then build your first mini-app to help you with a traditional market research workflow." },
                 { name: "Quantitative Analysis with an LLM", desc: "LLMs used to have troubles counting, but they are more sophisticated now and most will call on relevant Python scripts to analyze data. Learn use cases for quant research and realistic limits to what they can do now." },
@@ -465,17 +488,34 @@
         },
     };
 
-    document.querySelectorAll('.cohort-start').forEach((element) => {
-        const tier = TIERS[element.dataset.tier];
-        const generatedStart = tier && GENERATED_COHORTS[tier.cohortName]?.[0];
-        const startDate = generatedStart
-            ? new Date(generatedStart)
-            : tier
-                ? getNextOccurrences(tier.cohortSchedule.weekday, tier.cohortSchedule.nth, tier.cohortSchedule.hour, tier.cohortSchedule.minute, 1)[0]
-                : null;
-        element.textContent = startDate
-            ? `Next cohort starts ${formatDate(startDate)}`
-            : 'Next cohort date to be announced';
+    function getCohortDates(tierKey) {
+        const tier = TIERS[tierKey];
+        if (!tier) return [];
+        const generatedDates = GENERATED_COHORTS[tier.cohortName];
+        return generatedDates?.length
+            ? generatedDates.slice(0, 2).map(date => new Date(date))
+            : getNextOccurrences(
+                tier.cohortSchedule.weekday,
+                tier.cohortSchedule.nth,
+                tier.cohortSchedule.hour,
+                tier.cohortSchedule.minute,
+                2,
+                tier.cohortSchedule.cadenceMonths,
+                tier.cohortSchedule.cadenceAnchorMonth,
+            );
+    }
+
+    document.querySelectorAll('.cohort-date-options').forEach((element) => {
+        const tierKey = element.dataset.tier;
+        const dates = getCohortDates(tierKey);
+        element.innerHTML = dates.length
+            ? '<span>Choose a start:</span>' + dates.map((date, index) => `
+                <label>
+                    <input type="radio" name="cohort-start-${tierKey}" value="${formatDateValue(date)}" ${index === 0 ? 'checked' : ''}>
+                    ${formatDate(date)}
+                </label>
+            `).join('')
+            : '<span>Next cohort date to be announced</span>';
     });
 
     const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
@@ -671,17 +711,15 @@
         if (!companyName) { alert('Please enter your company name.'); return; }
 
         const tier = TIERS[tierKey];
-        const startDate = GENERATED_COHORTS[tier.cohortName]?.[0]
-            ? new Date(GENERATED_COHORTS[tier.cohortName][0])
-            : getNextOccurrences(tier.cohortSchedule.weekday, tier.cohortSchedule.nth, tier.cohortSchedule.hour, tier.cohortSchedule.minute, 1)[0];
-        if (!startDate) { alert('No upcoming cohort date is available. Please try again.'); return; }
+        const selectedStart = document.querySelector(`input[name="cohort-start-${tierKey}"]:checked`);
+        if (!selectedStart) { alert('No upcoming cohort date is available. Please try again.'); return; }
 
         try {
             await requestCheckout([{
                 name: tier.cohortName,
                 price: tier.cohortPrice,
                 quantity: 1,
-                date: formatDateValue(startDate),
+                date: selectedStart.value,
             }], companyName);
         } catch (err) {
             console.error(err);

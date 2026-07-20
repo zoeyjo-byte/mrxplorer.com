@@ -62,7 +62,19 @@ function candidateDates(rule, includePast = false) {
   const dates = [];
   let year = start.year;
   let month = start.month;
+  const cadenceMonths = Number(rule.cadenceMonths || 1);
+  const cadenceAnchor = rule.cadenceAnchor ? /^\d{4}-(\d{2})$/.exec(rule.cadenceAnchor) : null;
+  const cadenceAnchorIndex = cadenceAnchor
+    ? Number(rule.cadenceAnchor.slice(0, 4)) * 12 + Number(cadenceAnchor[1]) - 1
+    : null;
   while (new Date(Date.UTC(year, month, 1)) <= end) {
+    const monthIndex = year * 12 + month;
+    const onCadence = cadenceMonths <= 1 || cadenceAnchorIndex === null || (monthIndex - cadenceAnchorIndex) % cadenceMonths === 0;
+    if (!onCadence) {
+      month += 1;
+      if (month > 11) { month = 0; year += 1; }
+      continue;
+    }
     for (const nth of rule.nth) {
       const day = nthWeekday(year, month, rule.weekday, nth);
       if (!day) continue;

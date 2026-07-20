@@ -35,9 +35,9 @@ const SCHEDULES = {
   'Governance, Risk, and Tool Standardization': { weekday: 5, nth: [2], hour: 12 },
   'Workflows — Let\'s Map and Decide (2-session sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
   'Workflows — Let\'s Map and Decide (2-part sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
-  'AI Beginners 4-Week Bundle (cohort)': { weekday: 2, nth: [2], hour: 9 },
-  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [2], hour: 9 },
-  'AI for Market Research Team Leaders — 6-week Cohort': { weekday: 5, nth: [1], hour: 9 },
+  'AI Beginners 4-Week Bundle (cohort)': { weekday: 2, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
+  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [2], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
+  'AI for Market Research Team Leaders — 6-week Cohort': { weekday: 5, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-08' },
 };
 
 export function isScheduledDate(name, date) {
@@ -52,9 +52,17 @@ export function isScheduledDate(name, date) {
   }).formatToParts(parsed);
   const value = (type) => Number(parts.find(part => part.type === type)?.value);
   const day = value('day');
+  const year = value('year');
+  const month = value('month') - 1;
   const weekday = parsed.toLocaleDateString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long' });
   const weekdayNumber = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(weekday);
   const nth = Math.floor((day - 1) / 7) + 1;
-  return weekdayNumber === schedule.weekday && schedule.nth.includes(nth) &&
+  const cadenceAnchor = schedule.cadenceAnchor ? /^\d{4}-(\d{2})$/.exec(schedule.cadenceAnchor) : null;
+  const cadenceAnchorIndex = cadenceAnchor
+    ? Number(schedule.cadenceAnchor.slice(0, 4)) * 12 + Number(cadenceAnchor[1]) - 1
+    : null;
+  const cadenceMatches = !schedule.cadenceMonths || cadenceAnchorIndex === null ||
+    (year * 12 + month - cadenceAnchorIndex) % schedule.cadenceMonths === 0;
+  return weekdayNumber === schedule.weekday && schedule.nth.includes(nth) && cadenceMatches &&
     value('hour') === schedule.hour && value('minute') === 0;
 }
