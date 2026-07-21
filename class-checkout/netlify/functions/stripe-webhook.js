@@ -6,6 +6,7 @@ import { Buffer } from 'node:buffer';
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'updates@mrxplorer.com';
+const ADMIN_EMAIL = 'zjohnson@mrxplorer.com';
 
 function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({
@@ -109,11 +110,11 @@ async function handleCompleted(session) {
     }
 
     const customerEmail = session.customer_details?.email || session.customer_email;
-    if (customerEmail) {
-        const itemsHtml = purchases.map(p =>
-            `<li>${escapeHtml(p.name)}${p.date ? ` — <strong>${escapeHtml(new Date(p.date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }))}</strong>` : ''}</li>`
-        ).join('');
+    const itemsHtml = purchases.map(p =>
+        `<li>${escapeHtml(p.name)}${p.date ? ` — <strong>${escapeHtml(new Date(p.date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }))}</strong>` : ''}</li>`
+    ).join('');
 
+    if (customerEmail) {
         const icsAttachments = icsFiles.map(f => ({
             filename: f.name,
             content: Buffer.from(f.content).toString('base64'),
@@ -137,6 +138,28 @@ async function handleCompleted(session) {
         } catch (emailErr) {
             console.error('Failed to send confirmation email:', emailErr.message);
         }
+    }
+
+    const customerName = session.customer_details?.name;
+    const amountTotal = session.amount_total != null
+        ? `$${(session.amount_total / 100).toFixed(2)} ${String(session.currency || 'usd').toUpperCase()}`
+        : 'unknown';
+    try {
+        await resend.emails.send({
+            from: FROM_EMAIL,
+            to: ADMIN_EMAIL,
+            subject: `New class signup — ${customerName || customerEmail || 'unknown customer'}`,
+            html: `
+                <h1>New class registration</h1>
+                <p><strong>Name:</strong> ${escapeHtml(customerName || 'not provided')}</p>
+                <p><strong>Email:</strong> ${escapeHtml(customerEmail || 'not provided')}</p>
+                <p><strong>Total paid:</strong> ${escapeHtml(amountTotal)}</p>
+                <ul>${itemsHtml}</ul>
+                <p>Stripe session: ${escapeHtml(session.id)}</p>
+            `,
+        });
+    } catch (emailErr) {
+        console.error('Failed to send admin signup notification:', emailErr.message);
     }
 
     if (session.metadata?.waitlist_promotion === 'true') {
@@ -274,7 +297,6 @@ async function handleRefunded(charge) {
         expand: ['data.price.product'],
     });
     const refundTime = new Date(charge.created * 1000);
-    const Z_EMAIL = 'zjohnson@mrxplorer.com';
     const capStore = getStore('capacity');
 
     for (const item of lineItems.data) {
@@ -315,7 +337,7 @@ async function handleRefunded(charge) {
             try {
                 await resend.emails.send({
                     from: FROM_EMAIL,
-                    to: Z_EMAIL,
+                    to: ADMIN_EMAIL,
                         subject: `Refund inside 72h window — ${String(name).replace(/[\r\n]/g, ' ')} (${date})`,
                     html: `
                         <h1>Refund inside 72-hour window</h1>

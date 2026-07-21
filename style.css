@@ -340,11 +340,11 @@ h1, h2, h3, h4 {
   gap: 14px;
   flex-wrap: wrap;
 }
-.hero-actions .btn-ghost {
+.hero .hero-actions .btn-ghost {
   color: rgba(255,255,255,.8);
   border-color: rgba(255,255,255,.3);
 }
-.hero-actions .btn-ghost:hover {
+.hero .hero-actions .btn-ghost:hover {
   background: rgba(255,255,255,.1);
   color: var(--white);
   border-color: rgba(255,255,255,.6);
@@ -540,6 +540,25 @@ h1, h2, h3, h4 {
   font-weight: 400;
 }
 .issue-arrow { color: rgba(255,255,255,.65); font-size: 1rem; flex-shrink: 0; }
+
+/* ── QUIZ CTA BANNER ────────────────────────────────────────── */
+.section-quiz {
+  background: var(--navy);
+  padding: 64px 0;
+  text-align: center;
+}
+.quiz-cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.quiz-cta-inner .section-label { margin-bottom: 12px; }
+.quiz-cta-inner .section-heading { margin-bottom: 16px; }
+.quiz-cta-sub {
+  color: rgba(255,255,255,.8);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
 
 /* ── WHO THIS IS FOR ────────────────────────────────────────── */
 .section-for { background: var(--off-white); }
