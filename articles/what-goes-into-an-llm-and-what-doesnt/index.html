@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- EDIT: Unique title per article -->
+<title>What Goes Into an LLM — and What Doesn&#39;t | MRXplorer</title>
+<!-- EDIT: 155-char meta description answering the query -->
+<meta name="description" content="A practical guide to what data enters large language models, how privacy toggles work, what you should never upload, and why enterprise accounts aren&#39;t automatically safe.">
+<meta name="author" content="Z Johnson">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<!-- EDIT: Match title -->
+<meta property="og:title" content="What Goes Into an LLM — and What Doesn&#39;t | MRXplorer">
+<!-- EDIT: Match description -->
+<meta property="og:description" content="A practical guide to what data enters large language models, how privacy toggles work, what you should never upload, and why enterprise accounts aren&#39;t automatically safe.">
+<!-- EDIT: Use full article URL -->
+<meta property="og:url" content="https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt">
+<meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
+
+<!-- Canonical -->
+<!-- EDIT: Use full article URL -->
+<link rel="canonical" href="https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt">
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<!-- EDIT: Match title -->
+<meta name="twitter:title" content="What Goes Into an LLM — and What Doesn&#39;t | MRXplorer">
+<!-- EDIT: Match description -->
+<meta name="twitter:description" content="A practical guide to what data enters large language models, how privacy toggles work, what you should never upload, and why enterprise accounts aren&#39;t automatically safe.">
+<meta name="twitter:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TB3GBL2RQ0');
+</script>
+
+<!-- Inline structured data (static for AEO crawlers) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt#webpage",
+      "url": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt",
+      "name": "What Goes Into an LLM — and What Doesn't",
+      "description": "A practical guide to what data enters large language models, how privacy toggles work, what you should never upload, and why enterprise accounts aren't automatically safe.",
+      "isPartOf": {
+        "@id": "https://www.mrxplorer.com/#website"
+      },
+      "about": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "datePublished": "2026-07-22",
+      "dateModified": "2026-07-22",
+      "breadcrumb": {
+        "@id": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.mrxplorer.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://www.mrxplorer.com/articles"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What Goes Into an LLM — and What Doesn't",
+          "item": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt#article",
+      "mainEntityOfPage": {
+        "@id": "https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt#webpage"
+      },
+      "headline": "What Goes Into an LLM — and What Doesn't",
+      "description": "A practical guide to what data enters large language models, how privacy toggles work, what you should never upload, and why enterprise accounts aren't automatically safe.",
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      },
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "datePublished": "2026-07-22",
+      "dateModified": "2026-07-22",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://www.mrxplorer.com/assets/mrxplorer-logo-social.png",
+        "width": 1200,
+        "height": 630
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mrxplorer.com/#website",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer",
+      "description": "AI training for market research teams.",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.mrxplorer.com/#organization",
+      "name": "MRXplorer LLC",
+      "url": "https://www.mrxplorer.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.mrxplorer.com/assets/mrxplorer-logo.png",
+        "width": 1466,
+        "height": 442
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://mrxplorations.beehiiv.com"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.mrxplorer.com/#z-johnson",
+      "name": "Z Johnson",
+      "jobTitle": "Founder and Principal",
+      "description": "AI training consultant for market research agencies and insights teams. 20+ years in research operations. Founder of MRXplorer LLC.",
+      "url": "https://www.mrxplorer.com/about",
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://mrxplorations.beehiiv.com"
+      ],
+      "worksFor": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=4">
+</head>
+
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="MRXplorer home">
+        <img src="/assets/mrxplorer-logo.png" alt="MRXplorer" class="nav-logo-img">
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/classes" class="nav-link">Classes</a></li>
+        <li><a href="/classes/leaders" class="nav-link">For Leaders</a></li>
+        <li><a href="/tools" class="nav-link">Tools</a></li>
+        <li><a href="/articles" class="nav-link active">Articles</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="/quiz" class="nav-link nav-newsletter">
+            Quiz
+          </a>
+        </li>
+        <li>
+          <a href="/newsletter" class="nav-link nav-newsletter">
+            Newsletter
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ ARTICLE HERO ══════════════════════════════════════════ -->
+  <header class="page-hero" role="banner">
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="section-label">Article</div>
+        <h1>What Goes Into an LLM — and What Doesn&#39;t</h1>
+        <p style="font-size: 0.9rem; color: var(--gray-mid);">By <a href="/about">Z Johnson</a> · Published <time datetime="2026-07-22">July 22, 2026</time></p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ MAIN CONTENT ══════════════════════════════════════════ -->
+  <main id="main">
+    <!-- QUIZ CTA -->
+    <section class="section-quiz" aria-labelledby="quiz-cta-heading">
+      <div class="container">
+        <div class="quiz-cta-inner">
+          <div class="section-label section-label-light">Free · 2 Minutes · No Email Required</div>
+          <h2 class="section-heading section-heading-light" id="quiz-cta-heading" style="margin-bottom: 16px;">Not sure where to start?</h2>
+          <p class="quiz-cta-sub">Take the AI Readiness Quiz and get a personalized class recommendation based on where you actually are today.</p>
+          <a href="/quiz" class="btn btn-orange btn-large">Take the Quiz →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose" style="max-width: 720px;">
+<p>I&#39;ve given the advice before. &quot;Don&#39;t put the company name in the prompt. Say &#39;global CPG brand&#39; instead.&quot;</p>
+
+<p>It&#39;s good advice. It&#39;s also, let&#39;s be honest, not very realistic.</p>
+
+<p>Turnaround times keep shrinking. You&#39;re juggling three projects at once. Nobody is carefully scrubbing every prompt before it hits the LLM. So let&#39;s talk about what actually matters when it comes to data privacy and AI in market research.</p>
+
+<h2>The Setting Most Researchers Miss</h2>
+
+<p>Every major LLM platform has a privacy toggle buried in its settings. And by default, it&#39;s probably set to the wrong position.</p>
+
+<p>A 2025 analysis of six major AI developers — including OpenAI, Anthropic, Google, and others — found that all six train on user chat data by default (arXiv, September 2025). That means unless you&#39;ve actively gone into settings and turned something off, your prompts, your uploaded files, and your project context may all be feeding back into the model.</p>
+
+<p>The fix takes about thirty seconds:</p>
+
+<p>ChatGPT: Settings → Data controls → &quot;Improve the model for everyone&quot; → toggle off</p>
+
+<p>Claude: Settings → Privacy → toggle off &quot;Use my content to train Claude&quot;</p>
+
+<p>Gemini: Activity controls → toggle off Gemini Apps Activity</p>
+
+<p>Copilot: Privacy settings → toggle off model training</p>
+
+<p>Do this once per account. Do it now, before the next project lands.</p>
+
+<p>The FTC has been explicit about this: companies that promise not to use customer data for training — then do it anyway, even through workarounds — may face enforcement action (FTC, January 2024). But enforcement doesn&#39;t undo the data that&#39;s already been absorbed. The toggle is your first and best line of defense.</p>
+
+<h2>What Data Should Never Touch an LLM</h2>
+
+<p>Some things are non-negotiable. Personally Identifiable Information — names, email addresses, phone numbers, IP addresses — should never go into a consumer-grade LLM interface. Not because the model will &quot;leak&quot; it in the next response (though that&#39;s a separate concern). Because once data enters a system that trains on user inputs by default, you&#39;ve lost control of where it ends up.</p>
+
+<p>This goes beyond PII. Think about what else lives in a typical research dataset: verbatim responses that mention specific towns, employers, or medical conditions. Crosstabs with small cell sizes that make individuals identifiable. Audio transcripts where a respondent mentions their kid&#39;s school.</p>
+
+<p>Scrub before you prompt. It&#39;s tedious. But it&#39;s less tedious than explaining a privacy breach to a client.</p>
+
+<h2>Don&#39;t Ask the LLM to Do the Scrubbing for You</h2>
+
+<p>I see this one a lot. A researcher uploads a raw dataset and says, &quot;Remove all personally identifiable information from this file.&quot;</p>
+
+<p>Don&#39;t do this.</p>
+
+<p>The data has already entered the system. If training is enabled, the raw version — names, emails, and all — has been ingested before the model even processes your anonymization request. Anonymize first, on your own machine, then upload.</p>
+
+<h2>Enterprise and Education Accounts Are Different (But Still Check)</h2>
+
+<p>If your organization has an Enterprise agreement with OpenAI or Anthropic, or an Education agreement with Google, your prompts and data are not used for training by default. It&#39;s written into the contract.</p>
+
+<p>But here&#39;s the thing: tools built on top of those models don&#39;t always inherit those protections.</p>
+
+<p>When you&#39;re using a market research platform that runs on Claude or GPT behind the scenes, look for a specific clause in the privacy policy. You want to see language like: &quot;We do not use your prompts or your data to train Anthropic or OpenAI models.&quot;</p>
+
+<p>If the language is vague — &quot;we take your privacy seriously&quot; without specifics — treat it like a consumer account. Toggle off whatever you can and limit what you enter.</p>
+
+<p>Secure Privacy&#39;s governance framework for enterprise AI puts it well: the gap isn&#39;t malicious intent, it&#39;s the speed of AI adoption outpacing governance maturity (Secure Privacy, 2025). Most tools aren&#39;t trying to misuse your data. They just haven&#39;t built the guardrails yet.</p>
+
+<h2>The Bottom Line</h2>
+
+<p>Three things to do this week:</p>
+
+<ol><li>Open every LLM tool you use for research. Find the model training toggle. Turn it off.</li></ol>
+
+<ol><li>Build a five-minute PII scrub into your workflow before anything touches an AI interface.</li></ol>
+
+<ol><li>Read the privacy policy of any research platform that uses AI under the hood. Look for the word &quot;train.&quot; If you don&#39;t find a clear denial, proceed accordingly.</li></ol>
+
+<p>A little intentionality goes a long way. The goal isn&#39;t paranoia — it&#39;s keeping your respondents&#39; data and your clients&#39; trust exactly where they belong.</p>
+</div>
+      </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="section-cta" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta-inner">
+          <h2 id="cta-heading">Go from reading to doing</h2>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="/classes" class="btn btn-primary btn-large">Browse Classes →</a>
+            <a href="/newsletter" class="btn btn-ghost" style="color: var(--white); border-color: rgba(255,255,255,.5);">Free Newsletter</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" aria-label="MRXplorer home">
+            <img src="/assets/mrxplorer-logo-white-text.png" alt="MRXplorer" class="nav-logo-img nav-logo-img-sm">
+          </a>
+          <p class="footer-tagline">AI training for market research teams.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/classes">Classes</a></li>
+            <li><a href="/classes/leaders">For Leaders</a></li>
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/tools">Tools</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/newsletter">Newsletter</a></li>
+          </ul>
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:zjohnson@mrxplorer.com">zjohnson@mrxplorer.com</a>
+          <a href="https://www.linkedin.com/in/zontziry/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-badges">
+          <a href="https://thegsba.org/" class="footer-badge" target="_blank" rel="noopener" aria-label="Proud Member of GSBA">
+            <img src="/Proud_Member_GSBA_150px.png" alt="Proud Member — GSBA" width="80" height="80" loading="lazy">
+          </a>
+          <a href="https://www.greenbook.org/insights/authors/z-johnson" class="footer-badge" target="_blank" rel="noopener" aria-label="Greenbook Featured Author 2025">
+            <img src="/Greenbook_2025_Author_150px.png" alt="Greenbook Featured Author 2025" width="80" height="80" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© 2025 MRXplorer LLC</span>
+        <span>Built with intention, not a template.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
