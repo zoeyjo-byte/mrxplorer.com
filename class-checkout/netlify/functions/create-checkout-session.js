@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import { getStore } from '@netlify/blobs';
 import { CATALOG, isScheduledDate } from './catalog.js';
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = Stripe(process.env.STRIPE_TEST_KEY);
 
 const INDIVIDUAL_CAP = 12;
 const COHORT_CAP = 9;
