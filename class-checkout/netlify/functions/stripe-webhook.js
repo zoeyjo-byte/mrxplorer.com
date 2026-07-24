@@ -3,7 +3,7 @@ import { getStore } from '@netlify/blobs';
 import { Resend } from 'resend';
 import { Buffer } from 'node:buffer';
 
-const stripe = Stripe(process.env.STRIPE_TEST_KEY);
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'updates@mrxplorer.com';
 const ADMIN_EMAIL = 'zjohnson@mrxplorer.com';
