@@ -65,10 +65,10 @@ Most recent first. Each entry: **Decision**, **Why**, **Constraint**,
   individual-class JSON-LD `Course`/`Offer` objects. Those entries are copied
   verbatim into `content/classes-archive/` before being removed from live
   output, as specified in `classes-restructure-plan.md`.
-- **Status:** Leaders-track removal is a firm decision (classes + cohort,
-  no exceptions). Individual Beginner/Intermediate class removal is
-  temporary pending the live-vs-recorded decision — do not build a
-  recorded-class version of anything until the owner explicitly decides to
-  move forward with it. Execution steps: `classes-restructure-plan.md`.
+- **Status:** Shipped 2026-07-27. All 9 phases of `classes-restructure-plan.md`
+  are committed. Site is cohort-only: Beginner ($395, 4-week) and Intermediate
+  ($995, 6-week). Leaders-track removal is firm; individual class removal is
+  temporary pending the live-vs-recorded format decision — do not build a
+  recorded-class version until the owner decides to move forward.
 
 <!-- Add new entries above this line, most recent first. -->
