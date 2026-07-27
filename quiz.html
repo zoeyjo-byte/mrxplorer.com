@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>How AI-Ready Are You? — Free 2-Minute Quiz | MRXplorer</title>
-<meta name="description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized class recommendation based on where you actually are today. No email required.">
+<meta name="description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized cohort recommendation based on where you actually are today. No email required.">
 <meta name="author" content="Z Johnson">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="How AI-Ready Are You? — Free 2-Minute Quiz | MRXplorer">
-<meta property="og:description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized class recommendation based on where you actually are today.">
+<meta property="og:description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized cohort recommendation based on where you actually are today.">
 <meta property="og:url" content="https://www.mrxplorer.com/quiz">
 <meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
 
@@ -24,7 +24,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How AI-Ready Are You? — Free 2-Minute Quiz | MRXplorer">
-<meta name="twitter:description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized class recommendation based on where you actually are today.">
+<meta name="twitter:description" content="Take MRXplorer's free 2-minute AI Readiness Quiz and get a personalized cohort recommendation based on where you actually are today.">
 <meta name="twitter:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
 
 <!-- Google tag (gtag.js) -->
@@ -173,7 +173,7 @@
       <div class="page-hero-inner">
         <div class="section-label">Free · 2-Minute Check</div>
         <h1>How AI-Ready Are<br>You, <em>Really?</em></h1>
-        <p>Everyone's using ChatGPT or Claude these days. Fewer people are using it well. Take this quick, no-judgment check to see where you actually stand, and which MRXplorer class fits where you are today.</p>
+        <p>Everyone's using ChatGPT or Claude these days. Fewer people are using it well. Take this quick, no-judgment check to see where you actually stand, and which MRXplorer cohort fits where you are today.</p>
       </div>
     </div>
   </header>
@@ -188,7 +188,7 @@
           <ul class="intro-list">
             <li>6 quick questions, about 2 minutes total</li>
             <li>No email required to see your result</li>
-            <li>A straightforward, automated class recommendation at the end</li>
+            <li>A straightforward, automated cohort recommendation at the end</li>
           </ul>
           <button class="btn" onclick="startQuiz()">Start the Check →</button>
           <p class="meta-note">No wrong answers here. This just helps you (and us) figure out the right starting point.</p>
@@ -298,7 +298,7 @@
           <h2 id="result-headline"></h2>
           <p id="result-summary"></p>
 
-          <!-- JS fills this with one .recommend-card per matched class -->
+          <!-- JS fills this with one .recommend-card per matched cohort -->
           <div id="recommend-container"></div>
 
           <!-- JS shows this only when recommendations span both Beginner and Intermediate -->
@@ -310,7 +310,7 @@
           <p class="automated-note">
             This recommendation was generated automatically based on your answers above.
             It's a starting point, not a verdict, feel free to browse the
-            <a href="https://www.mrxplorer.com/classes" style="color: var(--navy);">full class catalog</a> and pick what fits.
+            <a href="https://www.mrxplorer.com/classes" style="color: var(--navy);">cohort options</a> and pick what fits.
           </p>
 
           <button class="btn btn-secondary" onclick="restartQuiz()" style="margin-top: 24px;">Retake the Check</button>
@@ -599,7 +599,7 @@
       document.getElementById('result-headline').textContent = headline;
       document.getElementById('result-summary').textContent = summary;
 
-      // ---- Specific class recommendations, based on individual answers ----
+      // ---- Cohort recommendations, based on individual answers ----
       var recs = buildRecommendations();
       var container = document.getElementById('recommend-container');
       container.innerHTML = '';
