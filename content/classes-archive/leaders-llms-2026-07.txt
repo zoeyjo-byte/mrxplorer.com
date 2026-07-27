@@ -1,0 +1,2 @@
+<!-- Archived 2026-07-27. Removed from llms.txt when the site moved to cohort-only sale (see CLAUDE.md decision log, 2026-07-27 entry). llms.txt has no comment syntax, so this line was copied here verbatim before removal from the live file. -->
+- [AI for Market Research Leaders](https://www.mrxplorer.com/classes/leaders): governance, risk, workflow mapping, and a 90-day implementation plan for research leaders

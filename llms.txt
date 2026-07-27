@@ -1,15 +1,12 @@
 # MRXplorer
 
-> MRXplorer teaches live virtual AI classes for market researchers, insights
-> teams, and market research leaders. Taught by Z Johnson, a 20+ year market
-> research veteran. Three tracks: Beginner ($129/class or $395 for all 4),
-> Intermediate ($199/class or $995 for all 6), and Leaders ($499/session or
-> $2,595 for all 5 sessions plus a 90-day implementation plan). Classes are 90
+> MRXplorer teaches live virtual AI classes for market researchers and insights
+> teams. Taught by Z Johnson, a 20+ year market research veteran. Two cohort
+> tracks: Beginner ($395 cohort) and Intermediate ($995 cohort). Classes are 90
 > minutes, live, virtual, Pacific time.
 
 ## Classes
-- [Class catalog](https://www.mrxplorer.com/classes): all beginner and intermediate classes with descriptions, pricing, and schedule
-- [AI for Market Research Leaders](https://www.mrxplorer.com/classes/leaders): governance, risk, workflow mapping, and a 90-day implementation plan for research leaders
+- [Class catalog](https://www.mrxplorer.com/classes): beginner and intermediate cohort classes with descriptions, pricing, and schedule
 
 ## About
 - [About Z Johnson](https://www.mrxplorer.com/about): instructor background — Microsoft research director, Ipsos, Course5, insights-tech leadership
