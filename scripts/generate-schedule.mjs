@@ -218,7 +218,11 @@ function updatePage(file, entries) {
 }
 
 const fsCache = new Map();
-for (const file of new Set(config.classes.map(entry => entry.page))) {
+const cachePages = new Set([
+  ...config.classes.map(entry => entry.page),
+  ...config.cohorts.map(entry => entry.page),
+]);
+for (const file of cachePages) {
   fsCache.set(file, await fs.readFile(path.join(root, file), 'utf8'));
 }
 for (const page of new Set(config.classes.map(entry => entry.page))) {
