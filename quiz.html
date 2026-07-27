@@ -454,7 +454,7 @@
     var CLASSES = {
       beginnerCohort: {
         tier: 'Beginner', price: '$395',
-        name: 'AI Beginners 4-Week Bundle',
+        name: 'AI Beginners 4-Week Bundle (cohort)',
         desc: 'Four live sessions covering prompt frameworks, AI as a thinking partner, tool surfaces, and privacy basics — taught as a small cohort.'
       },
       intermediateCohort: {
@@ -465,15 +465,52 @@
     };
     
     // Paused 2026-07-27 — Individual class records archived below. See CLAUDE.md decision log.
-    // beginnerPrompt: { tier: 'Beginner', price: '$129', name: 'Prompt Frameworks for Better Results', desc: '...' },
-    // beginnerThinkingPartner: { tier: 'Beginner', price: '$129', name: 'AI as a Thinking Partner', desc: '...' },
-    // beginnerSurfaces: { tier: 'Beginner', price: '$129', name: 'Chat / Projects / Cowork / Code(x)', desc: '...' },
-    // beginnerPrivacy: { tier: 'Beginner', price: '$129', name: 'Hallucination, Pricing, and Privacy Basics', desc: '...' },
-    // intermediateSurfaces: { tier: 'Intermediate', price: '$199', name: 'Chat / Projects / Cowork / Code(x) (Intermediate)', desc: '...' },
-    // intermediatePrivacy: { tier: 'Intermediate', price: '$199', name: 'Data Privacy and Security', desc: '...' },
-    // intermediateAutomate: { tier: 'Intermediate', price: '$199', name: 'When to Automate', desc: '...' },
-    // intermediateAgents: { tier: 'Intermediate', price: '$199', name: 'Building and Working with Agents', desc: '...' },
-    // intermediateQuant: { tier: 'Intermediate', price: '$199', name: 'Quantitative Analysis with an LLM', desc: '...' }
+    // Paused 2026-07-27 — Individual quiz recommendations retained for restore.
+    // beginnerPrompt: {
+    //   tier: 'Beginner', price: '$129',
+    //   name: 'Prompt Frameworks for Better Results',
+    //   desc: 'Reusable frameworks for getting good results from AI, plus a checklist for diagnosing why a prompt isn’t working.'
+    // },
+    // beginnerThinkingPartner: {
+    //   tier: 'Beginner', price: '$129',
+    //   name: 'AI as a Thinking Partner',
+    //   desc: 'Move past agreeable, "great idea!" responses and prompt AI to push back with counterarguments and angles you missed.'
+    // },
+    // beginnerSurfaces: {
+    //   tier: 'Beginner', price: '$129',
+    //   name: 'Chat / Projects / Cowork / Code(x)',
+    //   desc: 'What each of these actually is inside Claude and ChatGPT, and how to pick the right one instead of defaulting to the main chat box.'
+    // },
+    // beginnerPrivacy: {
+    //   tier: 'Beginner', price: '$129',
+    //   name: 'Hallucination, Pricing, and Privacy Basics',
+    //   desc: 'A realistic look at what AI gets wrong, what it costs to run, and what data you should (and shouldn’t) be putting in.'
+    // },
+    // intermediateSurfaces: {
+    //   tier: 'Intermediate', price: '$199',
+    //   name: 'Chat / Projects / Cowork / Code(x) (Intermediate)',
+    //   desc: 'Go a step further and build your first mini-app for a real research workflow. Assumes you’re already comfortable using AI day-to-day.'
+    // },
+    // intermediatePrivacy: {
+    //   tier: 'Intermediate', price: '$199',
+    //   name: 'Data Privacy and Security',
+    //   desc: 'What each subscription plan actually allows, what to never put into an AI tool, and settings worth checking, for anyone handling client or proprietary data.'
+    // },
+    // intermediateAutomate: {
+    //   tier: 'Intermediate', price: '$199',
+    //   name: 'When to Automate',
+    //   desc: 'A checklist for evaluating your own routines and deciding what’s actually worth automating before you sink time into building it.'
+    // },
+    // intermediateAgents: {
+    //   tier: 'Intermediate', price: '$199',
+    //   name: 'Building and Working with Agents',
+    //   desc: 'The difference between a "skill" and an "agent," and hands-on practice building one of each so repeated prompts become time-saving automations.'
+    // },
+    // intermediateQuant: {
+    //   tier: 'Intermediate', price: '$199',
+    //   name: 'Quantitative Analysis with an LLM',
+    //   desc: 'Realistic use cases and limits for quant research with AI, including which tasks to delegate, which to keep, and how to QA the output.'
+    // }
 
     // ---- SCORING + RESULTS ----
     // Overall total (0-18) still drives the headline/summary text at the top
@@ -568,26 +605,14 @@
       container.innerHTML = '';
 
       if (recs.length === 0) {
-        // Fallback: nothing specific triggered (all "middle" answers).
-        // Give a general cohort-based nudge.
-        var fallback = document.createElement('div');
-        fallback.className = 'recommend-card';
-        var fallbackTier = (total <= 12) ? 'Beginner' : 'Intermediate';
-        var fallbackCohort = (total <= 12) ? 'beginnerCohort' : 'intermediateCohort';
-        var fbCls = CLASSES[fallbackCohort];
-        fallback.innerHTML =
-          '<div class="recommend-card-meta">' +
-            '<span class="recommend-card-tier">' + fbCls.tier + ' Cohort</span>' +
-            '<span class="recommend-card-price">' + fbCls.price + '</span>' +
-          '</div>' +
-          '<h3>' + fbCls.name + '</h3>' +
-          '<p>Your answers were fairly even across the board. The ' + fallbackTier + ' cohort is the best general starting point based on your overall score.</p>' +
-          '<a class="btn" href="' + CHECKOUT_URL + '" target="_blank" rel="noopener">Register →</a>';
-        container.appendChild(fallback);
-      } else {
-        for (var i = 0; i < recs.length; i++) {
-          container.appendChild(renderRecommendationCard(recs[i]));
-        }
+        // Ambiguous answers should present both active cohort options.
+        recs = [
+          { key: 'beginnerCohort', reason: 'Your answers were fairly even across the board. The Beginner cohort is the foundational option.' },
+          { key: 'intermediateCohort', reason: 'Your answers were fairly even across the board. The Intermediate cohort is the deeper option.' },
+        ];
+      }
+      for (var i = 0; i < recs.length; i++) {
+        container.appendChild(renderRecommendationCard(recs[i]));
       }
 
       // ---- Tier-spanning note ----
