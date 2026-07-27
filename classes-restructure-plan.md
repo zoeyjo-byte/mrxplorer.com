@@ -6,7 +6,8 @@ a cheaper one, without needing to make judgment calls. Each phase lists
 exact files, exact strings to find, and how to check the phase worked before
 moving to the next one. **Do the phases in order** — later phases assume
 earlier ones are done (e.g. Phase 4's catalog prune is what makes Phase 3's
-"unlinked" pages actually unpurchasable).
+"unlinked" pages actually unpurchasable). Rewrite the existing
+`class-checkout/index.html`; do **not** create a second checkout page.
 
 Do not skip the "Verify" step in any phase. Do not batch multiple phases
 into one commit — commit after each phase so a bad phase is easy to revert.
@@ -17,17 +18,19 @@ into one commit — commit after each phase so a bad phase is easy to revert.
 visitor could otherwise see or click must stop rendering, but the markup
 stays in the same file, wrapped in `<!-- -->`, so a `git diff` or a plain
 text search still finds it and it can be un-commented later with no
-guesswork about where it goes back. Three exceptions, because the file
-format doesn't support comments where the content lives:
+guesswork about where it goes back. The following preservation rules apply
+where whole files or data formats need special handling:
 
-1. **Whole-page removal (Leaders track):** `classes/leaders.html` and
+1. **Leaders pages:** `classes/leaders.html` and
    `class-checkout/leaders.html` are entire files dedicated to Leaders
-   content. Do **not** move, rename, delete, or comment-out-in-full these
-   files — leaving the file exactly as it is *is* the preservation. Cut
-   every link to them from the rest of the site (those links are the
-   "visible to visitors" part, and those get HTML-commented) and remove
-   their catalog/schedule entries so nothing can find them or buy from
-   them. This is Phases 3–4 below.
+   content. Do **not** move, rename, or delete these files. Preserve their
+   existing markup in place, but wrap their visible class/cohort offering
+   sections, registration controls, and sale-oriented copy in HTML comments
+   so a visitor who reaches either URL does not see a purchasable offering.
+   Leave a short visible "registration currently unavailable" message if
+   useful. Cut every link to them from the rest of the site and remove their
+   catalog/schedule entries so nothing can buy them. This is Phases 3–4
+   below.
 2. **JSON-LD structured data:** JSON has no comment syntax, so individual
    objects inside a `<script type="application/ld+json">` block can't be
    commented out one at a time while leaving the rest valid. The whole
@@ -38,14 +41,17 @@ format doesn't support comments where the content lives:
    of the live JSON-LD, full stop. Phase 1 cuts the 10 individual-class
    `Course` objects out of `classes.html`'s JSON-LD and preserves them in a
    small archive file instead, since there's no in-place way to do it.
-3. **`data/schedule.json`:** strict JSON, no comments. Entries removed here
-   are gone from the file; the exact removed entries are already documented
-   verbatim in this plan's Name Reference section and in git history, so
-   nothing is actually lost — just not comment-preserved in place. Phase 6.
+3. **Strict JSON and plain-text data:** `data/schedule.json`,
+   `data/schedule-overrides.json`, and `llms.txt` do not support useful
+   in-place comments. Before removing inactive entries or public discovery
+   lines, copy them verbatim into clearly named archive files under
+   `content/classes-archive/` and document the archive. The live files must
+   contain only active offerings, while the original content stays
+   recoverable without relying only on git history. This is Phase 7.
 
 Everything else — class cards, nav links, CTA buttons, catalog/schedule
 data written in JS (which does support comments) — gets wrapped in a
-comment in place. This is Phases 2–5 below.
+comment in place. This is Phases 2–6 below.
 
 ## Name reference (exact strings — use these verbatim in searches)
 
@@ -159,11 +165,11 @@ Only do this after Phase 1's archive file is confirmed complete.
    class cards), the page has no leftover "$129/class" or "$199/class"
    text anywhere, and the JSON-LD still parses.
 
-## Phase 3 — Comment out Leaders links sitewide (files stay in place)
+## Phase 3 — Comment out paused links and offerings sitewide
 
-Do **not** edit `classes/leaders.html` or `class-checkout/leaders.html`
-content in this phase — only comment out other files' links to them, in
-place, so nothing renders but everything is still there in the source.
+Keep all paused content recoverable in its original file. Comment out links,
+buttons, and visitor-facing offering copy in place so nothing renders, but
+the source remains available for a future restore.
 
 1. Wrap the `For Leaders` nav link (`<li><a href="/classes/leaders" ...>
    For Leaders</a></li>`, appears in both header nav and footer nav — two
@@ -172,9 +178,19 @@ place, so nothing renders but everything is still there in the source.
    - `about.html`
    - `contact.html`
    - `tools.html`
-   - `classes.html`
-   - `quiz.html`
-   - `newsletter.html`
+    - `classes.html`
+    - `quiz.html`
+    - `newsletter.html`
+    - `404.html`
+    - `articles/template.html`
+    - `articles/index.html`
+    - `articles/how-to-write-ai-acceptable-use-policy-market-research/index.html`
+    - `articles/ai-training-for-market-research-teams/index.html`
+    - `articles/what-goes-into-an-llm-and-what-doesnt/index.html`
+    - `articles/what-data-market-researchers-should-never-put-into-ai/index.html`
+    - `articles/prompt-frameworks-market-research/index.html`
+    - `articles/how-market-researchers-are-using-ai-2026/index.html`
+    - `class-checkout/index.html`
 2. Comment out the other Leaders CTAs/mentions in the same files where
    present:
    - `index.html`: the `For Team Leaders` ghost-button CTA (appears twice,
@@ -195,28 +211,37 @@ place, so nothing renders but everything is still there in the source.
      stays live).
    - `about.html`, `contact.html`, `tools.html`: comment out the `For Team
      Leaders` ghost-button CTA where present.
-   - `classes.html`: comment out its `For Team Leaders` ghost-button CTA in
-     the footer CTA section.
-3. `class-checkout/success.html`: comment out the `<a href="leaders.html"
+    - `classes.html`: comment out its `For Team Leaders` ghost-button CTA in
+      the footer CTA section.
+    - `index.html`: comment out the entire visible three-track catalog block
+      for individual classes and Leaders, then replace it with the two live
+      cohort summaries and links to `/classes#beginner` and
+      `/classes#intermediate`. Preserve the old catalog markup inside the
+      comment. Update homepage FAQ and audience copy that says individual
+      classes or the Leaders track are available.
+4. `classes/leaders.html` and `class-checkout/leaders.html`: comment out their
+   visible offering cards, cohort controls, sale copy, and registration links
+   in place. Keep the files and all original markup. A small unavailable
+   message may remain visible.
+5. `class-checkout/success.html`: comment out the `<a href="leaders.html"
    class="secondary">For Leaders</a>` link.
-4. `sitemap.xml`: wrap the `<url>` block containing
+6. `sitemap.xml`: wrap the `<url>` block containing
    `<loc>https://www.mrxplorer.com/classes/leaders</loc>` in an XML comment
    (`<!-- -->` — valid in XML too).
-5. `llms.txt`: this is a plain-text/markdown discovery file for LLM
+7. `llms.txt`: this is a plain-text/markdown discovery file for LLM
    crawlers, not a page a visitor browses, and it has no comment syntax of
-   its own — delete the line `- [AI for Market Research Leaders]
+   its own. Archive the line in
+   `content/classes-archive/leaders-llms-2026-07.txt`, then remove the line
+   `- [AI for Market Research Leaders]
    (https://www.mrxplorer.com/classes/leaders): governance, risk, workflow
-   mapping, and a 90-day implementation plan for research leaders` outright
-   rather than leaving stray `<!-- -->` markup in a text file meant to be
-   read as prose. The removed line is preserved verbatim here and in git
-   history if it's needed again.
-6. **Verify:** `grep -rln "classes/leaders" . --include="*.html" --include="*.xml"`
-   from the repo root — every file it lists (other than
-   `classes/leaders.html` and `class-checkout/leaders.html` themselves)
-   should have that link sitting inside an HTML/XML comment, not live
-   markup. Open each in a browser or view-source and confirm the "For
-   Leaders" link/CTA doesn't render anywhere outside the two Leaders pages
-   themselves.
+   mapping, and a 90-day implementation plan for research leaders` before
+   removing it from the live file.
+8. **Verify:** search all visitor-facing HTML/XML files for
+   `classes/leaders`, `leaders.html`, and Leaders registration copy. Every
+   hit outside an explicitly preserved archive or the two inactive pages
+   must be inside an HTML/XML comment. Confirm the homepage, article pages,
+   404 page, and checkout header do not render Leaders links or offering
+   copy.
 
 ## Phase 4 — Prune the checkout catalog (this is what actually blocks sale)
 
@@ -252,7 +277,12 @@ whether a page still links anywhere.
    code, so it's a true test of what's actually still commented vs. live,
    not just a visual check.
 
-## Phase 5 — Update the checkout UI (`class-checkout/index.html`)
+## Phase 5 — Rewrite the existing checkout UI as cohort-only
+
+Do not create a new Netlify checkout page. The existing page already has the
+working cohort date selectors, capacity display, company field, Stripe
+request, promotion-code support, and success flow. Keep that page and
+comment out only the individual-class path.
 
 1. Find the `TIERS` object (`const TIERS = { beginner: {...}, intermediate:
    {...} }`). For both `beginner.classes` and `intermediate.classes`
@@ -281,32 +311,58 @@ whether a page still links anywhere.
 3. Visually inspect the page copy around each tier's now-empty class list
    container (search for `id="beginner-classes"` and
    `id="intermediate-classes"` in the surrounding HTML, not the `<script>`
-   block) and remove/adjust any heading or instructional text that assumed
-   individual classes would render there (e.g. "Choose your classes"
-   headings, "$129 each" pricing captions). Keep the cohort card, its date
-   picker (`cohort-date-options`), and its `Register` button untouched.
+    block) and remove/adjust any heading or instructional text that assumed
+    individual classes would render there (e.g. "Choose your classes"
+    headings, "$129 each" or "$199 each" pricing captions, "Select classes
+    from any tier", and the `For Leaders` navigation link). Keep the two
+    cohort buttons, their date pickers (`cohort-date-options`), and their
+    `Register` paths untouched.
 4. The "switch to cohort" upsell modal (`#cohort-modal`, triggered from
    `updateUI()` when all of a tier's individual classes are selected) can
    never trigger once `tier.classes` is empty (the `allInTier > 0` guard in
    `updateUI()` prevents it) — it's now dead but harmless. Leave it in
    place; do not spend time removing it unless doing a later cleanup pass.
-5. `class-checkout/leaders.html`: no code change needed. Its own class/cohort
-   names were removed from `catalog.js` in Phase 4, so any purchase attempt
-   from that page fails server-side with "Invalid class selection." **OWNER:
-   decide whether to leave it silently broken at the checkout step (lowest
-   effort) or add a plain banner near the top saying registration is
-   currently unavailable** (a few lines of static HTML, no JS logic
-   change) — either is acceptable, this is a UX call, not a mechanical one.
-6. **Verify:** open `class-checkout/index.html` in a browser. Confirm no
+5. `class-checkout/leaders.html`: comment out its visible individual and
+   cohort purchase UI in place and leave an unavailable message. The catalog
+   prune remains the server-side safety net, but the page must not present a
+   live purchase path to visitors.
+6. **Verify:** open the existing `class-checkout/index.html` in a browser.
+   Confirm no
    individual class checkboxes render under either tier, both cohort cards
    still show a start-date picker and an enabled Register button, and
-   clicking Register for either cohort reaches Stripe test checkout with
-   the correct cohort name and price. Do this as an actual **LIVE** Stripe
-   test-mode run, not just a visual check.
+   clicking Register for either cohort reaches Stripe checkout with the
+   correct cohort name and price. Use the configured environment mode for
+   the deployment under test, not a second checkout page.
 
-## Phase 6 — Update the schedule data and regenerate
+## Phase 6 — Update the quiz to recommend cohorts only
 
-1. In `data/schedule.json`:
+Keep the quiz questions, scoring, layout, and result headline logic. Replace
+only the individual-class recommendation layer in `quiz.html`.
+
+1. In the `CLASSES` object around lines 452–498, comment out the individual
+   class records in place. Add two active cohort records containing the exact
+   catalog names, cohort prices, descriptions, and the existing checkout URL.
+2. In `buildRecommendations()` around lines 510–558, comment out the rules
+   that return individual class keys. Map beginner-oriented results to the
+   Beginner cohort and intermediate-oriented results to the Intermediate
+   cohort. If a result is ambiguous, show both cohorts rather than an
+   individual class.
+3. Update `renderRecommendationCard()` so result cards say `Cohort`, show
+   `$395` or `$995`, and link to the existing cohort-only checkout page.
+4. Update the fallback and upsell copy around lines 603–650. Remove `$129`,
+   `$199`, "individual class", and "book separately" language. Do not leave
+   a recommendation that suggests a paused class is available for purchase.
+5. **Verify:** complete the quiz using beginner-leaning, intermediate-leaning,
+   mixed, and neutral answers. Every result must recommend only one or both
+   active cohorts, and every registration link must lead to the existing
+   cohort-only checkout page.
+
+## Phase 7 — Update the schedule data and regenerate
+
+1. Before editing strict JSON, archive the removed individual and Leaders
+   entries verbatim in a clearly named file under `content/classes-archive/`.
+   Keep the archive out of the generator and public navigation.
+2. In `data/schedule.json`:
    - Remove all 10 entries from the top-level `"classes"` array whose
      `"name"` matches an individual Beginner/Intermediate class from the
      list above. Remove all 4 individual Leaders entries and the Workflows
@@ -315,49 +371,58 @@ whether a page still links anywhere.
    - Remove the `AI for Market Research Team Leaders — 6-week Cohort`
      entry from the `"cohorts"` array. Leave the other 2 cohort entries
      untouched.
-2. Run `node scripts/generate-schedule.mjs` from the repo root. This
+3. Copy the removed `data/schedule-overrides.json` entries to
+   `content/classes-archive/schedule-overrides-2026-07.json`, then remove
+   them from the live overrides file. Do not leave stale overrides in the
+   live schedule configuration when the corresponding schedule entries are
+   inactive.
+4. Before running the generator, update `scripts/generate-schedule.mjs` so its
+   page cache loads the union of pages referenced by `config.classes` and
+   `config.cohorts`. This is required because the new `config.classes` array
+   is empty, while the two active cohorts still update `classes.html`.
+5. Run `node scripts/generate-schedule.mjs` from the repo root. This
    regenerates `data/generated-schedule.json`, rewrites
    `data/holiday-review.md`, and rewrites the embedded
    `GENERATED_SCHEDULE`/`GENERATED_COHORTS` blocks in both
-   `class-checkout/index.html` and `class-checkout/leaders.html`. That's
-   expected and fine — `class-checkout/leaders.html` still exists as a file
-   (Phase 3 rule), it's just unlinked and unsellable; it's fine for its own
-   embedded schedule data to still refresh.
-3. **Verify:** `data/schedule.json`'s `"classes"` array should be `[]`.
+   `class-checkout/index.html` and `class-checkout/leaders.html`. The
+    Leaders page remains in place (Phase 3 rule), but its generated schedule
+    blocks should become empty because no Leaders schedule entries remain
+    active.
+6. **Verify:** `data/schedule.json`'s `"classes"` array should be `[]`.
    Its `"cohorts"` array should have exactly 2 entries. Open
    `data/holiday-review.md` and confirm it no longer lists any of the
    removed class/cohort names (the generator rewrites this file from
    scratch, so it should self-correct — check it did).
 
-## Phase 7 — Full-site sweep for stragglers
+## Phase 8 — Full-site sweep for stragglers
 
-1. Run this search from the repo root and review every hit — it's
-   expected to be noisy now, since Phases 1-5 commented things out in
-   place rather than deleting them, so "leaders" will still appear in a
-   lot of files:
+1. Run this search from the repo root and review every hit. Matches inside
+   comments are expected and must be distinguished from live text; any live
+   per-class pricing is a straggler:
    ```
    grep -rn "129/class\|199/class\|\$129 individually\|\$199 individually" . --include="*.html"
    ```
-   Every hit this returns is a straggler that Phase 2 missed — this text
-   should not exist live anywhere (individually-priced classes aren't for
-   sale, so no page should mention per-class pricing). Fix any hits found.
-2. Run this second search and, for every hit, open the file and confirm
-   the match is either (a) inside an HTML/JS comment produced by Phases
-   1-5, or (b) inside one of the three known exceptions —
-   `classes/leaders.html`, `class-checkout/leaders.html` (untouched by
-   design), or `content/testimonials.json` (a testimonial quote uses the
-   word "leaders" in an unrelated sense) or `.claude/settings.local.json`
-   (unrelated permissions config):
+   Any hit outside an intentional archive/comment is a straggler — this text
+   should not render live anywhere because individually-priced classes are not
+   for sale. Fix any live hits found.
+2. Search live visitor-facing HTML, checkout JavaScript, sitemap, and
+   `llms.txt` separately. For every hit, confirm it is either (a) inside an
+   HTML/JS/XML comment produced by the phases above, (b) an unrelated use of
+   the word "leaders", or (c) in an explicitly documented archive. Do not
+   treat internal decision logs, this plan, or SEO documentation as live
+   offerings:
    ```
    grep -rln "leaders" . --include="*.html" --include="*.json" --include="*.js" --include="*.xml" --include="*.txt" | grep -v node_modules
    ```
-   Any hit that is neither commented-out nor one of those exceptions is a
-   straggler that needs the same comment-out treatment as its phase above.
+   Any hit that is neither commented-out, unrelated copy, nor an explicitly
+   documented archive is a straggler that needs the same comment-out treatment
+   as its phase above.
 3. **Verify:** re-run both searches after fixing any stragglers. The first
-   should return nothing. The second should return only the expected files,
-   each confirmed clean by the check in step 2.
+   should return nothing. The second should return only documented inactive
+   source/archive references and unrelated uses, with every live offering
+   reference confirmed clean by the check in step 2.
 
-## Phase 8 — Close out
+## Phase 9 — Close out
 
 1. Update the **Status** line of the 2026-07-27 entry in `CLAUDE.md` and
    `AGENTS.md` from "Execution plan: see `classes-restructure-plan.md`" to

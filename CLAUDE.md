@@ -5,7 +5,8 @@ MRXplorer site, not just code conventions. Site-restructuring changes are
 usually business decisions in disguise — log them here so future sessions
 don't have to reverse-engineer *why* the code looks the way it does.
 
-Keep `CLAUDE.md` and `AGENTS.md` identical. If you update one, update both.
+`CLAUDE.md` is the canonical decision log. `AGENTS.md` is a symlink to this
+file, so update `CLAUDE.md` only; both paths will stay synchronized.
 
 ## What this repo is
 
@@ -55,13 +56,15 @@ Most recent first. Each entry: **Decision**, **Why**, **Constraint**,
   be restored without guessing where they went. The Leaders track's own
   pages (`classes/leaders.html`, `class-checkout/leaders.html`) are left
   completely untouched as files — every *link* to them elsewhere on the
-  site is commented out instead, and their catalog/schedule entries are
-  commented out too so nothing is purchasable. The only exceptions, where
-  the file format has no comment syntax, are `data/schedule.json` (strict
-  JSON — entries are deleted, but documented in
-  `classes-restructure-plan.md` and recoverable from git history) and the
-  individual-class JSON-LD `Course`/`Offer` objects cut from `classes.html`
-  (moved to `content/classes-archive/` instead of commented in place).
+  site is commented out instead. The two Leaders files stay at their paths,
+  but their visible offering sections and registration controls are commented
+  out in place and may show an unavailable message, so direct visitors do not
+  see an active offering. Their catalog/schedule entries are commented out too
+  so nothing is purchasable. The only exceptions, where the file format has
+  no useful comment syntax, are strict JSON/plain-text data and the
+  individual-class JSON-LD `Course`/`Offer` objects. Those entries are copied
+  verbatim into `content/classes-archive/` before being removed from live
+  output, as specified in `classes-restructure-plan.md`.
 - **Status:** Leaders-track removal is a firm decision (classes + cohort,
   no exceptions). Individual Beginner/Intermediate class removal is
   temporary pending the live-vs-recorded decision — do not build a
