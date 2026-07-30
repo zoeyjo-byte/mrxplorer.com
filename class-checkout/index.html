@@ -53,10 +53,37 @@
         .class-item:hover { border-color: #635bff; background: #f8f7ff; }
         .class-item.selected { border-color: #635bff; background: #f0eeff; }
 
-        .class-item input[type="checkbox"] {
+        .cohort-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .cohort-item:hover { border-color: #635bff; background: #f8f7ff; }
+        .cohort-item.selected { border-color: #635bff; background: #f0eeff; }
+        .cohort-item input[type="checkbox"] {
             width: 1.2rem; height: 1.2rem; cursor: pointer;
             margin-top: 0.2rem;
             flex-shrink: 0;
+        }
+        .cohort-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .cohort-item .class-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .cohort-item .class-desc {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.4;
         }
         .class-item label {
             flex: 1;
@@ -110,18 +137,9 @@
         .date-picker .date-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
 
         .cohort-options {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            align-items: center;
             margin-bottom: 1.5rem;
         }
-        .cohort-option {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
+        /* Paused 2026-07-30 — individual class date picker, kept for restore.
         .cohort-date-options {
             display: flex;
             align-items: center;
@@ -143,6 +161,7 @@
             font-weight: 600;
         }
         .cohort-date-options input { margin-right: 0.25rem; }
+        */
 
         .summary {
             position: sticky; bottom: 0;
@@ -272,34 +291,20 @@
 <h1>🤖 AI Courses</h1>
 <p class="subtitle">Register for a cohort. Beginner ($395) or Intermediate ($995).</p>
 
-<!-- BEGINNER TIER -->
-<div class="tier" id="tier-beginner">
+<div class="tier">
     <div class="tier-header">
         <h2>AI for Beginners</h2>
         <div class="tier-pricing">4-Week Cohort: <strong>$395</strong></div>
     </div>
-    <div id="beginner-classes"></div>
+    <div class="cohort-list" data-tier="beginner"></div>
 </div>
 
-<!-- INTERMEDIATE TIER -->
-<div class="tier" id="tier-intermediate">
+<div class="tier">
     <div class="tier-header">
         <h2>AI for Intermediate Users</h2>
         <div class="tier-pricing">6-Week Cohort: <strong>$995</strong></div>
     </div>
-    <div id="intermediate-classes"></div>
-</div>
-
-<div class="cohort-options" aria-label="Cohort registration">
-    <strong>Choose your cohort</strong>
-    <div class="cohort-option">
-        <button type="button" class="checkout-btn cohort-register" data-tier="beginner">Beginner cohort — $395</button>
-        <div class="cohort-date-options" data-tier="beginner"></div>
-    </div>
-    <div class="cohort-option">
-        <button type="button" class="checkout-btn cohort-register" data-tier="intermediate">Intermediate cohort — $995</button>
-        <div class="cohort-date-options" data-tier="intermediate"></div>
-    </div>
+    <div class="cohort-list" data-tier="intermediate"></div>
 </div>
 
 <!-- STICKY SUMMARY BAR -->
@@ -315,7 +320,7 @@
     </button>
 </div>
 
-<!-- COHORT UPSELL MODAL -->
+<!-- Paused 2026-07-30 — cohort upsell modal unused while individual classes paused.
 <div class="modal-overlay" id="cohort-modal">
     <div class="modal">
         <h3 id="modal-title">📦 The full cohort is a better deal!</h3>
@@ -332,6 +337,7 @@
         </div>
     </div>
 </div>
+-->
 
 <script>
     // ─── SCHEDULE HELPERS ───────────────────────────────────────────────
@@ -508,193 +514,88 @@
             );
     }
 
-    document.querySelectorAll('.cohort-date-options').forEach((element) => {
-        const tierKey = element.dataset.tier;
+    // ─── RENDER COHORT CHECKBOXES ─────────────────────────────────────
+    let cohortOptions = [];
+    document.querySelectorAll('.cohort-list').forEach((container) => {
+        const tierKey = container.dataset.tier;
+        const tier = TIERS[tierKey];
+        if (!tier) return;
         const dates = getCohortDates(tierKey);
-        element.innerHTML = dates.length
-            ? '<span>Choose a start:</span>' + dates.map((date, index) => `
-                <label>
-                    <input type="radio" name="cohort-start-${tierKey}" value="${formatDateValue(date)}" ${index === 0 ? 'checked' : ''}>
-                    ${formatDate(date)}
-                </label>
-            `).join('')
-            : '<span>Next cohort date to be announced</span>';
-    });
-
-    const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
-
-    // ─── RENDER TIERS ───────────────────────────────────────────────────
-    let allClasses = [];
-
-    Object.entries(TIERS).forEach(([tierKey, tier]) => {
-        const container = document.getElementById(`${tierKey}-classes`);
-        const schedule = SCHEDULE[tierKey];
-
-        tier.classes.forEach((cls, index) => {
-            const globalIndex = allClasses.length;
-            const sched = schedule[index];
-            const dates = GENERATED_SCHEDULE[cls.name]?.map(date => new Date(date)) || (sched ? getNextOccurrences(sched.weekday, sched.nth, sched.hour, sched.minute, 2) : []);
-            allClasses.push({ ...cls, tier: tierKey, tierLabel: tier.label, price: tier.price, schedule: sched, dates });
-
+        dates.forEach((date) => {
+            const idx = cohortOptions.length;
+            cohortOptions.push({
+                tierKey,
+                name: tier.cohortName,
+                label: tier.label,
+                price: tier.cohortPrice,
+                date,
+                dateStr: formatDate(date),
+                idx,
+            });
             const div = document.createElement('div');
-            div.className = 'class-item';
-            div.dataset.index = globalIndex;
+            div.className = 'cohort-item';
+            div.dataset.cohortIndex = idx;
             div.innerHTML = `
-                <input type="checkbox" id="cb-${globalIndex}" data-index="${globalIndex}" />
-                <label for="cb-${globalIndex}">
-                    <div class="class-name">${cls.name}</div>
-                    <div class="class-desc">${cls.desc}</div>
+                <input type="checkbox" id="cohort-cb-${idx}" data-cohort-index="${idx}">
+                <label for="cohort-cb-${idx}">
+                    <div class="class-name">${tier.label}</div>
+                    <div class="class-desc">Cohort starts ${formatDate(date)} — $${tier.cohortPrice}</div>
                 </label>
-                <div class="class-price">$${tier.price}</div>
             `;
             container.appendChild(div);
 
-            // Click on card toggles checkbox
+            const cb = div.querySelector('input[type="checkbox"]');
             div.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && !e.target.closest('.date-picker')) {
-                    const cb = div.querySelector('input[type="checkbox"]');
+                if (e.target.tagName !== 'INPUT') {
                     cb.checked = !cb.checked;
                     cb.dispatchEvent(new Event('change'));
                 }
             });
-
-            const cb = div.querySelector('input[type="checkbox"]');
             cb.addEventListener('change', () => {
                 div.classList.toggle('selected', cb.checked);
+                if (cb.checked) {
+                    document.querySelectorAll('.cohort-item input[type="checkbox"]').forEach(other => {
+                        if (other !== cb) {
+                            other.checked = false;
+                            other.closest('.cohort-item').classList.remove('selected');
+                        }
+                    });
+                }
                 updateUI();
             });
         });
     });
 
-    // ─── RENDER DATES ───────────────────────────────────────────────────
-    function renderDates() {
-        document.querySelectorAll('.class-item').forEach(div => {
-            const idx = parseInt(div.dataset.index);
-            const cls = allClasses[idx];
-            if (!cls.dates || cls.dates.length === 0) return;
+    const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
-             let picker = div.querySelector('.date-picker');
-             if (!picker) {
-                picker = document.createElement('div');
-                picker.className = 'date-picker';
-                 div.appendChild(picker);
-             }
-             if (Array.isArray(cls.schedule?.nth)) {
-                 const dateValues = cls.dates.map(formatDateValue);
-                 const isFull = dateValues.some(dateValue => getSpotsRemaining(cls.name, dateValue) <= 0);
-                 picker.innerHTML = '<div class="date-label">Select the sequence dates:</div>' + `
-                     <input type="radio" name="date-${idx}" id="d-${idx}-sequence" value="${dateValues[0]}" data-dates='${JSON.stringify(dateValues)}' ${isFull ? 'disabled' : 'checked'}>
-                     <label for="d-${idx}-sequence" class="${isFull ? 'date-option-full' : ''}">
-                         ${cls.dates.map(formatDate).join(' + ')}
-                         <span class="${isFull ? 'spots-full' : 'spots-info'}">${isFull ? 'Sold out' : `${INDIVIDUAL_CAP} spots per session`}</span>
-                     </label>`;
-                 return;
-             }
-             const firstAvailIdx = cls.dates.findIndex(d => getSpotsRemaining(cls.name, formatDateValue(d)) > 0);
-            const defaultIdx = firstAvailIdx >= 0 ? firstAvailIdx : 0;
-            picker.innerHTML = '<div class="date-label">Select your date:</div>' +
-                cls.dates.map((d, i) => {
-                    const dateValue = formatDateValue(d);
-                    const remaining = getSpotsRemaining(cls.name, dateValue);
-                    const isFull = remaining <= 0;
-                    const isLow = remaining > 0 && remaining <= 3;
-                    const spotsClass = isFull ? 'spots-full' : (isLow ? 'spots-low' : 'spots-info');
-                    const spotsText = isFull ? 'Sold out' : `${remaining} ${remaining === 1 ? 'spot' : 'spots'} left`;
-                    return `
-                        <input type="radio" name="date-${idx}" id="d-${idx}-${i}" value="${dateValue}" data-idx="${idx}" ${i === defaultIdx && !isFull ? 'checked' : ''} ${isFull ? 'disabled' : ''}>
-                        <label for="d-${idx}-${i}" class="${isFull ? 'date-option-full' : ''}">
-                            ${formatDate(d)}
-                            <span class="${spotsClass}">${spotsText}</span>
-                        </label>
-                    `;
-                }).join('');
-        });
-    }
-
+    /* Paused 2026-07-30 — individual class rendering + date pickers, kept for restore.
+       See CLAUDE.md decision log.
+    let allClasses = [];
+    // ... rendering functions removed for brevity, see git history
     renderDates();
     loadCapacity().then(() => renderDates());
+    */
 
     // ─── STATE & UPDATES ───────────────────────────────────────────────
     const totalDisplay = document.getElementById('total-display');
     const checkoutBtn = document.getElementById('checkout-btn');
-    const modal = document.getElementById('cohort-modal');
-    let modalDismissed = { beginner: false, intermediate: false };
 
-    function getSelected() {
-        return document.querySelectorAll('.class-item input[type="checkbox"]:checked');
+    function getSelectedCohort() {
+        const checked = document.querySelectorAll('.cohort-item input[type="checkbox"]:checked');
+        if (checked.length === 0) return null;
+        return cohortOptions[parseInt(checked[0].dataset.cohortIndex)];
     }
 
     function getTotal() {
-        let total = 0;
-        document.querySelectorAll('.class-item input[type="checkbox"]:checked').forEach(cb => {
-            const idx = parseInt(cb.dataset.index);
-            total += allClasses[idx].price;
-        });
-        return total;
-    }
-
-    function getSelectedByTier() {
-        const byTier = {};
-        document.querySelectorAll('.class-item input[type="checkbox"]:checked').forEach(cb => {
-            const idx = parseInt(cb.dataset.index);
-            const cls = allClasses[idx];
-            if (!byTier[cls.tier]) byTier[cls.tier] = [];
-            byTier[cls.tier].push(cls);
-        });
-        return byTier;
+        const co = getSelectedCohort();
+        return co ? co.price : 0;
     }
 
     function updateUI() {
-        const selected = getSelected();
         const total = getTotal();
         totalDisplay.textContent = `$${total}`;
-        checkoutBtn.disabled = selected.length === 0;
-
-        const byTier = getSelectedByTier();
-        Object.entries(TIERS).forEach(([tierKey, tier]) => {
-            const tierSelected = byTier[tierKey] || [];
-            const allInTier = tier.classes.length;
-
-            if (!modalDismissed[tierKey] && tierSelected.length === allInTier && allInTier > 0) {
-                const individualTotal = tierSelected.length * tier.price;
-                const savings = individualTotal - tier.cohortPrice;
-
-                document.getElementById('modal-title').textContent = `📦 The ${tier.label} cohort is a better deal!`;
-                document.getElementById('modal-tier').textContent = tier.label;
-                document.getElementById('cohort-total').textContent = `$${individualTotal}`;
-                document.getElementById('cohort-pass-price').textContent = `$${tier.cohortPrice}`;
-                document.getElementById('cohort-savings-amount').textContent = `$${savings}`;
-                document.getElementById('cohort-go').textContent = `Switch to Cohort Pass — $${tier.cohortPrice}`;
-                document.getElementById('cohort-dismiss').textContent = `Keep Individual Classes ($${individualTotal})`;
-
-                modal.dataset.activeTier = tierKey;
-                modal.classList.add('active');
-            }
-        });
+        checkoutBtn.disabled = total === 0;
     }
-
-    // ─── MODAL ACTIONS ──────────────────────────────────────────────────
-    document.getElementById('cohort-go').addEventListener('click', () => {
-        const tierKey = modal.dataset.activeTier;
-        modal.classList.remove('active');
-        if (tierKey && TIERS[tierKey]) beginCohortCheckout(tierKey);
-    });
-
-    document.getElementById('cohort-dismiss').addEventListener('click', () => {
-        const tierKey = modal.dataset.activeTier;
-        modal.classList.remove('active');
-        if (tierKey) {
-            modalDismissed[tierKey] = true;
-        }
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            const tierKey = modal.dataset.activeTier;
-            if (tierKey) modalDismissed[tierKey] = true;
-        }
-    });
 
     // ─── CHECKOUT ───────────────────────────────────────────────────────
     async function requestCheckout(lineItems, companyName) {
@@ -709,58 +610,23 @@
         window.location.href = data.url;
     }
 
-    async function beginCohortCheckout(tierKey) {
-        const companyName = document.getElementById('company-field').value.trim();
-        if (!companyName) { alert('Please enter your company name.'); return; }
-
-        const tier = TIERS[tierKey];
-        const selectedStart = document.querySelector(`input[name="cohort-start-${tierKey}"]:checked`);
-        if (!selectedStart) { alert('No upcoming cohort date is available. Please try again.'); return; }
-
-        try {
-            await requestCheckout([{
-                name: tier.cohortName,
-                price: tier.cohortPrice,
-                quantity: 1,
-                date: selectedStart.value,
-            }], companyName);
-        } catch (err) {
-            console.error(err);
-            alert(err.message || 'Something went wrong. Please try again.');
-        }
-    }
-
-    document.querySelectorAll('.cohort-register').forEach((button) => {
-        button.addEventListener('click', () => beginCohortCheckout(button.dataset.tier));
-    });
-
     checkoutBtn.addEventListener('click', async () => {
-        const selected = getSelected();
-        if (selected.length === 0) return;
+        const co = getSelectedCohort();
+        if (!co) return;
 
         const companyName = document.getElementById('company-field').value.trim();
         if (!companyName) { alert('Please enter your company name.'); return; }
-
-        const lineItems = Array.from(selected).map(cb => {
-            const idx = parseInt(cb.dataset.index);
-            const cls = allClasses[idx];
-             const selectedDate = document.querySelector(`input[name="date-${idx}"]:checked`);
-             const selectedDates = selectedDate?.dataset.dates ? JSON.parse(selectedDate.dataset.dates) : [selectedDate?.value];
-             return {
-                name: cls.name,
-                price: cls.price,
-                quantity: 1,
-                 date: selectedDate ? selectedDate.value : null,
-                 dates: selectedDates.filter(Boolean),
-                company: companyName,
-            };
-        });
 
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = 'Redirecting...';
 
         try {
-            await requestCheckout(lineItems, companyName);
+            await requestCheckout([{
+                name: co.name,
+                price: co.price,
+                quantity: 1,
+                date: formatDateValue(co.date),
+            }], companyName);
         } catch (err) {
             console.error(err);
             alert(err.message || 'Something went wrong. Please try again.');
