@@ -30,7 +30,7 @@ export default async (req, context) => {
     }
 
     try {
-        const { items, companyName } = await req.json();
+        const { items, contact } = await req.json();
 
         if (!Array.isArray(items) || items.length === 0 || items.length > 20) {
             return new Response(JSON.stringify({ error: 'At least one valid item is required.' }), {
@@ -39,7 +39,21 @@ export default async (req, context) => {
             });
         }
 
-        const company = typeof companyName === 'string' ? companyName.trim() : '';
+        const name = typeof contact?.name === 'string' ? contact.name.trim() : '';
+        const email = typeof contact?.email === 'string' ? contact.email.trim() : '';
+        const company = typeof contact?.company === 'string' ? contact.company.trim() : '';
+        if (!name || name.length > 200) {
+            return new Response(JSON.stringify({ error: 'A valid name is required.' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+        if (!email || email.length > 320) {
+            return new Response(JSON.stringify({ error: 'A valid email is required.' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
         if (!company || company.length > 200) {
             return new Response(JSON.stringify({ error: 'A valid company name is required.' }), {
                 status: 400,
@@ -96,6 +110,8 @@ export default async (req, context) => {
                     metadata: {
                         class_date: item.date || '',
                         class_dates: JSON.stringify(item.dates),
+                        customer_name: name,
+                        customer_email: email,
                         company_name: company,
                         item_type: item.type,
                     },
@@ -111,7 +127,7 @@ export default async (req, context) => {
             line_items: lineItems,
             automatic_tax: { enabled: true },
             allow_promotion_codes: true,
-            metadata: { company_name: company },
+            metadata: { customer_name: name, customer_email: email, company_name: company },
             success_url: `https://${req.headers.get('host')}/success.html`,
             cancel_url: `https://${req.headers.get('host')}/`,
         });

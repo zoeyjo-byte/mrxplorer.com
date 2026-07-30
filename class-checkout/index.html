@@ -307,10 +307,19 @@
     <div class="cohort-list" data-tier="intermediate"></div>
 </div>
 
-<!-- STICKY SUMMARY BAR -->
-<div style="margin: 1rem 0 1.5rem;">
-    <label for="company-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Company name (required)</label>
-    <input type="text" id="company-field" placeholder="Your company" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+<div style="margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+    <div>
+        <label for="name-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Name (required)</label>
+        <input type="text" id="name-field" placeholder="Your name" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
+    <div>
+        <label for="email-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Email (required)</label>
+        <input type="email" id="email-field" placeholder="you@company.com" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
+    <div>
+        <label for="company-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Company name (required)</label>
+        <input type="text" id="company-field" placeholder="Your company" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
 </div>
 
 <div class="summary">
@@ -598,11 +607,21 @@
     }
 
     // ─── CHECKOUT ───────────────────────────────────────────────────────
-    async function requestCheckout(lineItems, companyName) {
+    function getContactInfo() {
+        const name = document.getElementById('name-field').value.trim();
+        const email = document.getElementById('email-field').value.trim();
+        const company = document.getElementById('company-field').value.trim();
+        if (!name) { alert('Please enter your name.'); return null; }
+        if (!email) { alert('Please enter your email.'); return null; }
+        if (!company) { alert('Please enter your company name.'); return null; }
+        return { name, email, company };
+    }
+
+    async function requestCheckout(lineItems, contact) {
         const response = await fetch(CHECKOUT_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: lineItems, companyName }),
+            body: JSON.stringify({ items: lineItems, contact }),
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || data.error || 'Failed to create checkout session');
@@ -614,8 +633,8 @@
         const co = getSelectedCohort();
         if (!co) return;
 
-        const companyName = document.getElementById('company-field').value.trim();
-        if (!companyName) { alert('Please enter your company name.'); return; }
+        const contact = getContactInfo();
+        if (!contact) return;
 
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = 'Redirecting...';
@@ -626,7 +645,7 @@
                 price: co.price,
                 quantity: 1,
                 date: formatDateValue(co.date),
-            }], companyName);
+            }], contact);
         } catch (err) {
             console.error(err);
             alert(err.message || 'Something went wrong. Please try again.');
