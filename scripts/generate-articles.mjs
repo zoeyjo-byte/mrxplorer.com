@@ -27,59 +27,100 @@ function parseSource(source) {
   return { frontMatter, body: match[2].trim() };
 }
 
+function inline(text) {
+  return escapeHtml(text)
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (match, label, url) => `<a href="${url}">${label}</a>`)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+}
+
 function markdownToHtml(markdown) {
   const lines = markdown.split('\n');
   const output = [];
   let paragraph = [];
   let list = [];
+  let listTag = 'ol';
   let quote = [];
+  let table = [];
 
   const flushParagraph = () => {
     if (paragraph.length) {
-      output.push(`<p>${escapeHtml(paragraph.join(' '))}</p>`);
+      output.push(`<p>${inline(paragraph.join(' '))}</p>`);
       paragraph = [];
     }
   };
   const flushList = () => {
     if (list.length) {
-      output.push(`<ol>${list.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ol>`);
+      output.push(`<${listTag}>${list.map(item => `<li>${inline(item)}</li>`).join('')}</${listTag}>`);
       list = [];
+      listTag = 'ol';
     }
   };
   const flushQuote = () => {
     if (quote.length) {
-      output.push(`<blockquote>${escapeHtml(quote.join(' '))}</blockquote>`);
+      output.push(`<blockquote>${inline(quote.join(' '))}</blockquote>`);
       quote = [];
     }
+  };
+  const flushTable = () => {
+    if (table.length) {
+      const cells = row => row.replace(/^\|/, '').replace(/\|$/, '').split('|').map(cell => cell.trim());
+      const isSeparator = row => /^[\s:|-]*$/.test(cells(row).join(''));
+      const rows = table.filter(row => !isSeparator(row));
+      const header = cells(rows[0]).map(cell => `<th>${inline(cell)}</th>`).join('');
+      const body = rows.slice(1).map(row => `<tr>${cells(row).map(cell => `<td>${inline(cell)}</td>`).join('')}</tr>`).join('');
+      output.push(`<table>\n  <thead>\n    <tr>${header}</tr>\n  </thead>\n  <tbody>\n    ${body}\n  </tbody>\n</table>`);
+      table = [];
+    }
+  };
+  const flushAll = () => {
+    flushParagraph();
+    flushList();
+    flushQuote();
+    flushTable();
   };
 
   for (const line of lines) {
     if (!line.trim()) {
-      flushParagraph();
-      flushList();
-      flushQuote();
+      flushAll();
+    } else if (line.startsWith('### ')) {
+      flushAll();
+      output.push(`<h3>${inline(line.slice(4))}</h3>`);
     } else if (line.startsWith('## ')) {
-      flushParagraph();
-      flushList();
-      flushQuote();
-      output.push(`<h2>${escapeHtml(line.slice(3))}</h2>`);
+      flushAll();
+      output.push(`<h2>${inline(line.slice(3))}</h2>`);
     } else if (/^\d+\. /.test(line)) {
       flushParagraph();
       flushQuote();
+      flushTable();
+      if (listTag !== 'ol') flushList();
+      listTag = 'ol';
       list.push(line.replace(/^\d+\. /, ''));
+    } else if (/^[-*] /.test(line)) {
+      flushParagraph();
+      flushQuote();
+      flushTable();
+      if (listTag !== 'ul') flushList();
+      listTag = 'ul';
+      list.push(line.replace(/^[-*] /, ''));
     } else if (line.startsWith('> ')) {
       flushParagraph();
       flushList();
+      flushTable();
       quote.push(line.slice(2));
+    } else if (line.trim().startsWith('|')) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      table.push(line.trim());
     } else {
       flushList();
       flushQuote();
+      flushTable();
       paragraph.push(line.trim());
     }
   }
-  flushParagraph();
-  flushList();
-  flushQuote();
+  flushAll();
   return output.join('\n\n');
 }
 

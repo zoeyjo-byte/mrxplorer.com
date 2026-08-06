@@ -101,4 +101,18 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.mrxplorer.com/articles/do-you-need-a-prompt-framework</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

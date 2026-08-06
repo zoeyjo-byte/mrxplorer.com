@@ -20,4 +20,6 @@
   - [What Data Should Market Researchers Never Put Into an AI Tool?](https://www.mrxplorer.com/articles/what-data-market-researchers-should-never-put-into-ai)
   - [How to Write an AI Acceptable-Use Policy](https://www.mrxplorer.com/articles/how-to-write-ai-acceptable-use-policy-market-research)
   - [Prompt Frameworks for Market Research](https://www.mrxplorer.com/articles/prompt-frameworks-market-research)
+  - [What Goes Into an LLM — and What Doesn't](https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt)
+  - [Do You Need a Prompt Framework Like RACE, RTF, or COSTAR?](https://www.mrxplorer.com/articles/do-you-need-a-prompt-framework)
 - [Newsletters](https://www.mrxplorer.com/newsletter): MRXplorations (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)

@@ -713,10 +713,30 @@ h1, h2, h3, h4 {
   font-size: 1.6rem;
   margin: 48px 0 16px;
 }
+.prose h3 {
+  font-size: 1.25rem;
+  margin: 40px 0 12px;
+}
 .prose p { margin-bottom: 20px; }
 .prose a { color: var(--orange-text); text-decoration: underline; }
-.prose ol { margin: 0 0 20px 24px; }
+.prose ol, .prose ul { margin: 0 0 20px 24px; }
 .prose li { margin-bottom: 8px; }
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.95rem;
+}
+.prose th, .prose td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.prose thead th {
+  background: var(--off-white);
+  color: var(--navy);
+}
 .prose blockquote {
   margin: 24px 0;
   padding: 16px 20px;
