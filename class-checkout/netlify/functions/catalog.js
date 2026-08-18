@@ -15,7 +15,7 @@ export const CATALOG = {
   // 'Governance, Risk, and Tool Standardization': { price: 499, type: 'individual' },
   // 'Workflows — Let\'s Map and Decide (2-session sequence)': { price: 499, type: 'individual' },
   // 'Workflows — Let\'s Map and Decide (2-part sequence)': { price: 499, type: 'individual' },
-  'AI Beginners 4-Week Bundle (cohort)': { price: 395, type: 'cohort' },
+  'AI Beginners 6-Week Cohort': { price: 395, type: 'cohort' },
   'Intermediate AI 6-Week Cohort': { price: 995, type: 'cohort' },
   // Paused 2026-07-27 — see CLAUDE.md decision log. Not for sale, kept for restore.
   // 'AI for Market Research Team Leaders — 6-week Cohort': { price: 2595, type: 'cohort' },
@@ -38,8 +38,8 @@ const SCHEDULES = {
   // 'Governance, Risk, and Tool Standardization': { weekday: 5, nth: [2], hour: 12 },
   // 'Workflows — Let\'s Map and Decide (2-session sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
   // 'Workflows — Let\'s Map and Decide (2-part sequence)': { weekday: 5, nth: [3, 4], hour: 12 },
-  'AI Beginners 4-Week Bundle (cohort)': { weekday: 2, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
-  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
+  'AI Beginners 6-Week Cohort': { weekday: 2, nth: [1], hour: 9, cadenceMonths: 3, cadenceAnchor: '2026-10' },
+  'Intermediate AI 6-Week Cohort': { weekday: 4, nth: [1], hour: 9, cadenceMonths: 3, cadenceAnchor: '2026-10' },
   // Paused 2026-07-27 — see CLAUDE.md decision log. Not for sale, kept for restore.
   // 'AI for Market Research Team Leaders — 6-week Cohort': { weekday: 5, nth: [1], hour: 9, cadenceMonths: 2, cadenceAnchor: '2026-09' },
 };

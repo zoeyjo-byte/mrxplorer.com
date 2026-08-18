@@ -1,10 +1,10 @@
 {
   "timezone": "America/Los_Angeles",
-  "firstStartDate": "2026-09-01",
+  "firstStartDate": "2026-10-01",
   "horizonMonths": 12,
   "classes": [],
   "cohorts": [
-    { "name": "AI Beginners 4-Week Bundle (cohort)", "displayName": "AI Beginners 4-Week Bundle (Cohort)", "page": "classes.html", "weekday": 2, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-09" },
-    { "name": "Intermediate AI 6-Week Cohort", "page": "classes.html", "weekday": 4, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 2, "cadenceAnchor": "2026-09" }
+    { "name": "AI Beginners 6-Week Cohort", "displayName": "AI Beginners 6-Week Cohort", "page": "classes.html", "weekday": 2, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 3, "cadenceAnchor": "2026-10" },
+    { "name": "Intermediate AI 6-Week Cohort", "page": "classes.html", "weekday": 4, "nth": [1], "hour": 9, "minute": 0, "cadenceMonths": 3, "cadenceAnchor": "2026-10" }
   ]
 }
