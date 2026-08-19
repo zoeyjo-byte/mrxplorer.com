@@ -15,7 +15,7 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://www.mrxplorer.com/tools" />
 
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg" />
 <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Free Tools for Market Researchers — MRXplorer" />
@@ -120,8 +120,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #032c64;
-      --orange: #f47721;
       --white:  #ffffff;
       --gray-light: #f5f5f5;
       --gray-mid:   #808080;
@@ -264,7 +262,7 @@
     }
 
     .tool-card:hover {
-      box-shadow: 0 4px 20px rgba(3,44,100,0.08);
+      box-shadow: 0 4px 20px rgba(23,19,31,0.08);
       border-color: var(--navy);
     }
 
@@ -473,13 +471,14 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/style.css?v=9" />
 </head>
-<body>
+<body class="site-page page-tools">
 
   <!-- NAV -->
   <nav>
     <a class="logo-link" href="https://www.mrxplorer.com/">
-      <img src="https://www.mrxplorer.com/assets/mrxplorer-logo.png" alt="MRXplorer" />
+      <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" />
     </a>
     <ul>
       <li><a href="https://www.mrxplorer.com/">Home</a></li>
@@ -495,6 +494,7 @@
     </ul>
   </nav>
 
+  <main id="main">
   <!-- PAGE HEADER -->
   <header class="page-header">
     <span class="eyebrow">Free Tools</span>
@@ -554,6 +554,7 @@
     </div>
   </section>
 
+  </main>
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">

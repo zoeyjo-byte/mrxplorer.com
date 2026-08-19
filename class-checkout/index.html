@@ -6,6 +6,8 @@
     <meta name="robots" content="noindex">
     <meta name="description" content="Register for MRXplorer AI classes — beginner and intermediate tracks. Secure checkout powered by Stripe.">
     <title>Register — MRXplorer AI Classes</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg" />
+    <link rel="stylesheet" href="/style.css?v=9" />
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,8 +52,8 @@
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
         }
-        .class-item:hover { border-color: #635bff; background: #f8f7ff; }
-        .class-item.selected { border-color: #635bff; background: #f0eeff; }
+        .class-item:hover { border-color: var(--brand-purple); background: #f8f7ff; }
+        .class-item.selected { border-color: var(--brand-purple); background: #f0eeff; }
 
         .cohort-item {
             border: 1px solid #e0e0e0;
@@ -64,8 +66,8 @@
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
         }
-        .cohort-item:hover { border-color: #635bff; background: #f8f7ff; }
-        .cohort-item.selected { border-color: #635bff; background: #f0eeff; }
+        .cohort-item:hover { border-color: var(--brand-purple); background: #f8f7ff; }
+        .cohort-item.selected { border-color: var(--brand-purple); background: #f0eeff; }
         .cohort-item input[type="checkbox"] {
             width: 1.2rem; height: 1.2rem; cursor: pointer;
             margin-top: 0.2rem;
@@ -127,9 +129,9 @@
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
         }
-        .date-picker label:hover { border-color: #635bff; background: #f8f7ff; }
+        .date-picker label:hover { border-color: var(--brand-purple); background: #f8f7ff; }
         .date-picker input[type="radio"]:checked + label {
-            border-color: #635bff;
+            border-color: var(--brand-purple);
             background: #e7e5ff;
             font-weight: 600;
         }
@@ -155,7 +157,7 @@
             cursor: pointer;
         }
         .cohort-date-options label:has(input:checked) {
-            border-color: #635bff;
+            border-color: var(--brand-purple);
             background: #e7e5ff;
             color: #000;
             font-weight: 600;
@@ -178,7 +180,7 @@
         .total { font-size: 1.3rem; font-weight: 700; }
         .total span { color: #000; }
         .checkout-btn {
-            background: #635bff;
+            background: var(--brand-purple);
             color: white;
             border: none;
             padding: 0.85rem 2rem;
@@ -188,7 +190,7 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        .checkout-btn:hover { background: #4a42e0; }
+        .checkout-btn:hover { background: var(--page-accent-strong); }
         .checkout-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
@@ -235,10 +237,10 @@
             transition: background 0.2s;
         }
         .btn-cohort {
-            background: #635bff;
+            background: var(--brand-purple);
             color: white;
         }
-        .btn-cohort:hover { background: #4a42e0; }
+        .btn-cohort:hover { background: var(--page-accent-strong); }
         .btn-dismiss {
             background: #e8e8e8;
             color: #000;
@@ -253,7 +255,7 @@
             margin-top: 0.2rem;
         }
         .date-picker .spots-low {
-            color: #c85e15;
+            color: var(--orange-text-dk);
             font-weight: 600;
         }
         .date-picker .spots-full {
@@ -274,11 +276,11 @@
       gtag('config', 'G-TB3GBL2RQ0');
     </script>
 </head>
-<body>
+<body class="checkout-page checkout-index">
 
 <header style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2rem;">
     <a href="https://www.mrxplorer.com" target="_blank">
-        <img src="mrxplorer-logo.png" alt="MRXplorer" style="height: 48px; width: auto;" />
+        <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" style="height: 48px; width: auto;" />
     </a>
     <nav style="display: flex; gap: 1.5rem; font-size: 1rem; font-weight: 600;">
         <a href="https://www.mrxplorer.com" target="_blank" style="color: #000; text-decoration: none;">Home</a>
@@ -288,6 +290,7 @@
     </nav>
 </header>
 
+<main id="main">
 <h1>🤖 AI Courses</h1>
 <p class="subtitle">Register for a cohort. Beginner ($395) or Intermediate ($995).</p>
 
@@ -328,6 +331,8 @@
         Proceed to Checkout
     </button>
 </div>
+
+</main>
 
 <!-- Paused 2026-07-30 — cohort upsell modal unused while individual classes paused.
 <div class="modal-overlay" id="cohort-modal">

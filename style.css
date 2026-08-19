@@ -5,24 +5,29 @@
 
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
-  --navy:        #032c64;
-  --navy-mid:    #0a3d7a;
-  --navy-dark:   #021d42;
-  --orange:      #f47721;
-  --orange-dk:   #c85e15;
-  --orange-lt:   #fef0e6;
-  /* Darker, text-safe orange — use for orange TEXT/icons on white or off-white
-     backgrounds. --orange itself only meets 2.8:1 there (fails WCAG AA 4.5:1);
-     it's still fine for large decorative text and for text on navy/black. */
-  --orange-text:    #a3480c;
-  --orange-text-dk: #8a3a09;
-  --black:       #0d0d0d;
+  /* Brand palette */
+  --brand-yellow:  #ffc107;
+  --brand-purple:  #7c3aed;
+  --brand-pink:    #dc2378;
+  --brand-black:   #0d0d0d;
+  --brand-white:   #ffffff;
+
+  /* Legacy names remain as aliases while page-specific markup is migrated. */
+  --navy:        #17131f;
+  --navy-mid:    #32155f;
+  --navy-dark:   #0d0b12;
+  --orange:      var(--brand-pink);
+  --orange-dk:   #b0185e;
+  --orange-lt:   #fce8f1;
+  --orange-text:    #a71959;
+  --orange-text-dk: #861346;
+  --black:       var(--brand-black);
   --white:       #ffffff;
-  --off-white:   #f7f6f3;
+  --off-white:   #faf8fc;
   --gray-dk:     #1a1a1a;
-  --gray-mid:    #555555;
-  --gray-lt:     #e8e8e4;
-  --border:      #d8d6d0;
+  --gray-mid:    #4a4650;
+  --gray-lt:     #ebe8f0;
+  --border:      #d8d2df;
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body:    'Alegreya Sans', system-ui, sans-serif;
@@ -30,8 +35,8 @@
   --container:   1120px;
   --radius:      4px;
   --transition:  all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow:      0 2px 16px rgba(3,44,100,.10);
-  --shadow-lg:   0 8px 40px rgba(3,44,100,.16);
+  --shadow:      0 2px 16px rgba(23,19,31,.10);
+  --shadow-lg:   0 8px 40px rgba(23,19,31,.16);
 }
 
 /* ── RESET ──────────────────────────────────────────────────── */
@@ -186,7 +191,7 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
 }
 .nav-logo-img {
-  height: 34px;
+  height: 44px;
   width: auto;
   display: block;
 }
@@ -827,7 +832,7 @@ h1, h2, h3, h4 {
   transition: var(--transition);
   outline: none;
 }
-.form-input:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(3,44,100,.25); }
+.form-input:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(23,19,31,.25); }
 textarea.form-input { resize: vertical; min-height: 120px; }
 
 /* ── FOCUS VISIBILITY ───────────────────────────────────────── */
@@ -886,4 +891,165 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 @media (max-width: 768px) {
   .footer-badges { justify-content: flex-start; }
   .footer-badge img { width: 70px; }
+}
+
+/* ── SHARED STYLES FOR LEGACY/STANDALONE PAGES ────────────────
+   Tools, Newsletter, and Checkout keep their content-specific layout rules
+   local to those documents. Their shell, tokens, controls, and states live
+   here so a brand change has one maintenance point. */
+.site-page,
+.checkout-page {
+  --page-surface: var(--white);
+  --page-surface-soft: var(--off-white);
+  --page-text: var(--gray-dk);
+  --page-muted: var(--gray-mid);
+  --page-accent: var(--brand-purple);
+  --page-accent-strong: #5b21b6;
+  --page-highlight: var(--brand-pink);
+  --page-yellow-dark: #8a5b00;
+  color: var(--page-text);
+  background: var(--page-surface);
+}
+
+.site-page a,
+.checkout-page a { color: inherit; }
+
+.site-page a:focus-visible,
+.checkout-page a:focus-visible,
+.site-page button:focus-visible,
+.checkout-page button:focus-visible,
+.site-page input:focus-visible,
+.checkout-page input:focus-visible {
+  outline: 3px solid var(--brand-yellow);
+  outline-offset: 3px;
+}
+
+/* Tools and Newsletter use an unclassed nav/footer for historical reasons. */
+.site-page > nav {
+  background: var(--white);
+  border-bottom-color: var(--border);
+}
+.site-page > nav ul li a { color: var(--gray-dk); }
+.site-page > nav ul li a:hover,
+.site-page > nav ul li a.active { color: var(--brand-purple); }
+.site-page > nav a.logo-link img { height: 44px; width: auto; }
+
+.site-page .page-header,
+.site-page .hero {
+  background: var(--brand-black);
+}
+.site-page .page-header h1,
+.site-page .hero h1 { color: var(--white); }
+.site-page .page-header .eyebrow,
+.site-page .hero .eyebrow {
+  background: var(--brand-pink);
+  color: var(--white);
+  font-size: .875rem;
+}
+.site-page .page-header h1 em,
+.site-page .hero h1 em { color: var(--brand-yellow); }
+.site-page .page-header p,
+.site-page .hero p { color: rgba(255,255,255,.86); }
+.site-page .section-label { color: var(--page-accent-strong); font-size: .875rem; }
+.site-page .tool-card,
+.site-page .signup-card,
+.site-page .feature,
+.site-page .sample-card {
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+.site-page .tool-badge.free,
+.site-page .nl-badge,
+.site-page .tool-badge { background: var(--brand-yellow); color: #17131f; font-size: .875rem; }
+.site-page .btn-primary,
+.site-page .btn-tool,
+.site-page .btn-external {
+  background: var(--brand-purple);
+  border-color: var(--brand-purple);
+  color: var(--white);
+}
+.site-page .btn-primary:hover,
+.site-page .btn-tool:hover,
+.site-page .btn-external:hover {
+  background: var(--page-accent-strong);
+  border-color: var(--page-accent-strong);
+}
+.site-page .btn-secondary {
+  color: var(--brand-purple);
+  border-color: var(--brand-purple);
+}
+.site-page .btn-secondary:hover {
+  background: var(--brand-purple);
+  color: var(--white);
+}
+.site-page .cta-bridge .btn-secondary,
+.site-page .classes-cta .btn-secondary {
+  color: var(--white);
+  border-color: var(--white);
+}
+.site-page .cta-bridge .btn-secondary:hover,
+.site-page .classes-cta .btn-secondary:hover {
+  background: var(--white);
+  color: var(--brand-black);
+}
+.site-page .opens-in,
+.site-page .disclaimer { font-size: .875rem; }
+.site-page .cta-bridge,
+.site-page .classes-cta { background: var(--brand-black); }
+.site-page .cta-bridge h2,
+.site-page .classes-cta h2 { color: var(--white); }
+.site-page .cta-bridge p,
+.site-page .classes-cta p { color: rgba(255,255,255,.86); }
+.site-page > footer {
+  background: var(--brand-black);
+  color: var(--white);
+}
+.site-page > footer .tagline,
+.site-page > footer .footer-bottom p,
+.site-page > footer .footer-bottom p a {
+  color: rgba(255,255,255,.78) !important;
+  font-size: .875rem;
+}
+.site-page > footer nav ul li a:hover { color: var(--brand-yellow); }
+
+/* Checkout controls share the same interaction language as the main site. */
+.checkout-page .class-item:hover,
+.checkout-page .cohort-item:hover,
+.checkout-page .date-picker label:hover {
+  border-color: var(--brand-purple);
+  background: #f5f0ff;
+}
+.checkout-page .class-item.selected,
+.checkout-page .cohort-item.selected,
+.checkout-page .date-picker input[type="radio"]:checked + label {
+  border-color: var(--brand-purple);
+  background: #eee7ff;
+}
+.checkout-page .checkout-btn,
+.checkout-page .btn-cohort,
+.checkout-page .actions a:not(.secondary) {
+  background: var(--brand-purple);
+  color: var(--white);
+}
+.checkout-page .checkout-btn:hover,
+.checkout-page .btn-cohort:hover,
+.checkout-page .actions a:not(.secondary):hover { background: var(--page-accent-strong); }
+.checkout-page .btn-dismiss,
+.checkout-page .actions a.secondary { background: var(--off-white); color: var(--gray-dk); }
+.checkout-page .btn-dismiss:hover,
+.checkout-page .actions a.secondary:hover { background: var(--gray-lt); }
+.checkout-page .checkout-btn:disabled {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #555555;
+}
+.checkout-page .date-picker .spots-low { color: var(--orange-text-dk); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

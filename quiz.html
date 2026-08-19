@@ -19,7 +19,7 @@
 <link rel="canonical" href="https://www.mrxplorer.com/quiz">
 
 <!-- Favicon -->
-<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
@@ -39,16 +39,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=9">
 
 <style>
   /* Quiz app styles — scoped under #quiz-app so they never leak into the
      shared site nav/footer/buttons on this page. */
   #quiz-app {
-    --qz-orange: #f47721;
-    --qz-gray-light: #f5f5f5;
-    --qz-gray-medium: #808080;
-    --qz-gray-dark: #333333;
+    --qz-orange: var(--brand-pink);
+    --qz-gray-light: var(--gray-lt);
+    --qz-gray-medium: var(--gray-mid);
+    --qz-gray-dark: var(--gray-dk);
     max-width: 680px;
     margin: 0 auto;
     padding: 64px 0 96px;
@@ -137,7 +137,7 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="MRXplorer home">
-        <img src="/assets/mrxplorer-logo.png" alt="MRXplorer" class="nav-logo-img">
+        <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" class="nav-logo-img">
       </a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -173,7 +173,7 @@
       <div class="page-hero-inner">
         <div class="section-label">Free · 2-Minute Check</div>
         <h1>How AI-Ready Are<br>You, <em>Really?</em></h1>
-        <p>Everyone's using ChatGPT or Claude these days. Fewer people are using it well. Take this quick, no-judgment check to see where you actually stand, and which MRXplorer cohort fits where you are today.</p>
+        <p>Everyone's using ChatGPT or Claude these days. The harder skill is knowing when AI helps, when it creates risk, and how to use it well when it belongs in the workflow. Take this quick, no-judgment check to see which MRXplorer cohort fits where you are today.</p>
       </div>
     </div>
   </header>
@@ -201,14 +201,14 @@
           </div>
           <span class="progress-label" id="progress-label">Question 1 of 6</span>
 
-          <!-- Question 1: Data privacy awareness -->
+          <!-- Question 1: Current AI experience -->
           <div class="question-block active" data-question="1">
-            <div class="question-text">When you're using an AI tool like Claude or ChatGPT for work, how much thought do you give to data privacy?</div>
+            <div class="question-text">How does AI show up in your day-to-day work right now?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q1" value="0"> Honestly, not much. I just type what I need.</label>
-              <label class="option-label"><input type="radio" name="q1" value="1"> I have a vague sense I shouldn't paste anything too sensitive.</label>
-              <label class="option-label"><input type="radio" name="q1" value="2"> I'm careful with client or confidential info, but I couldn't explain the "why" in detail.</label>
-              <label class="option-label"><input type="radio" name="q1" value="3"> I actively think about what I'm sharing and understand how these tools handle data.</label>
+              <label class="option-label"><input type="radio" name="q1" value="0"> Rarely, if ever. I've tried it, but it hasn't become part of my work.</label>
+              <label class="option-label"><input type="radio" name="q1" value="1"> Occasionally, for simple one-off tasks.</label>
+              <label class="option-label"><input type="radio" name="q1" value="2"> A few times a week for specific, repeatable tasks.</label>
+              <label class="option-label"><input type="radio" name="q1" value="3"> Daily. AI is woven into several parts of how I work.</label>
             </div>
             <div class="nav-row">
               <span></span>
@@ -216,14 +216,14 @@
             </div>
           </div>
 
-          <!-- Question 2: Prompt success rate -->
+          <!-- Question 2: Deciding when AI belongs -->
           <div class="question-block" data-question="2">
-            <div class="question-text">When you ask an AI tool for something, how often does the first response actually give you what you wanted?</div>
+            <div class="question-text">Before using AI on a research task, how do you decide whether AI belongs in the task at all?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q2" value="0"> Rarely. I usually end up frustrated or give up.</label>
-              <label class="option-label"><input type="radio" name="q2" value="1"> Less than half the time. I do a lot of re-typing.</label>
-              <label class="option-label"><input type="radio" name="q2" value="2"> More often than not, maybe 50-80% of the time.</label>
-              <label class="option-label"><input type="radio" name="q2" value="3"> Over 80% of the time. I've gotten good at asking for what I need.</label>
+              <label class="option-label"><input type="radio" name="q2" value="0"> I usually assume AI can help and start typing. I haven't thought much about when it should not be used.</label>
+              <label class="option-label"><input type="radio" name="q2" value="1"> I think about obvious risks, but I mostly try AI first and decide afterward.</label>
+              <label class="option-label"><input type="radio" name="q2" value="2"> I weigh the task, the data, the stakes, and where human judgment needs to stay in control.</label>
+              <label class="option-label"><input type="radio" name="q2" value="3"> I can define good use cases and no-go use cases, then design appropriate human checkpoints.</label>
             </div>
             <div class="nav-row">
               <button class="btn btn-secondary" onclick="prevQuestion(2)">← Back</button>
@@ -231,14 +231,14 @@
             </div>
           </div>
 
-          <!-- Question 3: Familiarity with different surfaces/screens -->
+          <!-- Question 3: Verification and knowing when not to trust output -->
           <div class="question-block" data-question="3">
-            <div class="question-text">AI tools now have more than just a chat box. How familiar are you with things like Projects/Cowork spaces, Code tools, or Connectors to other apps?</div>
+            <div class="question-text">How do you decide whether an AI answer is safe and good enough to use?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q3" value="0"> I didn't know those existed. I just use the basic chat window.</label>
-              <label class="option-label"><input type="radio" name="q3" value="1"> I've heard of one or two, but haven't tried them.</label>
-              <label class="option-label"><input type="radio" name="q3" value="2"> I've tried a couple, but I'm not sure I'm using them right.</label>
-              <label class="option-label"><input type="radio" name="q3" value="3"> I use several of these regularly as part of how I work.</label>
+              <label class="option-label"><input type="radio" name="q3" value="0"> If it sounds plausible, I usually trust it.</label>
+              <label class="option-label"><input type="radio" name="q3" value="1"> I skim it and check the obvious points, but I don't have a consistent process.</label>
+              <label class="option-label"><input type="radio" name="q3" value="2"> I verify important claims, calculations, and source material before relying on it.</label>
+              <label class="option-label"><input type="radio" name="q3" value="3"> I know common failure modes, build QA into the workflow, and know when not to delegate the task.</label>
             </div>
             <div class="nav-row">
               <button class="btn btn-secondary" onclick="prevQuestion(3)">← Back</button>
@@ -246,14 +246,14 @@
             </div>
           </div>
 
-          <!-- Question 4: Frequency / integration into workflow -->
+          <!-- Question 4: Sensitive and confidential data -->
           <div class="question-block" data-question="4">
-            <div class="question-text">How often does AI actually show up in your day-to-day work right now?</div>
+            <div class="question-text">How do you handle confidential, client, or otherwise sensitive research data when using AI?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q4" value="0"> Rarely, if ever. I've dabbled but it hasn't stuck.</label>
-              <label class="option-label"><input type="radio" name="q4" value="1"> Occasionally, for the odd one-off task.</label>
-              <label class="option-label"><input type="radio" name="q4" value="2"> A few times a week for specific tasks.</label>
-              <label class="option-label"><input type="radio" name="q4" value="3"> Daily. It's woven into how I actually work now.</label>
+              <label class="option-label"><input type="radio" name="q4" value="0"> I paste what I need and assume the tool will handle it safely.</label>
+              <label class="option-label"><input type="radio" name="q4" value="1"> I avoid obvious identifiers, but I'm not sure what else I should check.</label>
+              <label class="option-label"><input type="radio" name="q4" value="2"> I minimize or anonymize data and check the tool, plan, and workspace settings.</label>
+              <label class="option-label"><input type="radio" name="q4" value="3"> I understand the relevant data policies, use approved workflows, and keep data out when AI is not appropriate.</label>
             </div>
             <div class="nav-row">
               <button class="btn btn-secondary" onclick="prevQuestion(4)">← Back</button>
@@ -261,14 +261,14 @@
             </div>
           </div>
 
-          <!-- Question 5: Complexity of use cases -->
+          <!-- Question 5: Prompting and iteration -->
           <div class="question-block" data-question="5">
-            <div class="question-text">What's the most complex thing you've actually used AI for so far?</div>
+            <div class="question-text">How do you usually get useful output from an AI tool?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q5" value="0"> Simple one-off questions, like a smarter search engine.</label>
-              <label class="option-label"><input type="radio" name="q5" value="1"> Drafting or editing a single piece of writing, like an email.</label>
-              <label class="option-label"><input type="radio" name="q5" value="2"> Working through a multi-step task, like analyzing data or planning a project.</label>
-              <label class="option-label"><input type="radio" name="q5" value="3"> Building something that runs on its own, like a workflow, tool, or automation.</label>
+              <label class="option-label"><input type="radio" name="q5" value="0"> I ask one question and usually accept the first answer or give up.</label>
+              <label class="option-label"><input type="radio" name="q5" value="1"> I retry or rephrase, but mostly by trial and error.</label>
+              <label class="option-label"><input type="radio" name="q5" value="2"> I give context and constraints, then iterate based on what the tool returns.</label>
+              <label class="option-label"><input type="radio" name="q5" value="3"> I use reusable prompting frameworks and adapt them to the task, audience, and risk.</label>
             </div>
             <div class="nav-row">
               <button class="btn btn-secondary" onclick="prevQuestion(5)">← Back</button>
@@ -276,14 +276,14 @@
             </div>
           </div>
 
-          <!-- Question 6: Quant analysis with an LLM -->
+          <!-- Question 6: Applied workflow complexity -->
           <div class="question-block" data-question="6">
-            <div class="question-text">Have you ever used an LLM to help with quantitative analysis, like survey data, crosstabs, or other numeric data?</div>
+            <div class="question-text">What is the most complex AI-supported workflow you have actually used?</div>
             <div class="options">
-              <label class="option-label"><input type="radio" name="q6" value="0"> No, never tried it.</label>
-              <label class="option-label"><input type="radio" name="q6" value="1"> I've tried, but wasn't confident in the results.</label>
-              <label class="option-label"><input type="radio" name="q6" value="2"> Yes, a few times, and it worked well enough.</label>
-              <label class="option-label"><input type="radio" name="q6" value="3"> Yes, regularly. It's part of my analysis workflow now.</label>
+              <label class="option-label"><input type="radio" name="q6" value="0"> A one-off question, brainstorm, or simple search-like task.</label>
+              <label class="option-label"><input type="radio" name="q6" value="1"> Drafting, editing, summarizing, or organizing one piece of work.</label>
+              <label class="option-label"><input type="radio" name="q6" value="2"> A multi-step task such as analyzing data, planning a project, or shaping a research deliverable.</label>
+              <label class="option-label"><input type="radio" name="q6" value="3"> A connected workflow, tool, agent, or automation with explicit review and guardrails.</label>
             </div>
             <div class="nav-row">
               <button class="btn btn-secondary" onclick="prevQuestion(6)">← Back</button>
@@ -448,9 +448,11 @@
       }
     });
 
-    // ---- CLASS CATALOG ----
-    // Pulled from https://www.mrxplorer.com/classes on 2026-07-21.
-    // If pricing or class names change on the site, update them here too.
+    // ---- ACTIVE COHORT CATALOG ----
+    // Keep these two purchasable names/prices identical to
+    // class-checkout/netlify/functions/catalog.js. Individual classes and the
+    // Leaders track are intentionally excluded while the live offering is
+    // cohort-only.
     var CHECKOUT_URL = 'https://class-checkout.netlify.app/';
     var CATALOG_URL = 'https://www.mrxplorer.com/classes';
 
@@ -516,53 +518,37 @@
     // }
 
     // ---- SCORING + RESULTS ----
-    // Overall total (0-18) still drives the headline/summary text at the top
-    // of the results screen. It does NOT decide which classes get recommended
-    // — that's handled per-question below in buildRecommendations().
+    // The total drives the headline/summary. Recommendation requires all six
+    // dimensions to be at least "working" level (2/3) before suggesting the
+    // Intermediate cohort. A gap in judgment, verification, data handling,
+    // or applied skill keeps the recommendation at Beginner.
     function calculateTotal() {
       var total = 0;
       for (var key in answers) { total += answers[key]; }
       return total;
     }
 
-    // Looks at each question's answer and decides which cohort fits.
-    // Returns an array of { classKey, reason } objects.
+    // Looks at each question's answer and decides which active cohort fits.
+    // Returns one { key, reason } object; the site currently sells two
+    // cohorts, so the result should not imply a third or a paused offering.
     function buildRecommendations() {
-      var beginnerTriggers = 0, intermediateTriggers = 0;
-
-      // Q1 — data privacy awareness.
-      if (answers.q1 <= 1) beginnerTriggers++;
-      else if (answers.q1 === 3) intermediateTriggers++;
-
-      // Q2 — prompt success rate.
-      if (answers.q2 <= 1) beginnerTriggers++;
-      else if (answers.q2 === 3) beginnerTriggers++;
-
-      // Q3 — familiarity with surfaces beyond basic chat.
-      if (answers.q3 <= 1) beginnerTriggers++;
-      else if (answers.q3 === 3) intermediateTriggers++;
-
-      // Q4 — frequency/integration (not mapped to a specific trigger).
-
-      // Q5 — complexity of use cases.
-      if (answers.q5 === 2) intermediateTriggers++;
-      else if (answers.q5 === 3) intermediateTriggers++;
-
-      // Q6 — quant analysis with an LLM.
-      if (answers.q6 >= 1) intermediateTriggers++;
-
-      var recs = [];
-      if (beginnerTriggers > 0 && intermediateTriggers === 0) {
-        recs.push({ key: 'beginnerCohort', reason: 'Your answers point toward building foundational AI skills. The Beginner cohort covers the key topics in a small-group format.' });
-      } else if (intermediateTriggers > 0 && beginnerTriggers === 0) {
-        recs.push({ key: 'intermediateCohort', reason: 'You’re already comfortable with AI basics. The Intermediate cohort goes deeper into the areas your answers highlighted.' });
-      } else if (beginnerTriggers > 0 && intermediateTriggers > 0) {
-        recs.push({ key: 'beginnerCohort', reason: 'Some of your answers point to fundamentals, others to advanced topics. Start with the Beginner cohort.' });
-        recs.push({ key: 'intermediateCohort', reason: 'For the areas where you’re already ahead, the Intermediate cohort is the next step.' });
-      } else {
-        // No triggers at all — fall through to the fallback below.
+      var dimensions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      var intermediateReady = true;
+      for (var i = 0; i < dimensions.length; i++) {
+        if (answers[dimensions[i]] < 2) intermediateReady = false;
       }
-      return recs;
+
+      if (intermediateReady) {
+        return [{
+          key: 'intermediateCohort',
+          reason: 'You show repeatable AI use, sound judgment about when AI belongs, strong verification habits, and enough workflow experience to build on in the Intermediate cohort.'
+        }];
+      }
+
+      return [{
+        key: 'beginnerCohort',
+        reason: 'Your answers point to building a stronger foundation in both AI skills and judgment — including when to use AI, when not to use it, how to protect data, and how to verify the output.'
+      }];
     }
 
     function renderRecommendationCard(rec) {
@@ -591,13 +577,13 @@
       var headline, summary;
       if (total <= 8) {
         headline = "You're just getting started, and that's a great place to be.";
-        summary = "Your answers suggest the fundamentals, like how to write a clear prompt, what these tools actually do with your data, and how to trust (or double-check) what you get back, would make the biggest difference for you right now.";
+        summary = "Your answers suggest the fundamentals — when AI is appropriate, how to write a clear prompt, what these tools do with your data, and how to check what you get back — would make the biggest difference for you right now.";
       } else if (total <= 14) {
         headline = "You've got a real foundation, now it's time to build on it.";
-        summary = "You're comfortable with the basics and getting decent results. The next step is tightening up specific gaps and building habits that make AI a reliable part of your workflow, not just an occasional tool.";
+        summary = "You're comfortable with some of the basics and getting useful results. The next step is tightening gaps in judgment, verification, prompting, or workflow design so AI is reliable when it belongs — and left out when it doesn't.";
       } else {
         headline = "You're ahead of where most people start.";
-        summary = "You've already got solid habits: consistent results, real workflow integration, and comfort exploring beyond the basic chat window. Here's where the next stretch of growth is likely to come from.";
+        summary = "You've already got solid habits: judgment about when AI belongs, consistent verification, real workflow integration, and comfort building beyond the basic chat window. Here's where the next stretch of growth is likely to come from.";
       }
       document.getElementById('result-headline').textContent = headline;
       document.getElementById('result-summary').textContent = summary;
@@ -607,19 +593,13 @@
       var container = document.getElementById('recommend-container');
       container.innerHTML = '';
 
-      if (recs.length === 0) {
-        // Ambiguous answers should present both active cohort options.
-        recs = [
-          { key: 'beginnerCohort', reason: 'Your answers were fairly even across the board. The Beginner cohort is the foundational option.' },
-          { key: 'intermediateCohort', reason: 'Your answers were fairly even across the board. The Intermediate cohort is the deeper option.' },
-        ];
-      }
       for (var i = 0; i < recs.length; i++) {
         container.appendChild(renderRecommendationCard(recs[i]));
       }
 
       // ---- Tier-spanning note ----
-      // Shown when both cohorts are recommended.
+      // Kept for markup compatibility; the current recommendation is one
+      // active cohort so this remains hidden.
       var tiersPresent = {};
       for (var j = 0; j < recs.length; j++) {
         tiersPresent[CLASSES[recs[j].key].tier] = true;

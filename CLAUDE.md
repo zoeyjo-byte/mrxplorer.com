@@ -35,6 +35,13 @@ Two sources of truth drive what's actually for sale and when:
 Most recent first. Each entry: **Decision**, **Why**, **Constraint**,
 **Status**.
 
+### 2026-08-18 — Active Beginner offering is six weeks
+
+- **Decision:** Treat the live, purchasable Beginner offering as the **AI Beginners 6-Week Cohort ($395)**. The Intermediate offering remains the **Intermediate AI 6-Week Cohort ($995)**.
+- **Why:** The active classes page, checkout catalog, schedule data, and quiz all use the six-week Beginner name. The homepage's old four-week label and the earlier restructuring notes were stale relative to the current source-of-truth files.
+- **Constraint:** Keep the quiz, homepage, classes page, checkout, catalog, and schedule aligned to the active catalog names and prices. Historical restructuring notes may retain their original wording as historical context.
+- **Status:** Applied to active website copy and quiz logic on 2026-08-18.
+
 ### 2026-07-27 — Classes catalog reduced to cohort-only (Beginner + Intermediate)
 
 - **Decision:** Stop selling everything except two products: the

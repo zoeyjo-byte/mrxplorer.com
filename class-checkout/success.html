@@ -6,6 +6,8 @@
     <meta name="robots" content="noindex">
     <meta name="description" content="Your MRXplorer registration is confirmed. Check your email for calendar files and next steps.">
     <title>Registration Confirmed — MRXplorer</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg" />
+    <link rel="stylesheet" href="/style.css?v=9" />
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -31,7 +33,7 @@
         .actions { margin-top: 2rem; }
         .actions a {
             display: inline-block;
-            background: #635bff;
+            background: var(--brand-purple);
             color: #fff;
             padding: 0.85rem 2rem;
             border-radius: 8px;
@@ -40,7 +42,7 @@
             margin-right: 0.75rem;
             margin-bottom: 0.75rem;
         }
-        .actions a:hover { background: #4a42e0; }
+        .actions a:hover { background: var(--page-accent-strong); }
         .actions a.secondary {
             background: #e8e8e8;
             color: #333;
@@ -56,11 +58,11 @@
       gtag('config', 'G-TB3GBL2RQ0');
     </script>
 </head>
-<body>
+<body class="checkout-page checkout-success">
 
 <header style="margin-bottom: 2rem;">
     <a href="https://www.mrxplorer.com" target="_blank">
-        <img src="mrxplorer-logo.png" alt="MRXplorer" style="height: 48px; width: auto;" />
+        <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" style="height: 48px; width: auto;" />
     </a>
     <nav style="margin-top: 1rem; display: flex; gap: 1.5rem; font-size: 1rem; font-weight: 600;">
         <a href="https://www.mrxplorer.com" target="_blank" style="color: #000; text-decoration: none;">Home</a>
@@ -68,6 +70,7 @@
     </nav>
 </header>
 
+<main id="main">
 <h1>✅ You're registered!</h1>
 <p class="subtitle" id="confirmation-msg">Your registration is confirmed. You'll receive a confirmation email shortly.</p>
 
@@ -80,6 +83,8 @@
     <a href="https://www.mrxplorer.com/classes" class="secondary">← Back to Class Details</a>
     <a href="https://www.mrxplorer.com" class="secondary">MRXplorer Home</a>
 </div>
+
+</main>
 
 <script>
     const list = document.getElementById('purchase-list');
