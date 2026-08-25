@@ -26,7 +26,7 @@ This is the review queue after the July 2026 article, testimonial, checkout, wai
 ## Email And Forms
 
 - [ ] **LIVE** Verify Resend delivery from `updates.mrxplorer.com` for confirmations, refund notices, team inquiries, and waitlist promotions.
-- [ ] **LIVE** Submit the AI Tips Beehiiv form with a unique test address and verify the subscriber reaches the intended Beehiiv publication.
+- [ ] **LIVE** Verify https://aitips.mrxplorer.com/ resolves and that the AI Tips signup card on `/newsletter` links to the correct subscription page. (Beehiiv embed was replaced with this link on 2026-08-24.)
 - [ ] Add rate limiting or abuse protection to the public waitlist and team inquiry endpoints before promoting them broadly.
 - [ ] Decide whether duplicate waitlist submissions for the same email and session should be rejected or merged.
 
