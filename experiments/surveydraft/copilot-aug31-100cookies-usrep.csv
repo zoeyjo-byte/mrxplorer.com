@@ -1,0 +1,101 @@
+﻿respondent_id,S1_frequency,Q1_choc_chip,Q1_sugar,Q1_oatmeal_raisin,Q1_peanut_butter,Q1_snickerdoodle,Q1_shortbread,Q1_ginger_molasses,Q1_double_choc,Q1_white_choc_mac,Q1_other,Q1_none,Q2_favorite,Q3_flavor,Q3_texture,Q3_sweetness,Q3_ingredients,Q3_nostalgic,Q3_goes_with_drink,Q3_indulgent,Q3_simple_classic,Q3_other,Q4_texture,Q5_open,Age,Gender
+1,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Chocolate chip,1,1,1,1,0,1,1,0,,Soft and chewy,Warm chocolate chip cookie,18-24,Woman
+2,About once a week,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip from bakery,18-24,Man
+3,2-3 times a month,0,1,0,0,0,1,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie with sprinkles,18-24,Woman
+4,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Chewy oatmeal raisin,18-24,Man
+5,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Very soft,Peanut butter cookie,18-24,Woman
+6,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Simple sugar cookie,18-24,Man
+7,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Cinnamon snickerdoodle,18-24,Woman
+8,2-3 times a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Buttery shortbread,18-24,Man
+9,About once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger molasses cookie,18-24,Woman
+10,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate fudge,18-24,Man
+11,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,25-34,Woman
+12,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Linzer cookie,25-34,Man
+13,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin with walnuts,25-34,Woman
+14,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Holiday sugar cookie,25-34,Man
+15,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Chunky peanut butter cookie,25-34,Woman
+16,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle with extra cinnamon,25-34,Man
+17,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip with sea salt,25-34,Woman
+18,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread with tea,25-34,Man
+19,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Spiced ginger cookie,25-34,Woman
+20,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate chunk,25-34,Man
+21,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,Macadamia nut cookie,35-44,Woman
+22,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Almond biscotti,35-44,Man
+23,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,35-44,Woman
+24,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie with icing,35-44,Man
+25,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter stuffed cookie,35-44,Woman
+26,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Classic snickerdoodle,35-44,Man
+27,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip with dark chocolate,35-44,Woman
+28,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread fingers,35-44,Man
+29,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Molasses cookie,35-44,Woman
+30,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate brownie cookie,35-44,Man
+31,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,45-54,Woman
+32,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Pecan sandies,45-54,Man
+33,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin from bakery,45-54,Woman
+34,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie with colored sugar,45-54,Man
+35,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter chocolate chip,45-54,Woman
+36,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle with sugar crust,45-54,Man
+37,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip with milk,45-54,Woman
+38,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread rounds,45-54,Man
+39,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger snap,45-54,Woman
+40,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate cookie,45-54,Man
+41,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,55-64,Woman
+42,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Butter cookie,55-64,Man
+43,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,55-64,Woman
+44,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,55-64,Man
+45,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,55-64,Woman
+46,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,55-64,Man
+47,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,55-64,Woman
+48,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,55-64,Man
+49,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,55-64,Woman
+50,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate,55-64,Man
+51,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,65+,Woman
+52,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Jam thumbprint,65+,Man
+53,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,65+,Woman
+54,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,65+,Man
+55,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,65+,Woman
+56,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,65+,Man
+57,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,65+,Woman
+58,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,65+,Man
+59,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,65+,Woman
+60,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate,65+,Man
+61,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,65+,Woman
+62,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Coconut macaroon,65+,Man
+63,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,65+,Woman
+64,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,65+,Man
+65,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,65+,Woman
+66,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,65+,Man
+67,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,65+,Woman
+68,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,65+,Man
+69,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,65+,Woman
+70,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate,65+,Man
+71,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,65+,Woman
+72,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Chocolate crinkle,65+,Man
+73,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,65+,Woman
+74,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,65+,Man
+75,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,65+,Woman
+76,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,65+,Man
+77,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,65+,Woman
+78,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,65+,Man
+79,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,65+,Woman
+80,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate,65+,Man
+81,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,65+,Woman
+82,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Chocolate-dipped shortbread,65+,Man
+83,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,65+,Woman
+84,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,65+,Man
+85,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,65+,Woman
+86,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,65+,Man
+87,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,65+,Woman
+88,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,65+,Man
+89,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,65+,Woman
+90,Several times a week or more,1,0,0,0,0,0,0,1,0,0,0,Double chocolate,1,1,1,1,0,0,1,0,,Soft and chewy,Double chocolate,65+,Man
+91,About once a week,1,0,0,0,0,0,0,0,1,0,0,White chocolate macadamia,1,1,0,1,0,0,1,0,,Soft and chewy,White chocolate macadamia,65+,Woman
+92,2-3 times a month,0,1,0,0,0,0,0,0,0,1,0,Other classic,1,0,1,0,0,0,0,0,,Mostly crisp/crunchy,Chocolate wafer,65+,Man
+93,About once a month,1,0,1,0,0,0,0,0,0,0,0,Oatmeal raisin,1,1,0,1,1,0,0,0,,Soft and chewy,Oatmeal raisin,65+,Woman
+94,Less often than once a month,0,1,0,0,0,0,0,0,0,0,0,Sugar,1,0,1,0,0,0,0,1,,Mostly crisp/crunchy,Sugar cookie,65+,Man
+95,Several times a week or more,1,0,0,1,0,0,0,0,0,0,0,Peanut butter,1,1,1,1,0,0,1,0,,Soft and chewy,Peanut butter cookie,65+,Woman
+96,About once a week,1,0,0,0,1,0,0,0,0,0,0,Snickerdoodle,1,1,0,0,1,0,0,1,,Soft and chewy,Snickerdoodle,65+,Man
+97,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip,65+,Woman
+98,About once a month,0,0,0,0,0,1,0,0,0,0,0,Shortbread,1,0,0,0,0,0,0,1,,Very crisp,Shortbread,65+,Man
+99,Less often than once a month,1,0,0,0,0,0,1,0,0,0,0,Ginger/molasses,1,1,0,1,1,0,0,0,,Chewy with crisp edges,Ginger cookie,65+,Woman
+100,2-3 times a month,1,1,0,0,0,0,0,0,0,0,0,Chocolate chip,1,1,0,1,1,0,1,1,,Chewy with crisp edges,Chocolate chip with milk,65+,Man
