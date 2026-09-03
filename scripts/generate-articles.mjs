@@ -152,7 +152,7 @@ const organizationNode = {
   },
   sameAs: [
     'https://www.linkedin.com/in/zontziry/',
-    'https://mrxplorations.beehiiv.com',
+    'https://ainewsandmrx.mrxplorer.com',
   ],
 };
 
@@ -165,7 +165,7 @@ const personNode = {
   url: `${site}/about`,
   sameAs: [
     'https://www.linkedin.com/in/zontziry/',
-    'https://mrxplorations.beehiiv.com',
+    'https://ainewsandmrx.mrxplorer.com',
   ],
   worksFor: { '@id': `${site}/#organization` },
 };
