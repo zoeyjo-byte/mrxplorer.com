@@ -338,6 +338,37 @@
       background: #d9640f;
     }
 
+    .signup-card .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .signup-card .btn-row .btn-external,
+    .signup-card .btn-row .btn-read {
+      flex: 1 1 auto;
+    }
+
+    .signup-card .btn-read {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .signup-card .btn-read:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
     .signup-card button:active {
       transform: scale(0.98);
     }
@@ -650,7 +681,6 @@
   <section class="hero">
     <span class="eyebrow">Free Newsletters</span>
     <h1>AI news and tips <em>for market researchers.</em></h1>
-    <p>Two free newsletters from MRXplorer. Pick one, or get both.</p>
   </section>
 
   <!-- NEWSLETTERS -->
@@ -663,7 +693,10 @@
         <h2>MRXplorations</h2>
         <p>A weekly briefing on AI news and trends — read through a market research lens. What's happening in AI, and what it actually means for your work.</p>
         <div class="card-cta">
-          <a class="btn-external" href="https://ainewsandmrx.mrxplorer.com" target="_blank" rel="noopener">Subscribe to MRXplorations ↗</a>
+          <div class="btn-row">
+            <a class="btn-external" href="https://ainewsandmrx.mrxplorer.com" target="_blank" rel="noopener">Subscribe to MRXplorations ↗</a>
+            <a class="btn-read" href="https://ainewsandmrx.mrxplorer.com" target="_blank" rel="noopener" aria-label="Read MRXplorations now">Read now</a>
+          </div>
           <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
         </div>
       </div>
@@ -676,7 +709,10 @@
         <!-- Beehiiv embed paused 2026-08-24 — AI Tips signup now points to https://aitips.mrxplorer.com/ -->
         <!-- <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="82a46ff5-5a88-40ab-af40-7d2e3f38e21a"></script> -->
         <div class="card-cta">
-          <a class="btn-external" href="https://aitips.mrxplorer.com/" target="_blank" rel="noopener">Subscribe to AI Tips for MRX ↗</a>
+          <div class="btn-row">
+            <a class="btn-external" href="https://aitips.mrxplorer.com/" target="_blank" rel="noopener">Subscribe to AI Tips for MRX ↗</a>
+            <a class="btn-read" href="https://aitips.mrxplorer.com/" target="_blank" rel="noopener" aria-label="Read AI Tips for MRX now">Read now</a>
+          </div>
           <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
         </div>
       </div>
