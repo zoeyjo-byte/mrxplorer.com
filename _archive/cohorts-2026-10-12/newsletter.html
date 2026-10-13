@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletters — MRXplorer</title>
+  <meta name="description" content="Two free newsletters from MRXplorer: MRXplorations, a weekly AI news briefing for market researchers, and AI Tips for MRX, a weekly newsletter of practical AI tips for research work." />
+  <meta name="author" content="Z Johnson" />
+  <meta property="og:title" content="Newsletters — MRXplorer" />
+  <meta property="og:description" content="Two free newsletters from MRXplorer: MRXplorations (AI news + trends for MRX) and AI Tips for MRX (weekly practical tips)." />
+  <meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mrxplorer.com/newsletter" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.mrxplorer.com/newsletter" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg" />
+<!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Newsletters — MRXplorer" />
+  <meta name="twitter:description" content="Two free newsletters from MRXplorer: MRXplorations (AI news + trends for MRX) and AI Tips for MRX (weekly practical tips)." />
+  <meta name="twitter:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TB3GBL2RQ0');
+</script>
+
+<!-- Inline structured data (static for AEO crawlers) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.mrxplorer.com/#z-johnson",
+      "name": "Z Johnson",
+      "url": "https://www.mrxplorer.com/about"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.mrxplorer.com/#organization",
+      "name": "MRXplorer LLC",
+      "url": "https://www.mrxplorer.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mrxplorer.com/#website",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.mrxplorer.com/newsletter#webpage",
+      "url": "https://www.mrxplorer.com/newsletter",
+      "name": "Newsletters — MRXplorer",
+      "description": "Two free newsletters from MRXplorer: MRXplorations, a weekly AI news briefing for market researchers, and AI Tips for MRX, a weekly newsletter of practical AI tips for research work.",
+      "isPartOf": {
+        "@id": "https://www.mrxplorer.com/#website"
+      },
+      "about": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.mrxplorer.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Newsletter",
+            "item": "https://www.mrxplorer.com/newsletter"
+          }
+        ]
+      }
+    },
+    {
+      "@type": [
+        "CreativeWorkSeries",
+        "Periodical"
+      ],
+      "name": "MRXplorations",
+      "description": "Weekly AI news briefing for market researchers. AI-built, human-reviewed, analyzing 12+ sources of AI and tech news with a 'what does this mean for market research' lens.",
+      "url": "https://ainewsandmrx.mrxplorer.com",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      }
+    },
+    {
+      "@type": [
+        "CreativeWorkSeries",
+        "Periodical"
+      ],
+      "name": "AI Tips for MRX",
+      "description": "Weekly practical AI tip for market researchers, drawn from real market research workflows.",
+      "url": "https://aitips.mrxplorer.com/",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "author": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      }
+    }
+  ]
+}
+
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:  #ffffff;
+      --gray-light: #f5f5f5;
+      --gray-mid:   #808080;
+      --gray-dark:  #333333;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Alegreya Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      color: var(--gray-dark);
+      background: var(--white);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid #e8e8e8;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    nav a.logo-link img {
+      height: 44px;
+      width: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+      align-items: center;
+    }
+
+    nav ul li a {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--navy);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover { color: var(--orange); }
+
+    nav ul li a.active {
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 5rem 2rem 4.5rem;
+      text-align: center;
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 700px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 560px;
+      margin: 0 auto 0.5rem;
+      font-weight: 300;
+    }
+
+    /* ── NEWSLETTERS GRID ── */
+    .signup-section {
+      background: var(--gray-light);
+      padding: 4rem 2rem;
+    }
+
+    .newsletters-grid {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+    }
+    @media (max-width: 760px) {
+      .newsletters-grid { grid-template-columns: 1fr; }
+    }
+
+    .signup-card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 20px rgba(23,19,31,0.09);
+      border-top: 4px solid var(--navy);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .signup-card.tips-card { border-top-color: var(--orange); }
+
+    .signup-card .nl-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .signup-card h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .signup-card p {
+      color: var(--gray-mid);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .signup-card .card-cta {
+      margin-top: auto;
+    }
+
+    .signup-card form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .signup-card input[type="email"],
+    .signup-card input[type="text"] {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #d4d4d4;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 1rem;
+      color: var(--gray-dark);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .signup-card input:focus {
+      border-color: var(--navy);
+    }
+
+    .signup-card button,
+    .signup-card .btn-external {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .signup-card button:hover,
+    .signup-card .btn-external:hover {
+      background: #d9640f;
+    }
+
+    .signup-card .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .signup-card .btn-row .btn-external,
+    .signup-card .btn-row .btn-read {
+      flex: 1 1 auto;
+    }
+
+    .signup-card .btn-read {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .signup-card .btn-read:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .signup-card button:active {
+      transform: scale(0.98);
+    }
+
+    .signup-card .disclaimer {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+    }
+
+    /* ── WHAT YOU'LL GET ── */
+    .what-section {
+      padding: 4.5rem 2rem;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .what-section .section-label {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .what-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--navy);
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .what-section .intro {
+      font-size: 1.05rem;
+      color: var(--gray-dark);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.75rem;
+      text-align: left;
+    }
+
+    .feature {
+      background: var(--gray-light);
+      border-radius: 5px;
+      padding: 1.5rem 1.35rem;
+      border-top: 3px solid var(--orange);
+    }
+
+    .feature .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .feature h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .feature p {
+      font-size: 0.93rem;
+      color: var(--gray-dark);
+      line-height: 1.55;
+    }
+
+    /* ── SAMPLE ── */
+    .sample-section {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4.5rem 2rem;
+      text-align: center;
+    }
+
+    .sample-section .section-label {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .sample-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 2rem;
+    }
+
+    .sample-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 4px solid var(--orange);
+      border-radius: 4px;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      padding: 1.75rem 2rem;
+      text-align: left;
+    }
+
+    .sample-card .tip-label {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+
+    .sample-card h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .sample-card p {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .sample-card .prompt-block {
+      background: rgba(0,0,0,0.3);
+      border-radius: 3px;
+      padding: 1rem 1.15rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.55;
+      margin-top: 0.75rem;
+    }
+
+    .sample-section p.cta-note {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 0.5rem;
+    }
+
+    /* ── CLASSES CTA ── */
+    .classes-cta {
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .classes-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .classes-cta p {
+      color: var(--gray-dark);
+      font-size: 1.03rem;
+      margin-bottom: 1.75rem;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.97rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #021e45; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.97rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      border: 2px solid var(--navy);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    footer img.footer-logo {
+      height: 38px;
+      width: auto;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    footer p.tagline {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    footer nav ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    footer nav ul li a {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    footer nav ul li a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      max-width: 1000px;
+      margin: 2rem auto 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .footer-bottom p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+
+    .footer-badges {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-badges img { height: 44px; width: auto; }
+
+    @media (max-width: 600px) {
+      .signup-card { padding: 2rem 1.25rem; }
+      .sample-card { padding: 1.25rem 1.15rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="/style.css?v=11" />
+</head>
+<body class="site-page page-newsletter">
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo-link" href="https://www.mrxplorer.com/">
+      <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" />
+    </a>
+    <ul>
+      <li><a href="https://www.mrxplorer.com/">Home</a></li>
+      <li><a href="https://www.mrxplorer.com/about">About</a></li>
+      <li><a href="/classes">Classes</a></li>
+          <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+          <!-- <li><a href="/classes/leaders">For Leaders</a></li> -->
+      <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
+      <li><a href="https://www.mrxplorer.com/articles">Articles</a></li>
+      <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
+      <li><a href="https://www.mrxplorer.com/quiz">Quiz</a></li>
+      <li><a href="https://www.mrxplorer.com/newsletter" class="active">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Free Newsletters</span>
+    <h1>AI news and tips <em>for market researchers.</em></h1>
+  </section>
+
+  <!-- NEWSLETTERS -->
+  <section class="signup-section">
+    <div class="newsletters-grid">
+
+      <!-- MRXplorations -->
+      <div class="signup-card">
+        <span class="nl-badge">Weekly · AI News + MRX</span>
+        <h2>MRXplorations</h2>
+        <p>A weekly briefing on AI news and trends — read through a market research lens. What's happening in AI, and what it actually means for your work.</p>
+        <div class="card-cta">
+          <div class="btn-row">
+            <a class="btn-external" href="https://ainewsandmrx.mrxplorer.com" target="_blank" rel="noopener">Subscribe to MRXplorations ↗</a>
+            <a class="btn-read" href="https://ainewsandmrx.mrxplorer.com" target="_blank" rel="noopener" aria-label="Read MRXplorations now">Read now</a>
+          </div>
+          <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
+        </div>
+      </div>
+
+      <!-- AI Tips for MRX -->
+      <div class="signup-card tips-card">
+        <span class="nl-badge">Weekly · Quick Tips</span>
+        <h2>AI Tips for MRX</h2>
+        <p>One practical AI tip a week — a prompt, a technique, a way to use a tool — built for real market research tasks. Sometimes about a specific LLM, sometimes tool-agnostic.</p>
+        <!-- Beehiiv embed paused 2026-08-24 — AI Tips signup now points to https://aitips.mrxplorer.com/ -->
+        <!-- <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="82a46ff5-5a88-40ab-af40-7d2e3f38e21a"></script> -->
+        <div class="card-cta">
+          <div class="btn-row">
+            <a class="btn-external" href="https://aitips.mrxplorer.com/" target="_blank" rel="noopener">Subscribe to AI Tips for MRX ↗</a>
+            <a class="btn-read" href="https://aitips.mrxplorer.com/" target="_blank" rel="noopener" aria-label="Read AI Tips for MRX now">Read now</a>
+          </div>
+          <p class="disclaimer">Free. No spam. Unsubscribe any time.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL GET -->
+  <section class="what-section">
+    <p class="section-label">More about AI Tips for MRX</p>
+    <h2>One idea. Every week.<br />Always actionable.</h2>
+    <p class="intro">
+      Where MRXplorations zooms out to AI news and trends, AI Tips for MRX zooms all the way in: one specific technique you can use on your next project.
+    </p>
+    <div class="features">
+      <div class="feature">
+        <span class="icon">⚡</span>
+        <h3>One tip per issue</h3>
+        <p>Each issue focuses on a single prompt, technique, or need-to-know to improve your skill with AI.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🔬</span>
+        <h3>Built for research work</h3>
+        <p>Screener writing, discussion guide drafting, thematic coding, report outlining — use cases you'll actually recognize.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSES BRIDGE CTA -->
+  <section class="classes-cta">
+    <h2>Ready to go deeper than a weekly tip?</h2>
+    <p>
+      AI Tips for MRX gives you techniques. MRXplorer's live classes give you the full picture: prompt frameworks, AI agents, quantitative analysis with LLMs, and how to actually build this into your workflow. Taught live by Z Johnson.
+    </p>
+    <div class="btn-group">
+      <a class="btn-primary" href="/classes">Browse Classes →</a>
+      <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+      <!-- <a class="btn-secondary" href="/classes/leaders">For Team Leaders</a> -->
+    </div>
+  </section>
+
+  </main>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="https://www.mrxplorer.com/">
+          <img class="footer-logo" src="https://www.mrxplorer.com/assets/mrxplorer-logo-white-text.png" alt="MRXplorer" />
+        </a>
+        <p class="tagline">AI training for market research teams.</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://www.mrxplorer.com/">Home</a></li>
+          <li><a href="https://www.mrxplorer.com/about">About</a></li>
+          <li><a href="/classes">Classes</a></li>
+      <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+      <!-- <li><a href="/classes/leaders">For Leaders</a></li> -->
+          <li><a href="https://www.mrxplorer.com/tools">Tools</a></li>
+          <li><a href="https://www.mrxplorer.com/articles">Articles</a></li>
+          <li><a href="https://www.mrxplorer.com/contact">Contact</a></li>
+          <li><a href="https://www.mrxplorer.com/newsletter">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MRXplorer LLC &nbsp;·&nbsp; Built with intention, not a template. &nbsp;·&nbsp; <a href="mailto:zjohnson@mrxplorer.com" style="color:rgba(255,255,255,0.45); text-decoration:none;">zjohnson@mrxplorer.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/zontziry/" style="color:rgba(255,255,255,0.45); text-decoration:none;">LinkedIn</a></p>
+      <div class="footer-badges">
+        <a href="https://thegsba.org/"><img src="https://www.mrxplorer.com/Proud_Member_GSBA_150px.png" alt="Proud Member — GSBA" /></a>
+        <a href="https://www.greenbook.org/insights/authors/z-johnson"><img src="https://www.mrxplorer.com/Greenbook_2025_Author_150px.png" alt="Greenbook Featured Author 2025" /></a>
+        <a href="https://www.nglcc.org/certification"><img src="https://www.mrxplorer.com/assets/LGBTBE_Certified_White_Rainbow.png" alt="NGLCC Certified LGBTBE" /></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -135,7 +135,7 @@ const webSiteNode = {
   '@id': `${site}/#website`,
   url: site,
   name: 'MRXplorer',
-  description: 'AI training for market research teams.',
+  description: 'One-on-one AI coaching for insights professionals.',
   publisher: { '@id': `${site}/#organization` },
 };
 
@@ -161,7 +161,7 @@ const personNode = {
   '@id': `${site}/#z-johnson`,
   name: 'Z Johnson',
   jobTitle: 'Founder and Principal',
-  description: 'AI training consultant for market research agencies and insights teams. 20+ years in research operations. Founder of MRXplorer LLC.',
+  description: 'One-on-one AI coach for insights professionals. 2026 Insight250 winner with more than 20 years in insights. Founder of MRXplorer LLC.',
   url: `${site}/about`,
   sameAs: [
     'https://www.linkedin.com/in/zontziry/',

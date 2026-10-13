@@ -1,15 +1,12 @@
 # MRXplorer
 
-> MRXplorer teaches live virtual AI classes for market researchers and insights
-> teams. Taught by Z Johnson, a 20+ year market research veteran. Two cohort
-> tracks: Beginner ($395 cohort) and Intermediate ($995 cohort). Classes are 90
-> minutes, live, virtual, Pacific time.
+> MRXplorer offers personalized, one-on-one AI coaching for insights professionals at every level of AI comfort and fluency. Work with Z Johnson, a 2026 Insight250 winner with more than 20 years in insights. Coaching costs $1,500 USD per month, with one private 60-minute session each week and an initial three-month engagement.
 
-## Classes
-- [Class catalog](https://www.mrxplorer.com/classes): beginner and intermediate cohort classes with descriptions, pricing, and schedule
+## Coaching
+- [AI coaching with Z](https://www.mrxplorer.com/#start): goals, scope, pricing, and introductory conversation
 
 ## About
-- [About Z Johnson](https://www.mrxplorer.com/about): instructor background — Microsoft research director, Ipsos, Course5, insights-tech leadership
+- [About Z Johnson](https://www.mrxplorer.com/about): coach background — Microsoft research director, Ipsos, Course5, insights-tech leadership
 - [Contact](https://www.mrxplorer.com/contact): booking and inquiries
 
 ## Resources
@@ -22,4 +19,4 @@
   - [Prompt Frameworks for Market Research](https://www.mrxplorer.com/articles/prompt-frameworks-market-research)
   - [What Goes Into an LLM — and What Doesn't](https://www.mrxplorer.com/articles/what-goes-into-an-llm-and-what-doesnt)
   - [Do You Need a Prompt Framework Like RACE, RTF, or COSTAR?](https://www.mrxplorer.com/articles/do-you-need-a-prompt-framework)
-- [Newsletters](https://www.mrxplorer.com/newsletter): MRXplorations (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)
+- [Newsletters](https://www.mrxplorer.com/newsletter): AI News and MRX (weekly AI news for MRX) and AI Tips for MRX (weekly practical tip)

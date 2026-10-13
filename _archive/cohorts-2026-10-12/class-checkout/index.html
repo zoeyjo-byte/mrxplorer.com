@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Register for MRXplorer AI classes — beginner and intermediate tracks. Secure checkout powered by Stripe.">
+    <title>Register — MRXplorer AI Classes</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg" />
+    <link rel="stylesheet" href="/style.css?v=11" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #000;
+            font-size: 1rem;
+            padding: 2rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+        .subtitle { color: #000; margin-bottom: 1.5rem; }
+
+        .tier {
+            margin-bottom: 2.5rem;
+        }
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        .tier-header h2 { font-size: 1.3rem; }
+        .tier-header .tier-pricing {
+            font-size: 1rem;
+            color: #000;
+        }
+        .tier-header .tier-pricing strong { color: #000; }
+
+        .class-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .class-item:hover { border-color: var(--brand-purple); background: #f8f7ff; }
+        .class-item.selected { border-color: var(--brand-purple); background: #f0eeff; }
+
+        .cohort-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .cohort-item:hover { border-color: var(--brand-purple); background: #f8f7ff; }
+        .cohort-item.selected { border-color: var(--brand-purple); background: #f0eeff; }
+        .cohort-item input[type="checkbox"] {
+            width: 1.2rem; height: 1.2rem; cursor: pointer;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        .cohort-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .cohort-item .class-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .cohort-item .class-desc {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.4;
+        }
+        .class-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .class-item .class-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .class-item .class-desc {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.4;
+        }
+        .class-item .class-price {
+            font-weight: 600;
+            color: #000;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .date-picker {
+            display: none;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e0e0e0;
+            width: 100%;
+        }
+        .class-item.selected .date-picker { display: block; }
+        .date-picker label {
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-right: 1rem;
+            margin-bottom: 0.25rem;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .date-picker label:hover { border-color: var(--brand-purple); background: #f8f7ff; }
+        .date-picker input[type="radio"]:checked + label {
+            border-color: var(--brand-purple);
+            background: #e7e5ff;
+            font-weight: 600;
+        }
+        .date-picker input[type="radio"] { display: none; }
+        .date-picker .date-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
+
+        .cohort-options {
+            margin-bottom: 1.5rem;
+        }
+        /* Paused 2026-07-30 — individual class date picker, kept for restore.
+        .cohort-date-options {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .cohort-date-options label {
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .cohort-date-options label:has(input:checked) {
+            border-color: var(--brand-purple);
+            background: #e7e5ff;
+            color: #000;
+            font-weight: 600;
+        }
+        .cohort-date-options input { margin-right: 0.25rem; }
+        */
+
+        .summary {
+            position: sticky; bottom: 0;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+            padding: 1.25rem 0;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .total { font-size: 1.3rem; font-weight: 700; }
+        .total span { color: #000; }
+        .checkout-btn {
+            background: var(--brand-purple);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkout-btn:hover { background: var(--page-accent-strong); }
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Cohort modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .modal .modal-tier { font-size: 1rem; color: #000; margin-bottom: 0.75rem; }
+        .modal p { color: #000; line-height: 1.5; margin-bottom: 0.5rem; }
+        .modal .savings {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+            margin: 1rem 0 1.5rem;
+        }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+        .modal-actions button {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-cohort {
+            background: var(--brand-purple);
+            color: white;
+        }
+        .btn-cohort:hover { background: var(--page-accent-strong); }
+        .btn-dismiss {
+            background: #e8e8e8;
+            color: #000;
+        }
+        .btn-dismiss:hover { background: #d0d0d0; }
+
+        /* Capacity display */
+        .date-picker .spots-info {
+            display: block;
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 0.2rem;
+        }
+        .date-picker .spots-low {
+            color: var(--orange-text-dk);
+            font-weight: 600;
+        }
+        .date-picker .spots-full {
+            color: #999;
+        }
+        .date-picker label.date-option-full {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TB3GBL2RQ0');
+    </script>
+</head>
+<body class="checkout-page checkout-index">
+
+<header style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2rem;">
+    <a href="https://www.mrxplorer.com" target="_blank">
+        <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" style="height: 48px; width: auto;" />
+    </a>
+    <nav style="display: flex; gap: 1.5rem; font-size: 1rem; font-weight: 600;">
+        <a href="https://www.mrxplorer.com" target="_blank" style="color: #000; text-decoration: none;">Home</a>
+        <a href="https://www.mrxplorer.com/classes" style="color: #000; text-decoration: none;">Class Details</a>
+        <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+        <!-- <a href="leaders.html" style="color: #000; text-decoration: none;">For Leaders</a> -->
+    </nav>
+</header>
+
+<main id="main">
+<h1>🤖 AI Courses</h1>
+<p class="subtitle">Register for a cohort. Beginner ($395) or Intermediate ($995).</p>
+
+<div class="tier">
+    <div class="tier-header">
+        <h2>AI for Beginners</h2>
+        <div class="tier-pricing">6-Week Cohort: <strong>$395</strong></div>
+    </div>
+    <div class="cohort-list" data-tier="beginner"></div>
+</div>
+
+<div class="tier">
+    <div class="tier-header">
+        <h2>AI for Intermediate Users</h2>
+        <div class="tier-pricing">6-Week Cohort: <strong>$995</strong></div>
+    </div>
+    <div class="cohort-list" data-tier="intermediate"></div>
+</div>
+
+<div style="margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+    <div>
+        <label for="name-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Name (required)</label>
+        <input type="text" id="name-field" placeholder="Your name" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
+    <div>
+        <label for="email-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Email (required)</label>
+        <input type="email" id="email-field" placeholder="you@company.com" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
+    <div>
+        <label for="company-field" style="display: block; font-size: 0.9rem; font-weight: 600; color: #000; margin-bottom: 0.25rem;">Company name (required)</label>
+        <input type="text" id="company-field" placeholder="Your company" style="width: 100%; max-width: 320px; padding: 0.6rem 0.75rem; border: 1.5px solid #ccc; border-radius: 6px; font-size: 0.95rem;">
+    </div>
+</div>
+
+<div class="summary">
+    <div class="total">Total: <span id="total-display">$0</span></div>
+    <button class="checkout-btn" id="checkout-btn" disabled>
+        Proceed to Checkout
+    </button>
+</div>
+
+</main>
+
+<!-- Paused 2026-07-30 — cohort upsell modal unused while individual classes paused.
+<div class="modal-overlay" id="cohort-modal">
+    <div class="modal">
+        <h3 id="modal-title">📦 The full cohort is a better deal!</h3>
+        <div class="modal-tier" id="modal-tier"></div>
+        <p id="modal-text">
+            You've selected all classes at <strong id="cohort-total"></strong>.
+        </p>
+        <div class="savings" id="modal-savings">
+            The cohort pass covers all classes for <strong id="cohort-pass-price"></strong> — savings <strong id="cohort-savings-amount"></strong>!
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cohort" id="cohort-go">Switch to Cohort Pass</button>
+            <button class="btn-dismiss" id="cohort-dismiss">Keep Individual Classes</button>
+        </div>
+    </div>
+</div>
+-->
+
+<script>
+    // ─── SCHEDULE HELPERS ───────────────────────────────────────────────
+    const INDIVIDUAL_CAP = 12;
+
+    function makeKey(name, date) {
+        const safe = name.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60);
+        if (!date) return `${safe}::no-date`;
+        const parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric', month: '2-digit', day: '2-digit',
+        }).formatToParts(new Date(date));
+        const calendarDate = [
+            parts.find(part => part.type === 'year')?.value,
+            parts.find(part => part.type === 'month')?.value,
+            parts.find(part => part.type === 'day')?.value,
+        ].join('-');
+        return `${safe}::${calendarDate}`;
+    }
+
+    let capacityData = {};
+    async function loadCapacity() {
+        try {
+            const resp = await fetch('/api/capacity');
+            if (resp.ok) capacityData = await resp.json();
+        } catch (e) {
+            console.error('Failed to load capacity:', e);
+        }
+    }
+
+    function getSpotsRemaining(className, dateValue) {
+        const key = makeKey(className, dateValue);
+        const taken = capacityData[key] || 0;
+        return Math.max(0, INDIVIDUAL_CAP - taken);
+    }
+
+    function getNthWeekdayOfMonth(year, month, weekday, nth) {
+        const first = new Date(Date.UTC(year, month, 1));
+        const firstWeekday = first.getUTCDay();
+        let diff = weekday - firstWeekday;
+        if (diff < 0) diff += 7;
+        const day = 1 + diff + (nth - 1) * 7;
+        const lastDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+        if (day > lastDay) return null;
+        return new Date(Date.UTC(year, month, day));
+    }
+
+    function getPacificOffset(date) {
+        const value = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            timeZoneName: 'longOffset',
+        }).formatToParts(date).find(part => part.type === 'timeZoneName').value;
+        if (value === 'GMT') return '+00:00';
+        const offset = value.replace('GMT', '');
+        return /^[+-]\d$/.test(offset) ? `${offset[0]}0${offset[1]}:00` : offset;
+    }
+
+    function makePacificDate(year, month, day, hour, minute) {
+        const offset = getPacificOffset(new Date(Date.UTC(year, month, day, 12)));
+        const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return new Date(`${date}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00${offset}`);
+    }
+
+    function getNextOccurrences(weekday, nth, hour, minute, count, cadenceMonths = 1, cadenceAnchorMonth = null) {
+        const results = [];
+        const now = new Date();
+        const nowParts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric',
+            month: 'numeric',
+        }).formatToParts(now);
+        let year = Number(nowParts.find(part => part.type === 'year').value);
+        let month = Number(nowParts.find(part => part.type === 'month').value) - 1;
+        const weekdays = Array.isArray(nth) ? nth : [nth];
+        while (results.length < count) {
+            const onCadence = cadenceMonths <= 1 || cadenceAnchorMonth === null || (month - cadenceAnchorMonth + 12) % cadenceMonths === 0;
+            if (!onCadence) {
+                month++;
+                if (month > 11) { month = 0; year++; }
+                continue;
+            }
+            for (const occurrence of weekdays) {
+                const date = getNthWeekdayOfMonth(year, month, weekday, occurrence);
+                if (date) {
+                    const candidate = makePacificDate(year, month, date.getUTCDate(), hour, minute);
+                    if (candidate > now) results.push(candidate);
+                }
+            }
+            month++;
+            if (month > 11) { month = 0; year++; }
+        }
+        return results.sort((a, b) => a - b).slice(0, count);
+    }
+
+    function formatDate(d) {
+        return new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
+            hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+        }).format(d);
+    }
+
+    function formatDateValue(d) {
+        return d.toISOString();
+    }
+
+    const SCHEDULE = {
+        beginner: [
+            { weekday: 2, nth: 1, hour: 12, minute: 0 },   // 1st Tue 12pm
+            { weekday: 2, nth: 2, hour: 12, minute: 0 },   // 2nd Tue 12pm
+            { weekday: 2, nth: 3, hour: 12, minute: 0 },   // 3rd Tue 12pm
+            { weekday: 2, nth: 4, hour: 12, minute: 0 },   // 4th Tue 12pm
+        ],
+        intermediate: [
+            { weekday: 1, nth: 1, hour: 12, minute: 0 },   // 1st Mon 12pm — Chat/Projects
+            { weekday: 4, nth: 4, hour: 12, minute: 0 },   // 4th Thu 12pm — Quant Analysis
+            { weekday: 4, nth: 2, hour: 12, minute: 0 },   // 2nd Thu 12pm — Agents
+            { weekday: 1, nth: 4, hour: 12, minute: 0 },   // 4th Mon 12pm — Projects
+            { weekday: 1, nth: 2, hour: 12, minute: 0 },   // 2nd Mon 12pm — Data Privacy
+            { weekday: 1, nth: 3, hour: 12, minute: 0 },   // 3rd Mon 12pm — Automate
+        ],
+    };
+    const GENERATED_SCHEDULE = {};
+    const GENERATED_COHORTS = {"AI Beginners 6-Week Cohort":["2027-01-05T09:00:00-08:00","2027-04-06T09:00:00-07:00"],"Intermediate AI 6-Week Cohort":["2027-01-07T09:00:00-08:00","2027-04-01T09:00:00-07:00"]};
+
+    // ─── CONFIG ─────────────────────────────────────────────────────────
+    const TIERS = {
+        beginner: {
+            label: "AI for Beginners",
+            price: 129,
+            cohortPrice: 395,
+            cohortName: "AI Beginners 6-Week Cohort",
+            cohortSchedule: { weekday: 2, nth: 1, hour: 9, minute: 0, cadenceMonths: 3, cadenceAnchorMonth: 9 },
+            classes: [
+                // Paused 2026-07-27 — see CLAUDE.md decision log. Not for sale, kept for restore.
+                // { name: "Prompt Frameworks for Better Results", desc: "Learn how to set up prompts that get you good results — and then how to make the results even better." },
+                // { name: "AI as a Thinking Partner", desc: "Walk through ways to prompt AI to avoid the sycophantic, \"What a great idea!\" responses. Turn the AI into a tool that pushes on your thinking." },
+                // { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn what each of these tools are within Claude and ChatGPT and when to use each." },
+                // { name: "Hallucination, Pricing, and Privacy Basics", desc: "A realistic look at AI's capabilities, privacy best practices, and why everyone talks about the price of tokens." },
+            ],
+        },
+        intermediate: {
+            label: "AI for Intermediate Users",
+            price: 199,
+            cohortPrice: 995,
+            cohortName: "Intermediate AI 6-Week Cohort",
+            cohortSchedule: { weekday: 4, nth: 1, hour: 9, minute: 0, cadenceMonths: 3, cadenceAnchorMonth: 9 },
+            classes: [
+                // Paused 2026-07-27 — see CLAUDE.md decision log. Not for sale, kept for restore.
+                // { name: "Chat / Projects / Cowork / Code(x)", desc: "Learn when to use each, and then build your first mini-app to help you with a traditional market research workflow." },
+                // { name: "Quantitative Analysis with an LLM", desc: "LLMs used to have troubles counting, but they are more sophisticated now and most will call on relevant Python scripts to analyze data. Learn use cases for quant research and realistic limits to what they can do now." },
+                // { name: "Building and Working with Agents", desc: "Turn your AI into a more efficient tool, and turn those repeated prompts into time-saving automations. Learn the difference between a \"skill\" and an \"agent,\" and build one of each." },
+                // { name: "Projects — When You Actually Want a Siloed Experience", desc: "Claude and ChatGPT both have the ability to use projects. Learn what they are, how to use them to support brand-side projects or agency-side client work. Learn what files to add, which to leave behind, and how these projects can save you time." },
+                // { name: "Data Privacy and Security", desc: "What plans allow you to put what data into the AI? What data should you never put into an AI? What settings should you have in place? Review some best practices no matter what subscription you have!" },
+                // { name: "When to Automate", desc: "Learn how to evaluate your own routines and what to consider when deciding what to automate. Work through often-overlooked considerations that impact complexity." },
+            ],
+        },
+    };
+
+    function getCohortDates(tierKey) {
+        const tier = TIERS[tierKey];
+        if (!tier) return [];
+        const generatedDates = GENERATED_COHORTS[tier.cohortName];
+        return generatedDates?.length
+            ? generatedDates.slice(0, 2).map(date => new Date(date))
+            : getNextOccurrences(
+                tier.cohortSchedule.weekday,
+                tier.cohortSchedule.nth,
+                tier.cohortSchedule.hour,
+                tier.cohortSchedule.minute,
+                2,
+                tier.cohortSchedule.cadenceMonths,
+                tier.cohortSchedule.cadenceAnchorMonth,
+            );
+    }
+
+    // ─── RENDER COHORT CHECKBOXES ─────────────────────────────────────
+    let cohortOptions = [];
+    document.querySelectorAll('.cohort-list').forEach((container) => {
+        const tierKey = container.dataset.tier;
+        const tier = TIERS[tierKey];
+        if (!tier) return;
+        const dates = getCohortDates(tierKey);
+        dates.forEach((date) => {
+            const idx = cohortOptions.length;
+            cohortOptions.push({
+                tierKey,
+                name: tier.cohortName,
+                label: tier.label,
+                price: tier.cohortPrice,
+                date,
+                dateStr: formatDate(date),
+                idx,
+            });
+            const div = document.createElement('div');
+            div.className = 'cohort-item';
+            div.dataset.cohortIndex = idx;
+            div.innerHTML = `
+                <input type="checkbox" id="cohort-cb-${idx}" data-cohort-index="${idx}">
+                <label for="cohort-cb-${idx}">
+                    <div class="class-name">${tier.label}</div>
+                    <div class="class-desc">Cohort starts ${formatDate(date)} — $${tier.cohortPrice}</div>
+                </label>
+            `;
+            container.appendChild(div);
+
+            const cb = div.querySelector('input[type="checkbox"]');
+            div.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT') {
+                    cb.checked = !cb.checked;
+                    cb.dispatchEvent(new Event('change'));
+                }
+            });
+            cb.addEventListener('change', () => {
+                div.classList.toggle('selected', cb.checked);
+                if (cb.checked) {
+                    document.querySelectorAll('.cohort-item input[type="checkbox"]').forEach(other => {
+                        if (other !== cb) {
+                            other.checked = false;
+                            other.closest('.cohort-item').classList.remove('selected');
+                        }
+                    });
+                }
+                updateUI();
+            });
+        });
+    });
+
+    const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
+
+    /* Paused 2026-07-30 — individual class rendering + date pickers, kept for restore.
+       See CLAUDE.md decision log.
+    let allClasses = [];
+    // ... rendering functions removed for brevity, see git history
+    renderDates();
+    loadCapacity().then(() => renderDates());
+    */
+
+    // ─── STATE & UPDATES ───────────────────────────────────────────────
+    const totalDisplay = document.getElementById('total-display');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    function getSelectedCohort() {
+        const checked = document.querySelectorAll('.cohort-item input[type="checkbox"]:checked');
+        if (checked.length === 0) return null;
+        return cohortOptions[parseInt(checked[0].dataset.cohortIndex)];
+    }
+
+    function getTotal() {
+        const co = getSelectedCohort();
+        return co ? co.price : 0;
+    }
+
+    function updateUI() {
+        const total = getTotal();
+        totalDisplay.textContent = `$${total}`;
+        checkoutBtn.disabled = total === 0;
+    }
+
+    // ─── CHECKOUT ───────────────────────────────────────────────────────
+    function getContactInfo() {
+        const name = document.getElementById('name-field').value.trim();
+        const email = document.getElementById('email-field').value.trim();
+        const company = document.getElementById('company-field').value.trim();
+        if (!name) { alert('Please enter your name.'); return null; }
+        if (!email) { alert('Please enter your email.'); return null; }
+        if (!company) { alert('Please enter your company name.'); return null; }
+        return { name, email, company };
+    }
+
+    async function requestCheckout(lineItems, contact) {
+        const response = await fetch(CHECKOUT_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: lineItems, contact }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || data.error || 'Failed to create checkout session');
+        sessionStorage.setItem('mrx_purchases', JSON.stringify(lineItems));
+        window.location.href = data.url;
+    }
+
+    checkoutBtn.addEventListener('click', async () => {
+        const co = getSelectedCohort();
+        if (!co) return;
+
+        const contact = getContactInfo();
+        if (!contact) return;
+
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Redirecting...';
+
+        try {
+            await requestCheckout([{
+                name: co.name,
+                price: co.price,
+                quantity: 1,
+                date: formatDateValue(co.date),
+            }], contact);
+        } catch (err) {
+            console.error(err);
+            alert(err.message || 'Something went wrong. Please try again.');
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = 'Proceed to Checkout';
+        }
+    });
+
+    updateUI();
+</script>
+</body>
+</html>

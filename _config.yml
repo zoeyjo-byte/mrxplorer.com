@@ -1,0 +1,10 @@
+# Keep preserved source and local review artifacts off the published site.
+exclude:
+  - _archive
+  - experiments
+  - class-checkout
+  - scripts
+  - content
+  - CLAUDE.md
+  - AGENTS.md
+  - COACHING-LAUNCH.md

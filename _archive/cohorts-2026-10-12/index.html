@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO / AEO meta — edit these for each page -->
+<title>MRXplorer — Live AI Classes for Market Researchers</title>
+<meta name="description" content="Live virtual AI classes for market researchers. Beginner to advanced. Learn prompt engineering, AI agents, governance, and practical workflows from Z Johnson.">
+<meta name="author" content="Z Johnson">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MRXplorer — Live AI Classes for Market Researchers">
+<meta property="og:description" content="Live virtual AI classes for market researchers. Beginner to advanced. Learn prompt engineering, AI agents, governance, and practical workflows.">
+<meta property="og:url" content="https://www.mrxplorer.com">
+<meta property="og:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://www.mrxplorer.com/">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/assets/3-star-favicon.svg">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MRXplorer — Live AI Classes for Market Researchers">
+<meta name="twitter:description" content="Live virtual AI classes for market researchers. Beginner to advanced. Learn prompt engineering, AI agents, governance, and practical workflows.">
+<meta name="twitter:image" content="https://www.mrxplorer.com/assets/mrxplorer-logo-social.png">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TB3GBL2RQ0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TB3GBL2RQ0');
+</script>
+
+<!-- Inline structured data (static for AEO crawlers) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.mrxplorer.com/#z-johnson",
+      "name": "Z Johnson",
+      "givenName": "Z",
+      "familyName": "Johnson",
+      "jobTitle": "Founder and Principal",
+      "description": "AI training consultant for market research agencies and insights teams. 20+ years in research operations. Founder of MRXplorer LLC.",
+      "url": "https://www.mrxplorer.com/about",
+      "email": "zjohnson@mrxplorer.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://ainewsandmrx.mrxplorer.com"
+      ],
+      "knowsAbout": [
+        "Market Research",
+        "Artificial Intelligence",
+        "Claude AI",
+        "Prompt Engineering",
+        "Research Operations",
+        "Workflow Automation",
+        "AI Training and Education",
+        "Insights Technology"
+      ],
+      "worksFor": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.mrxplorer.com/#organization",
+      "name": "MRXplorer LLC",
+      "legalName": "MRXplorer LLC",
+      "url": "https://www.mrxplorer.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.mrxplorer.com/assets/mrxplorer-logo-full.svg",
+        "width": 1466,
+        "height": 442
+      },
+      "description": "MRXplorer LLC teaches live virtual AI classes for market research agencies, insights teams, and research leaders. Founded by Z Johnson, a 20+ year market research veteran.",
+      "email": "zjohnson@mrxplorer.com",
+      "founder": {
+        "@id": "https://www.mrxplorer.com/#z-johnson"
+      },
+      "foundingDate": "2023",
+      "areaServed": "Worldwide",
+      "sameAs": [
+        "https://www.linkedin.com/in/zontziry/",
+        "https://ainewsandmrx.mrxplorer.com"
+      ],
+      "knowsAbout": [
+        "Market Research",
+        "Artificial Intelligence",
+        "Claude AI",
+        "Prompt Engineering",
+        "Research Operations",
+        "Workflow Automation"
+      ],
+      "makesOffer": {
+        "@type": "Offer",
+        "itemOffered": {
+          "@id": "https://www.mrxplorer.com/classes"
+        }
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mrxplorer.com/#website",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer",
+      "description": "AI training for market research teams.",
+      "publisher": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.mrxplorer.com/#webpage",
+      "url": "https://www.mrxplorer.com",
+      "name": "MRXplorer — Live AI Classes for Market Researchers",
+      "description": "Live virtual AI classes for market researchers. Beginner to advanced. Learn prompt engineering, AI agents, governance, and practical workflows from Z Johnson.",
+      "isPartOf": {
+        "@id": "https://www.mrxplorer.com/#website"
+      },
+      "about": {
+        "@id": "https://www.mrxplorer.com/#organization"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.mrxplorer.com"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know which tier is right for me?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Beginner if you're new to AI or only use the free version of ChatGPT/Claude. Intermediate if you use AI day-to-day and want to level up with agents, quant analysis, and automation." }
+        },
+        {
+          "@type": "Question",
+          "name": "How are cohorts structured?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cohorts are multi-week programs covering all topics in the track. Each cohort meets live at 9am Pacific, limited to 9 students. Cohorts need at least 5 enrolled to run." }
+        },
+        {
+          "@type": "Question",
+          "name": "What time zone are classes in?",
+          "acceptedAnswer": { "@type": "Answer", "text": "All classes are live virtual and taught in Pacific Time. Cohort sessions meet at 9am Pacific." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are classes recorded?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Classes are recorded and the recording is provided only to those who registered for that session. If you cannot attend live, you still receive the recording after the session." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I register?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Browse the class catalog, choose your cohort, and click Register. You'll be taken to our secure checkout to complete your purchase. Prices shown are tax-exclusive; applicable sales tax is calculated at checkout." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=11">
+</head>
+
+  
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="MRXplorer home">
+        <img src="/assets/mrxplorer-logo-full.svg" alt="MRXplorer" class="nav-logo-img">
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/" class="nav-link active">Home</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/classes" class="nav-link">Classes</a></li>
+        <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+        <!-- <li><a href="/classes/leaders" class="nav-link">For Leaders</a></li> -->
+        <li><a href="/tools" class="nav-link">Tools</a></li>
+        <li><a href="/articles" class="nav-link">Articles</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="/quiz" class="nav-link nav-newsletter">
+            Quiz
+          </a>
+        </li>
+        <li>
+          <a href="/newsletter" class="nav-link nav-newsletter">
+            Newsletter
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ═════════════════════════════════════════════════ -->
+  <header class="hero" role="banner">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Live AI Classes for Market Researchers</div>
+        <h1 class="hero-headline">
+          Learn AI the way<br>
+          <em>research works.</em>
+        </h1>
+        <p class="hero-sub">
+          Live virtual classes taught by Z Johnson — 20+ year research veteran.
+          No fluff, no hype. Just practical AI skills for market research
+          agencies, insights teams, and research leaders.
+        </p>
+        <div class="hero-actions">
+          <a href="/classes" class="btn btn-primary">Browse Classes →</a>
+          <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+          <!-- <a href="/classes/leaders" class="btn btn-ghost">For Team Leaders</a> -->
+        </div>
+      </div>
+      <div class="hero-aside" aria-hidden="true">
+        <div class="hero-stat-stack">
+          <div class="hero-stat">
+            <span class="stat-num">4</span>
+            <span class="stat-label">6-week Beginner cohort — $395</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num">6</span>
+            <span class="stat-label">6-week Intermediate cohort — $995</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num">90</span>
+            <span class="stat-label">minutes per class — live virtual, Pacific time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-rule" aria-hidden="true"></div>
+  </header>
+
+  <!-- ══ MARQUEE ═══════════════════════════════════════════════ -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Prompt Frameworks</span>
+      <span class="dot">◆</span>
+      <span>AI Agents</span>
+      <span class="dot">◆</span>
+      <span>AI Governance</span>
+      <span class="dot">◆</span>
+      <span>Quant Analysis</span>
+      <span class="dot">◆</span>
+      <span>Workflow Automation</span>
+      <span class="dot">◆</span>
+      <span>Prompt Frameworks</span>
+      <span class="dot">◆</span>
+      <span>AI Agents</span>
+      <span class="dot">◆</span>
+      <span>AI Governance</span>
+      <span class="dot">◆</span>
+      <span>Quant Analysis</span>
+      <span class="dot">◆</span>
+      <span>Workflow Automation</span>
+      <span class="dot">◆</span>
+    </div>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══════════════════════════════════════════ -->
+  <main id="main">
+
+    <!-- QUIZ CTA -->
+    <section class="section-quiz" aria-labelledby="quiz-cta-heading">
+      <div class="container">
+        <div class="quiz-cta-inner">
+          <div class="section-label section-label-light">Free · 2 Minutes · No Email Required</div>
+          <h2 class="section-heading section-heading-light" id="quiz-cta-heading" style="margin-bottom: 16px;">Not sure where to start?</h2>
+          <p class="quiz-cta-sub">Take the AI Readiness Quiz and get a personalized cohort recommendation based on where you actually are today.</p>
+          <a href="/quiz" class="btn btn-orange btn-large">Take the Quiz →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASS CATALOG -->
+    <section class="section section-what" aria-labelledby="catalog-heading">
+      <div class="container">
+        <div class="section-label">Choose Your Path</div>
+        <h2 class="section-heading" id="catalog-heading">
+          Two cohorts.<br><em>One goal:</em> make your team<br>confident with AI.
+        </h2>
+
+        <!-- Paused 2026-07-27 — Three-track catalog (Beginner individual + Intermediate individual + Leaders) commented out in favor of cohort-only summaries below. See CLAUDE.md decision log.
+        BEGINNER
+        <div style="margin-bottom: 3rem;">
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 0.5rem;">AI for Beginners</h3>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1rem;"><strong style="color: var(--navy);">$129</strong> / class · Cohort (all 4): <strong style="color: var(--navy);">$395</strong></p>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1.5rem;">New to AI? Start here. Learn how to prompt effectively, use AI as a thinking partner, navigate the tools, and understand the basics of privacy and pricing.</p>
+          <div class="what-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="what-card">
+              <h3>Prompt Frameworks for Better Results</h3>
+              <p>Learn how to set up prompts that get you good results — and then how to make the results even better.</p>
+            </div>
+            <div class="what-card">
+              <h3>AI as a Thinking Partner</h3>
+              <p>Walk through ways to prompt AI to avoid sycophantic responses and turn it into a tool that pushes on your thinking.</p>
+            </div>
+            <div class="what-card">
+              <h3>Chat / Projects / Cowork / Code(x)</h3>
+              <p>Learn what each of these tools are within Claude and ChatGPT and when to use each.</p>
+            </div>
+            <div class="what-card">
+              <h3>Hallucination, Pricing, and Privacy Basics</h3>
+              <p>A realistic look at AI's capabilities, privacy best practices, and why everyone talks about token pricing.</p>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="/classes" class="btn btn-primary">Register for Beginner Classes →</a>
+          </div>
+        </div>
+
+        INTERMEDIATE
+        <div style="margin-bottom: 3rem;">
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 0.5rem;">AI for Intermediate Users</h3>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1rem;"><strong style="color: var(--navy);">$199</strong> / class · Cohort (all 6): <strong style="color: var(--navy);">$995</strong></p>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1.5rem;">Already using AI? Level up with agents, quantitative analysis, automation strategy, and hands-on projects.</p>
+          <div class="what-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="what-card">
+              <h3>Chat / Projects / Cowork / Code(x)</h3>
+              <p>Learn when to use each tool and build your first mini-app for a market research workflow.</p>
+            </div>
+            <div class="what-card">
+              <h3>Quantitative Analysis with an LLM</h3>
+              <p>LLMs can now call Python scripts to analyze data. Learn use cases for quantitative research and realistic limits.</p>
+            </div>
+            <div class="what-card">
+              <h3>Building and Working with Agents</h3>
+              <p>Turn repeated prompts into time-saving automations. Learn the difference between a skill and an agent, and build one of each.</p>
+            </div>
+            <div class="what-card">
+              <h3>Projects — Siloed Experiences</h3>
+              <p>Learn how to use projects in Claude and ChatGPT to support brand-side or agency-side client work.</p>
+            </div>
+            <div class="what-card">
+              <h3>Data Privacy and Security</h3>
+              <p>What data should you never put into an AI? What settings should you have? Best practices for any subscription level.</p>
+            </div>
+            <div class="what-card">
+              <h3>When to Automate</h3>
+              <p>Evaluate your own routines and decide what to automate. Work through often-overlooked considerations that impact complexity.</p>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="/classes" class="btn btn-primary">Register for Intermediate Classes →</a>
+          </div>
+        </div>
+
+        LEADERS
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 0.5rem;">AI for Market Research Leaders</h3>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1rem;"><strong style="color: var(--navy);">$499</strong> / class · Cohort (all 5 sessions): <strong style="color: var(--navy);">$2,595</strong></p>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1.5rem;">Leading a team? Get the strategic view — governance, risk, tool standardization, and a 90-day implementation plan.</p>
+          <div class="what-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="what-card">
+              <h3>AI Foundations for Leaders</h3>
+              <p>What can AI actually do, what are the key model differences, and where are teams overestimating or underusing it?</p>
+            </div>
+            <div class="what-card">
+              <h3>Practical AI</h3>
+              <p>Use tools like Claude Code or Codex to create agents, prompt tools better, and understand how long automations actually take.</p>
+            </div>
+            <div class="what-card">
+              <h3>Governance, Risk, and Standardization</h3>
+              <p>Set acceptable use rules for AI and review privacy/security policies to determine which subscription tier your organization needs.</p>
+            </div>
+            <div class="what-card">
+              <h3>Workflows — Map and Decide (2 weeks)</h3>
+              <p>Map the steps your teams use to develop studies and identify where AI can realistically make a difference.</p>
+            </div>
+            <div class="what-card">
+              <h3>90-Day Implementation Plan</h3>
+              <p>Who should be involved, what steps to take, and what your next 90 days look like to align your team on tools, governance, and adoption.</p>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="/classes/leaders" class="btn btn-primary">Register for Leaders Classes →</a>
+          </div>
+        </div>
+        -->
+
+        <!-- COHORT SUMMARIES (replacing three-track catalog 2026-07-27) -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 0.5rem;">AI Beginners 6-Week Cohort</h3>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 0.5rem;"><strong style="color: var(--navy);">$395</strong> · cohort · 6 weeks</p>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1.5rem;">What AI changes (and doesn't), getting useful work from AI, data and privacy, knowing when AI is wrong, where AI belongs, and becoming an AI-enabled researcher.</p>
+          <a href="/classes#beginner" class="btn btn-primary">Learn More →</a>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 0.5rem;">Intermediate AI 6-Week Cohort</h3>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 0.5rem;"><strong style="color: var(--navy);">$995</strong> · cohort · 6 weeks</p>
+          <p style="font-size: 1rem; color: var(--gray-mid); margin-bottom: 1.5rem;">CHOOSE, PROTECT, ANALYZE, ORGANIZE, DELEGATE, REDESIGN — building the research workflow of the future, for researchers already using AI day-to-day.</p>
+          <a href="/classes#intermediate" class="btn btn-primary">Learn More →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section section-newsletter" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <div class="newsletter-inner">
+          <div class="newsletter-content">
+            <div class="section-label section-label-light">MRXplorations Newsletter</div>
+            <h2 class="section-heading section-heading-light" id="newsletter-heading">
+              The AI briefing built<br>for research professionals.
+            </h2>
+            <p class="newsletter-desc">
+              Not another AI hype roundup. MRXplorations is an AI-built, human-reviewed newsletter analyzing 12+ other sources of AI and tech news. The agent looks for emerging, continuing, and fading patterns on a weekly basis, adds a "what does this mean for market research" lens, and Z adds her 20+ years of insights experience to refute, dispute, or add to the AI's output.
+            </p>
+            <a href="https://ainewsandmrx.mrxplorer.com" class="btn btn-orange" target="_blank" rel="noopener">
+              Read MRXplorations →
+            </a>
+          </div>
+          <div class="newsletter-issues" aria-hidden="true">
+            <!-- Placeholder issue cards — replace with real issue titles/links -->
+            <div class="issue-card">
+              <div class="issue-num">Latest</div>
+              <div class="issue-title">Prices are going up, Jevon's paradox applied to data security</div>
+              <div class="issue-arrow">→</div>
+            </div>
+            <div class="issue-card issue-card-muted">
+              <div class="issue-num">Previous</div>
+              <div class="issue-title">Anthropic dreams, and we aren't researching AI risks to cognitive decline enough</div>
+              <div class="issue-arrow">→</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO THIS IS FOR -->
+    <section class="section section-for" aria-labelledby="for-heading">
+      <div class="container">
+        <div class="section-label">Who These Classes Are For</div>
+        <h2 class="section-heading" id="for-heading">
+          Built for market researchers<br><em>at every level.</em>
+        </h2>
+        <div class="for-grid">
+          <div class="for-item">
+            <div class="for-icon" aria-hidden="true">◈</div>
+            <h3>Boutique research agencies</h3>
+            <p>Teams of 2–15 who need practical AI skills without spending months on trial and error. Start with Beginner or Intermediate classes.</p>
+          </div>
+          <div class="for-item">
+            <div class="for-icon" aria-hidden="true">◈</div>
+            <h3>In-house insights teams</h3>
+            <p>Corporate research functions that need to move faster. Enroll the team in a Beginner or Intermediate cohort.</p>
+          </div>
+          <div class="for-item">
+            <div class="for-icon" aria-hidden="true">◈</div>
+            <h3>Research leaders and directors</h3>
+            <p>Heads of insights who need governance, risk frameworks, and a 90-day implementation plan for their organization.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-label">What colleagues say</div>
+        <h2 class="section-heading" id="testimonials-heading">Deep expertise.<br><em>Genuine care.</em></h2>
+        <div class="testimonials-grid">
+          <div class="testimonial">
+            <blockquote>“Z is an expert in Consumer Insights and leading technology-enabled change. She's also a brilliant coach, a wonderful human being and a joy to work with!”</blockquote>
+            <cite>Tom Holliss · Chief People Officer, Zappi</cite>
+          </div>
+          <div class="testimonial">
+            <blockquote>“What stood out most was her unwavering commitment to excellence and growth. Her relentless drive, combined with her out-of-the-box thinking, guaranteed that her ideas not only resonated with the teams but also left a lasting impact in pursuit of the ultimate goal – client happiness.”</blockquote>
+            <cite>Radostina Pehlivanova · VoC Expert</cite>
+          </div>
+          <div class="testimonial">
+            <blockquote>“Z has a talent for teaching others, and she does so with gusto! It's clear that she loves learning, researching, and solving problems, and she inspires others with her can-do attitude.”</blockquote>
+            <cite>Liz Mongrain · Strategist and Storyteller</cite>
+          </div>
+          <div class="testimonial">
+            <blockquote>“Z is one of those rare leaders who not only brings deep expertise in research but also knows how to build and uplift those around her. Her ability to take complex data and turn it into clear, actionable insights is incredible. But what really sets Zontziry apart is her leadership. She leads with empathy, always making sure people feel supported, valued, and empowered to do their best work.”</blockquote>
+            <cite>Alexis White · Founder, Onyx Truth</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-for" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-label">Common Questions</div>
+        <h2 class="section-heading" id="faq-heading">
+          Quick answers to <br><em>common questions</em>
+        </h2>
+
+        <div style="max-width: 700px;">
+          <details class="faq-item">
+            <summary>How do I know which tier is right for me?</summary>
+            <div class="faq-answer"><strong>Beginner</strong> if you're new to AI or only use the free version of ChatGPT/Claude. <strong>Intermediate</strong> if you use AI day-to-day and want to level up with agents, quant analysis, and automation.</div>
+          </details>
+          <details class="faq-item">
+            <summary>How are cohorts structured?</summary>
+            <div class="faq-answer"><strong>Cohorts</strong> are multi-week programs covering all topics in the track. Each cohort meets live at 9am Pacific, limited to 9 students. Cohorts need at least 5 enrolled to run.</div>
+          </details>
+          <details class="faq-item">
+            <summary>What time zone are classes in?</summary>
+            <div class="faq-answer">All classes are live virtual and taught in <strong>Pacific Time</strong>. Cohort sessions meet at <strong>9am Pacific</strong>.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Are classes recorded?</summary>
+            <div class="faq-answer"><strong>Yes.</strong> Classes are recorded and the recording is provided only to those who registered for that session. If you cannot attend live, you still receive the recording after the session.</div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I register?</summary>
+            <div class="faq-answer">Browse the <a href="/classes" style="color: var(--orange-text); text-decoration: underline;">class catalog</a>, pick your cohort, and click Register. You'll be taken to our secure checkout to complete your purchase. Prices shown are tax-exclusive; applicable sales tax is calculated at checkout.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="section-cta" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta-inner">
+          <h2 id="cta-heading">Ready to build your team's AI skills?</h2>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="/classes" class="btn btn-primary btn-large">Browse All Classes →</a>
+            <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+            <!-- <a href="/classes/leaders" class="btn btn-ghost" style="color: var(--white); border-color: rgba(255,255,255,.5);">For Team Leaders</a> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" aria-label="MRXplorer home">
+            <img src="/assets/mrxplorer-logo-white-text.png" alt="MRXplorer" class="nav-logo-img nav-logo-img-sm">
+          </a>
+          <p class="footer-tagline">AI training for market research teams.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/classes">Classes</a></li>
+            <!-- Paused 2026-07-27 — Leaders track not for sale. See CLAUDE.md decision log. -->
+            <!-- <li><a href="/classes/leaders">For Leaders</a></li> -->
+            <li><a href="/tools">Tools</a></li>
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/newsletter">Newsletter</a></li>
+          </ul>
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:zjohnson@mrxplorer.com">zjohnson@mrxplorer.com</a>
+          <a href="https://www.linkedin.com/in/zontziry/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-badges">
+          <a href="https://thegsba.org/" class="footer-badge" target="_blank" rel="noopener" aria-label="Proud Member of GSBA">
+            <img src="Proud_Member_GSBA_150px.png" alt="Proud Member — GSBA" width="80" height="80" loading="lazy">
+          </a>
+          <a href="https://www.greenbook.org/insights/authors/z-johnson" class="footer-badge" target="_blank" rel="noopener" aria-label="Greenbook Featured Author 2025">
+            <img src="Greenbook_2025_Author_150px.png" alt="Greenbook Featured Author 2025" width="80" height="80" loading="lazy">
+          </a>
+          <a href="https://www.nglcc.org/certification" class="footer-badge" target="_blank" rel="noopener" aria-label="NGLCC Certified LGBTBE">
+            <img src="/assets/LGBTBE_Certified_White_Rainbow.png" alt="NGLCC Certified LGBTBE" width="80" height="80" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© 2025 MRXplorer LLC</span>
+        <span>Built with intention, not a template.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -35,6 +35,13 @@ Two sources of truth drive what's actually for sale and when:
 Most recent first. Each entry: **Decision**, **Why**, **Constraint**,
 **Status**.
 
+### 2026-10-12 — One-on-one AI coaching replaces active cohorts
+
+- **Decision:** Position Z as an AI coach for insights professionals at any level of AI comfort or fluency. Offer personalized weekly 60-minute coaching at $1,500 USD monthly, initially for three months. Feature AI News and MRX, AI Tips for MRX, the 2026 Insight250 award, TMRE/IIeX speaking, and NGLCC certification.
+- **Why:** No cohorts are currently running. The owner wants the site focused on working directly with Z, with a sustainable monthly coaching business.
+- **Constraint:** Preserve retired content; copies of replaced pages and schedule data are in `_archive/cohorts-2026-10-12/` (excluded from GitHub Pages). Comment out catalog entries. Coaching inquiries use email until a scheduling link is supplied. No coaching payment integration is assumed.
+- **Status:** Prepared locally for GitHub Pages. Legacy class and quiz entry points direct visitors to coaching; cohort checkout catalog is disabled. Separate Netlify checkout changes must also be deployed to disable its live catalog.
+
 ### 2026-08-18 — Active Beginner offering is six weeks
 
 - **Decision:** Treat the live, purchasable Beginner offering as the **AI Beginners 6-Week Cohort ($395)**. The Intermediate offering remains the **Intermediate AI 6-Week Cohort ($995)**.
