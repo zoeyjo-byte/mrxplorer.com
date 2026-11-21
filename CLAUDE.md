@@ -35,6 +35,27 @@ Two sources of truth drive what's actually for sale and when:
 Most recent first. Each entry: **Decision**, **Why**, **Constraint**,
 **Status**.
 
+### 2026-11-19 — Standardized top navigation on every live page
+
+- **Decision:** Every published page carries the same seven-item top menu,
+  in this order: **Home · About · Free Tools · How Coaching Works ·
+  Newsletter · Articles · Contact**. "How Coaching Works" links to the
+  homepage's `#how` section (there is no standalone page for it). The
+  homepage keeps its "Let's talk" button at the end of the menu.
+- **Why:** Menus had drifted: `tools.html` and `newsletter.html` listed
+  "AI coaching" twice, `articles/index.html` also duplicated it, the
+  homepage only had in-page anchors, and `classes/leaders.html` still
+  showed the retired Classes/Quiz menu. Owner asked for one consistent set.
+- **Constraint:** The old "AI coaching" nav item (→ `/#start`) was replaced
+  by "How Coaching Works" (→ `/#how`); the `#start` offer section is still
+  linked from page CTAs and the homepage button. The paused-Leaders and
+  retired-quiz comment markers stay in the nav markup per the 2026-07-27
+  decision. `quiz.html`, `classes.html`, and `class-checkout/index.html`
+  are redirect stubs with no nav. The Netlify checkout app
+  (`class-checkout/success.html`, `leaders.html`) keeps its own minimal
+  nav since it is a separate app and excluded from GitHub Pages.
+- **Status:** Applied to all 17 live pages on 2026-11-19.
+
 ### 2026-10-12 — One-on-one AI coaching replaces active cohorts
 
 - **Decision:** Position Z as an AI coach for insights professionals at any level of AI comfort or fluency. Offer personalized weekly 60-minute coaching at $1,500 USD monthly, initially for three months. Feature AI News and MRX, AI Tips for MRX, the 2026 Insight250 award, TMRE/IIeX speaking, and NGLCC certification.
